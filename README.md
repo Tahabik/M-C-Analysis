@@ -300,7 +300,6 @@ Wifi driver queues (IRQs 176-183) are currently delivering interrupts onto CPUs4
 
 Moving all iwlwifi IRQs back to CPUs 0-3:
 ```bash
-# Find all iwlwifi IRQ numbers
 for irq in $(grep iwlwifi /proc/interrupts | awk -F: '{print $1}' | tr -d ' '); do
     echo -n "Moving IRQ $irq to CPUs 0-3: "
     echo "f" | sudo tee /proc/irq/${irq}/smp_affinity
@@ -394,6 +393,44 @@ ps -T -p <KVM/TCG_PID> -o spid,comm
 
 > SPID -> System process ID, (or more accurately, Thread ID) -> Unique identifier assigned by the linux kernel to an individual kernel rather than overall process.
 
+```
+SPID COMMAND
+55066 kvm-lab -> main QEUMU process thread
+55067 qemu-system-x86 -> vCPU0 (The actual KVM execution thread)
+55069 kvm-lab -> vCPU1
+55070 kvm-lab -> QEUMU I/O thread
+55073 kvm-nx-lpage-re -> NX large page recovery worker (KVM internal)
+```
+
+```
+SPID COMMAND
+46375 tcg-lab -> QEMU main thread
+46376 qemu-system-aar -> vCPU0 (TCG translation + execution loop)
+46378 tcg-lab -> vCPU1
+46379 tcg-lab -> QEMU I/O thread
+```
+
+The resaon that we can observe less threads for TCG comparing to KVM is that because there's no hypervisor kernel component everything runs in userspace.
+
+Now we should pin all of these threasds to those cores that we isolated before:
+
+For KVM we pin threads from cores 4 to 7:
+```bash
+sudo taskset -cp 4 55067
+sudo taskset -cp 5 55069
+sudo taskset -cp 6 55066
+sudo taskset -cp 6 55070
+sudo taskset -cp 7 55073
+```
+
+And for TCG we map threads to cores 8-11:
+```bash
+sudo taskset -cp 8 46376
+sudo taskset -cp 9 46378
+sudo taskset -cp 10 46375
+sudo taskset -cp 10 46379
+```   
+
 ### Scenario. Cache Hierarchy Stress (Cache line bouncing & LLC Eviction Patterns)
 
 In this scenario we tend to create a working set that exceeds L3 cache size using a memory access pattern that produces maximum cache line utilization contrast between native and emulated execution.
@@ -401,3 +438,215 @@ In this scenario we tend to create a working set that exceeds L3 cache size usin
 **Why it differentiates KVM vs TCG:**
 + In the KVM case, guest cache behavior maps almost 1:1 to host physical cache behavior. The hardware prefetcher operates normally; we'll see the real cache hierarchy underload.
 + In the Qemu TCG case, cache behavior is fundamentally distorted. Every memory access instruction in the ARM64 guest is translated by TCG inot an x86 instruction sequence that includes a software TLB lookup before the actual memory access. This means the actual memory access pattern seen by the host's L1/L2/L3 hardware caches includes both the guest's intended access AND the TCG metadata accesses (TLB table enteries, TranslationBlock structures), polluting the cache footprint substantially.
+
+> SoftMMU: a QEMU feature that implements memory management and address translation in software rather than relying on host hardware. It powers QEMU's full system emulation, allowing users to run complete, unmodified  guest operating systems by simulating a hardware Memory Management Unit and Translation Lookaside Buffer 
+
+The benchmark code:
+```c
+// workload_cache_stress.c — matrix transpose exceeding L3
+// gcc -O2 -o cache_stress workload_cache_stress.c -lm
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+// Size chosen to exceed typical 8-32MB L3 caches
+// 8192 * 8192 * 8 bytes = 512MB working set
+#define N       8192
+#define BLOCK   64      // Cache-line-aware blocking size (64 = typical line size)
+
+static double A[N][N];
+static double B[N][N];
+static double C[N][N];
+
+// ── Blocked matrix transpose: exposes cache line reuse within blocks ──
+// Without blocking: column accesses in B cause a cache miss per element
+// With BLOCK=64: each block fits in L1, but inter-block access still thrashes LLC
+void transpose_blocked(double dst[N][N], double src[N][N]) {
+    for (int ii = 0; ii < N; ii += BLOCK) {
+        for (int jj = 0; jj < N; jj += BLOCK) {
+            int imax = ii + BLOCK < N ? ii + BLOCK : N;
+            int jmax = jj + BLOCK < N ? jj + BLOCK : N;
+            for (int i = ii; i < imax; i++) {
+                for (int j = jj; j < jmax; j++) {
+                    dst[j][i] = src[i][j];
+                }
+            }
+        }
+    }
+}
+
+// ── Pointer-chase array: defeats hardware prefetcher entirely ─────────
+// Random linked-list walk: each load depends on previous = serial miss chain
+#define CHASE_SIZE  (1 << 24)   // 16M entries = 128MB (> L3 on most systems)
+static size_t chase_array[CHASE_SIZE];
+
+void init_pointer_chase(void) {
+    // Fisher-Yates shuffle to create random permutation
+    for (size_t i = 0; i < CHASE_SIZE; i++) chase_array[i] = i;
+    srand(12345);
+    for (size_t i = CHASE_SIZE - 1; i > 0; i--) {
+        size_t j = (size_t)rand() % (i + 1);
+        size_t tmp = chase_array[i];
+        chase_array[i] = chase_array[j];
+        chase_array[j] = tmp;
+    }
+}
+
+volatile size_t run_pointer_chase(long steps) {
+    volatile size_t idx = 0;
+    for (long i = 0; i < steps; i++) {
+        idx = chase_array[idx];   // Load-use dependency: serializes misses
+    }
+    return idx;
+}
+
+int main(void) {
+    struct timespec t0, t1;
+
+    // Initialize matrices with non-trivial values
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++) {
+            A[i][j] = (double)(i * N + j) * 0.0001;
+            B[i][j] = 0.0;
+        }
+
+    // ── Phase 1: Blocked transpose (tests L1/L2/L3 hierarchy) ─────────
+    printf("Phase 1: Blocked Matrix Transpose (%dx%d, %.0fMB working set)...\n",
+           N, N, (double)(2 * N * N * 8) / (1024 * 1024));
+    clock_gettime(CLOCK_MONOTONIC, &t0);
+    transpose_blocked(B, A);
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    long ns1 = (t1.tv_sec - t0.tv_sec) * 1e9 + (t1.tv_nsec - t0.tv_nsec);
+    printf("  Transpose: %.3f sec | Throughput: %.2f GB/s\n",
+           ns1 / 1e9, (2.0 * N * N * 8) / (ns1 / 1e9) / 1e9);
+
+    // ── Phase 2: Pointer-chase (tests LLC miss latency serialized) ─────
+    printf("Phase 2: Pointer-Chase Array (%zuMB, defeating prefetcher)...\n",
+           CHASE_SIZE * sizeof(size_t) / (1024 * 1024));
+    init_pointer_chase();
+    clock_gettime(CLOCK_MONOTONIC, &t0);
+    volatile size_t result = run_pointer_chase(50000000L);
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    long ns2 = (t1.tv_sec - t0.tv_sec) * 1e9 + (t1.tv_nsec - t0.tv_nsec);
+    printf("  Pointer-chase: %.3f sec | Avg latency: %.1f ns/op | result=%zu\n",
+           ns2 / 1e9, (double)ns2 / 50000000.0, result);
+
+    return 0;
+}
+```
+
+This scenario with this code has two distinct phases that stress different levels of the cache hierarchy for different reasons.
+
+The first phase of the code above targets L1/L2/L3 in a controlled, predictable pattern. the read pattern is cache friendly and would not put so much pressure on it and it is sequential, but the write pattern is not cache friendly and is strided by the full row width. At 8192*8192 doubles the working set is 1024MB, which is so much larger than our 12MB L3 cache. And this is gonna guarantee that no matter how good the prefetcher is, the vast majority of accesses must go to DRAM. The blocking parameter controls how much of the working set fits in L1 during the innermost loop.
+The second phase which targets memory latency in isolation by constructing a random linked list through a 128MB array. Each load depends on the result of the previous load, this is a load-use dependency chain and it completely defeats the hardware prefetcher ecause the next address to fetch is unknown until the current fetch completes. This measure pure memory access latency rather than bandwidth.
+
+
+
+For tracing we run the below commands in host for each of them one by one:
+
+KVM:
+
+```bash
+ssh -i ~/.ssh/id_lab -p 2222 root@localhost "./cache_stress" > ~/perf-results/kvm_workload.txt 2>&1 &
+KVM_SSH_PID=$!
+
+sudo perf stat -e \
+cycles,instructions,cache-misses,cache-references,\
+mem-stores,topdown-bad-spec,topdown-be-bound,\
+topdown-retiring,topdown-fe-bound \
+-C 4-7 -o ~/perf-results/kvm_perf.txt -- sleep 10 &
+
+
+wait $KVM_SSH_PID && echo "KVM workload done"
+```
+
+
+The result of this:
+
+```
+# started on Fri Jun  5 21:37:52 2026                                                         
+                                                                                                        
+ Performance counter stats for 'CPU(s) 4-7':                                                  
+                                                                                              
+       323,128,314      cpu_atom/cycles/                                                      
+  (77.77%)                                                                                    
+        30,068,009      cpu_atom/instructions/           #    0.09  insn per cycle            
+  (88.88%)                                                                                    
+         1,734,324      cpu_atom/cache-misses/           #   29.31% of all cache refs         
+  (88.89%)                                                                                    
+         5,916,337      cpu_atom/cache-references/                                            
+  (88.89%)                                                                                    
+         4,788,762      cpu_atom/mem-stores/                                                  
+  (88.88%)                                                                                    
+       192,851,433      cpu_atom/topdown-bad-spec/                                            
+  (88.89%)                                                                                    
+       718,287,094      cpu_atom/topdown-be-bound/                                            
+  (88.88%)                                                                                    
+        67,732,009      cpu_atom/topdown-retiring/                                            
+  (88.92%)                                                                                    
+       634,508,200      cpu_atom/topdown-fe-bound/                                            
+  (66.66%)                                                                                    
+      10.004548172 seconds time elapsed    
+
+```
+
+
+
+And for TCG:
+
+```bash
+
+ssh -i ~/.ssh/id_lab -p 2223 root@localhost "./cache_stress" > ~/perf-results/tcg_workload.txt 2>&1 &
+TCG_SSH_PID=$!
+
+sudo perf stat -e \
+cycles,instructions,cache-misses,cache-references,\
+mem-stores,topdown-bad-spec,topdown-be-bound,\
+topdown-retiring,topdown-fe-bound \
+-C 8-11 -o ~/perf-results/tcg_perf.txt -- sleep 30 &
+
+wait $TCG_SSH_PID && echo "TCG workload done"
+```
+
+The result:
+
+```
+# started on Fri Jun  5 21:06:26 2026                                                         
+ Performance counter stats for 'CPU(s) 8-11':                                                
+
+    90,786,391,187      cpu_atom/cycles/                                                      
+  (77.78%)                                                                                    
+   286,896,820,524      cpu_atom/instructions/           #    3.16  insn per cycle            
+  (88.89%)                                                                                    
+       514,674,441      cpu_atom/cache-misses/           #   49.52% of all cache refs         
+  (88.89%)                                                                                    
+     1,039,282,651      cpu_atom/cache-references/                                            
+  (88.89%)                                                                                    
+    43,315,246,169      cpu_atom/mem-stores/                                                  
+  (88.89%)                                                                                    
+     9,390,902,118      cpu_atom/topdown-bad-spec/                                            
+  (88.89%)                                                                                    
+   103,206,062,928      cpu_atom/topdown-be-bound/                                            
+  (88.89%)                                                                                    
+   295,800,453,851      cpu_atom/topdown-retiring/                                            
+  (88.89%)                                                                                    
+    45,619,033,933      cpu_atom/topdown-fe-bound/                                            
+  (66.66%)                                                                                    
+      50.004793990 seconds time elapsed 
+```
+
+Metrics explained in the `perf stat`:
+
++ `cylcles` + `instructions` -> These two shows IPC  which tells us how much useful work the CPU completes per clock tick. low IPC means the pipeline is stalling, waiting for memory, waiting for branch resolution, or waiting for the next instruction.
++ `cache-misses` + `cache-references` -> Miss rate cache references is the total number of last-level cache accesses. Cache misses is how many of those had to go to DRAM. The ratio gives us cache miss rate
++ `mem-stores`: Counts retired sotre instructions. Stores are revealing for TCG because of the softMMU must write update TLB entries back to the software TLB table on every translation
++ `topdown-be-bound`: pipeline stalled waiting for execution resources, primarily memory. A high backened bound means the CPU is spending most of its waiting for data to arrive from cache or DRAM rather than doing computation.
++ `topdown-fe-bound`: pipeline stalled waiting for instructions to be fetched and decoded. High frontend bound in TCG reveals that the TCG-generated x86 code is stressing the instruction cache and branch predictor with its dense TLB-check instruction sequences.
++ `dtlb_load_misses`:  also not supported on E-cores. This would have been the most direct TLB pressure metric but the hardware doesn't expose it on Gracemont.
++ `mem-loads`: showed zero in every previous run, indicating the E-core PMU's mem-loads counter requires PEBS (Processor Event Based Sampling) which is not available on E-cores. We dropped it because zeros add no information.
+
+
+
+Analysis:
+
