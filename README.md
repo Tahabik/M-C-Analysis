@@ -94,48 +94,6 @@ E-cores are grouped into "clusters" of 4, and each cluster shares a single block
 
 > For more detailed report you can use this command: `sudo dmidecode -t cache`.
 
-# Putting Load on VMs scenarios
-
-
-**Scenario 1: EPT/Shadow Page Table Walk Amplification Under Two-Level TLB Pressure**
-
-
-First before getting ahead of ourselves let's check what is EPT and NPT!!!!
-
-EPT -> Extended Page Tables: is a hardware virtualization extension that eliminates the need for software emulation of page tables. In short, the technology allows a guest virtual machine to directly manage its own memory while the hypervisor retains full control over the servers physical memory, offloading work from the centroal processor.
-This technology is used in KVM. This technology is important for near native performance.
-
-> Support for EPT is built into Intel processors starting with the Nehalem microarchitecture and into AMD processors featuring Rapid Virtualization Indexing.
-
-How it works?
-
-The working principle of it is based on two stage address translation. In traditional virtualization without hardware support, the hypervisor must intercept every attempt by the guest operating system to modify its page tables and substitute the guests physical addresses with real machine addresses by maintaining shadow structures. Hardware support eliminates this shadow layer. When EPT is enabled, the guest system freely works with its own virtual address space, using its own page tables to translate a process virtual address into a so called guest physical address. The processor memory manageemnt unit does not stop at this result but launches a second independent translation stage. A special register points to the root of the EPT tables, which belong exclusively to the hypervisor. 
-
-
-
-
-We first have to construct a memory access pattern that maximizes EPT walks by deliberately defeating the TLB on both levels (guest TLB + host EPT TLB).
-
-
-
-Briefing:
-> When a guest virtual address is accessed, the CPU must translate it to a physical host address through two independent page table hierarchies. This creates an amplification effect: one guest TLB miss can trigger up to 24 memory accesses for the full EPT walk. This scenario makes the cost visible and measurable.
-
-![Two-level translation problem](./image%20copy%202.png)
-
-
-On the host we disable THP(Transparent Huge Pages) first to force 4K PTEs:
-
-This forces the host kernel to back guest memory with 4K PTEs instead of 2 MB hugepages. Without this, THP might silently collapse our guest RAM into huge pages, masking the exact EPT amplification we are trying to measure.
-
-
-```bash
-echo never > /sys/kernel/mm/transparent_hugepage/enabled
-
-```
-
----
-
 
 ## Deterministic Host Configuration & CPU/Cache Pinning Blueprint
 
@@ -431,7 +389,30 @@ sudo taskset -cp 10 46375
 sudo taskset -cp 10 46379
 ```   
 
-### Scenario. Cache Hierarchy Stress (Cache line bouncing & LLC Eviction Patterns)
+## EPT
+
+Each VM operates as if it has it's own physical memory space, with its guest OS managming page tables. However since multiple VMs are running on a same host/physical machine, the guest physical address must be translated into host physical address this is where memory management becomes more complicated.
+Previously it was handled by **shadow page tables**. The shadow page table is a duplicate of the guest's page table that maps guest virtual address **directly** to host physical address. While this reduces overhead during memory access once it's set up, it introduces significant complexity in maintaining consistency between the guest's page table and the shadow page table. Any change in the guest's memory would require synchronization with the shadow's page table, adding considerable overhead through frequent traps to the hypervisor.
+
+
+To address these inefficiencies, hardware-based support for memory virtualization was introduced in the form of Extended Page table (EPT). It simplifies the translation process by eliminating the need for shadow page tables and instead relies on **hardware** to handle memory translation more directly
+
+In EPT enabled systems, we've got two translation levels:
+1. Guest Virtual -> Guest Physical
+2. Guest Physical -> Host Physical 
+
+Steps into use of EPT:
+1. Initial Lookup: Guest OS maintains a register calls `CR3`, pointing to it's page tables' root. When an application within the guest OS tries to access a memory address, the guest OS will lookup it's virtual address in its page tables and translate it into guest physical address
+2. EPT Root Lookup: The hypervisor, which controls the virtual machine, provides an EPT root register that points to the base of the extended page tables. This new register allows the hardware to automatically manage the translation from guest physical to host physical address.
+3. Guest physical to host physical: This translation is done without the involvement of the OS, allowing the entire process to be offloaded to the hardware.
+4. TLB Integration: TLB is updated to reflect the final mapping from guest virtual to host physical. A key advantage that EPT has got is that the TLB now includes an ID for each VM, preventing the need to flush the TLB during VM context switch.
+
+
+> EPT is a multi-tiered page table stored in memory, and maintained by the hypervisor.
+
+## TCG
+
+## Scenario. Cache Hierarchy Stress (Cache line bouncing & LLC Eviction Patterns)
 
 In this scenario we tend to create a working set that exceeds L3 cache size using a memory access pattern that produces maximum cache line utilization contrast between native and emulated execution.
 
@@ -552,8 +533,16 @@ ssh -i ~/.ssh/id_lab -p 2222 root@localhost "./cache_stress" > ~/perf-results/kv
 KVM_SSH_PID=$!
 
 sudo perf stat -e \
-cycles,instructions,cache-misses,cache-references,\
-mem-stores,topdown-bad-spec,topdown-be-bound,\
+cycles,instructions,\
+cache-misses,cache-references,\
+mem-stores,\
+mem_load_uops_retired.l3_hit,\
+mem_bound_stalls.load_llc_hit,\
+ocr.demand_data_rd.l3_hit,\
+uncore_imc_free_running/data_read/,\
+uncore_imc_free_running/data_write/,\
+uncore_imc_free_running/data_total/,\
+topdown-bad-spec,topdown-be-bound,\
 topdown-retiring,topdown-fe-bound \
 -C 4-7 -o ~/perf-results/kvm_perf.txt -- sleep 10 &
 
@@ -565,29 +554,25 @@ wait $KVM_SSH_PID && echo "KVM workload done"
 The result of this:
 
 ```
-# started on Fri Jun  5 21:37:52 2026                                                         
-                                                                                                        
- Performance counter stats for 'CPU(s) 4-7':                                                  
-                                                                                              
-       323,128,314      cpu_atom/cycles/                                                      
-  (77.77%)                                                                                    
-        30,068,009      cpu_atom/instructions/           #    0.09  insn per cycle            
-  (88.88%)                                                                                    
-         1,734,324      cpu_atom/cache-misses/           #   29.31% of all cache refs         
-  (88.89%)                                                                                    
-         5,916,337      cpu_atom/cache-references/                                            
-  (88.89%)                                                                                    
-         4,788,762      cpu_atom/mem-stores/                                                  
-  (88.88%)                                                                                    
-       192,851,433      cpu_atom/topdown-bad-spec/                                            
-  (88.89%)                                                                                    
-       718,287,094      cpu_atom/topdown-be-bound/                                            
-  (88.88%)                                                                                    
-        67,732,009      cpu_atom/topdown-retiring/                                            
-  (88.92%)                                                                                    
-       634,508,200      cpu_atom/topdown-fe-bound/                                            
-  (66.66%)                                                                                    
-      10.004548172 seconds time elapsed    
+ Performance counter stats for 'CPU(s) 4-7':                                                                    
+                                                                                                                
+       413,985,074      cpu_atom/cycles/                                                        (58.23%)        
+        59,282,724      cpu_atom/instructions/           #    0.14  insn per cycle              (66.59%)        
+         4,625,056      cpu_atom/cache-misses/           #   37.02% of all cache refs           (66.63%)        
+        12,494,904      cpu_atom/cache-references/                                              (66.67%)        
+         9,482,792      cpu_atom/mem-stores/                                                    (66.72%)        
+           305,349      cpu_atom/mem_load_uops_retired.l3_hit/                                        (66.74%)  
+        12,206,278      cpu_atom/mem_bound_stalls.load_llc_hit/                                        (66.73%) 
+           472,106      cpu_atom/ocr.demand_data_rd.l3_hit/                                        (66.73%)     
+        128,102.17 MiB  uncore_imc_free_running/data_read/                                                      
+         38,656.58 MiB  uncore_imc_free_running/data_write/                                                     
+        167,006.53 MiB  uncore_imc_free_running/data_total/                                                     
+       298,859,240      cpu_atom/topdown-bad-spec/                                              (49.99%)        
+       814,821,896      cpu_atom/topdown-be-bound/                                              (49.96%)        
+       100,441,234      cpu_atom/topdown-retiring/                                              (49.92%)        
+       846,823,989      cpu_atom/topdown-fe-bound/                                              (49.90%)        
+
+      10.003866471 seconds time elapsed                                                                          
 
 ```
 
@@ -596,15 +581,22 @@ The result of this:
 And for TCG:
 
 ```bash
-
 ssh -i ~/.ssh/id_lab -p 2223 root@localhost "./cache_stress" > ~/perf-results/tcg_workload.txt 2>&1 &
 TCG_SSH_PID=$!
 
 sudo perf stat -e \
-cycles,instructions,cache-misses,cache-references,\
-mem-stores,topdown-bad-spec,topdown-be-bound,\
+cycles,instructions,\
+cache-misses,cache-references,\
+mem-stores,\
+mem_load_uops_retired.l3_hit,\
+mem_bound_stalls.load_llc_hit,\
+ocr.demand_data_rd.l3_hit,\
+uncore_imc_free_running/data_read/,\
+uncore_imc_free_running/data_write/,\
+uncore_imc_free_running/data_total/,\
+topdown-bad-spec,topdown-be-bound,\
 topdown-retiring,topdown-fe-bound \
--C 8-11 -o ~/perf-results/tcg_perf.txt -- sleep 30 &
+-C 8-11 -o ~/perf-results/tcg_perf.txt -- sleep 50 &
 
 wait $TCG_SSH_PID && echo "TCG workload done"
 ```
@@ -612,28 +604,25 @@ wait $TCG_SSH_PID && echo "TCG workload done"
 The result:
 
 ```
-# started on Fri Jun  5 21:06:26 2026                                                         
- Performance counter stats for 'CPU(s) 8-11':                                                
+ Performance counter stats for 'CPU(s) 8-11':                                                                   
+                                                                                                                
+     1,766,784,142      cpu_atom/cycles/                                                        (58.33%)        
+       158,348,525      cpu_atom/instructions/           #    0.09  insn per cycle              (66.66%)        
+        13,200,134      cpu_atom/cache-misses/           #   40.66% of all cache refs           (66.66%)        
+        32,463,198      cpu_atom/cache-references/                                              (66.66%)        
+        25,255,214      cpu_atom/mem-stores/                                                    (66.65%)        
+         1,116,479      cpu_atom/mem_load_uops_retired.l3_hit/                                        (66.66%)  
+        43,346,779      cpu_atom/mem_bound_stalls.load_llc_hit/                                        (66.67%) 
+         1,504,248      cpu_atom/ocr.demand_data_rd.l3_hit/                                        (66.68%)     
+        487,521.74 MiB  uncore_imc_free_running/data_read/                                                      
+        107,584.08 MiB  uncore_imc_free_running/data_write/                                                     
+        595,001.17 MiB  uncore_imc_free_running/data_total/                                                     
+     1,194,753,818      cpu_atom/topdown-bad-spec/                                              (50.01%)        
+     3,487,402,114      cpu_atom/topdown-be-bound/                                              (50.01%)        
+       350,002,280      cpu_atom/topdown-retiring/                                              (50.00%)        
+     3,770,225,048      cpu_atom/topdown-fe-bound/                                              (49.99%)        
 
-    90,786,391,187      cpu_atom/cycles/                                                      
-  (77.78%)                                                                                    
-   286,896,820,524      cpu_atom/instructions/           #    3.16  insn per cycle            
-  (88.89%)                                                                                    
-       514,674,441      cpu_atom/cache-misses/           #   49.52% of all cache refs         
-  (88.89%)                                                                                    
-     1,039,282,651      cpu_atom/cache-references/                                            
-  (88.89%)                                                                                    
-    43,315,246,169      cpu_atom/mem-stores/                                                  
-  (88.89%)                                                                                    
-     9,390,902,118      cpu_atom/topdown-bad-spec/                                            
-  (88.89%)                                                                                    
-   103,206,062,928      cpu_atom/topdown-be-bound/                                            
-  (88.89%)                                                                                    
-   295,800,453,851      cpu_atom/topdown-retiring/                                            
-  (88.89%)                                                                                    
-    45,619,033,933      cpu_atom/topdown-fe-bound/                                            
-  (66.66%)                                                                                    
-      50.004793990 seconds time elapsed 
+      50.005090977 seconds time elapsed        
 ```
 
 Metrics explained in the `perf stat`:
