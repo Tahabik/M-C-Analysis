@@ -389,6 +389,44 @@ sudo taskset -cp 10 46375
 sudo taskset -cp 10 46379
 ```   
 
+
+## KVM
+
+Kernel-based Virtual Machine, is a linux **kernel module** that turns the Linus OS into a **Type 1 hypervisor.** It uses hardware virtualization extensions built into modern CPUs, specifically Intel VT-x and AMD-V, to allow virtual machinesto run with near-native performance.
+
+
+> KVM does not run virtual machines by itself. It exposes the hardware virtualization capabilities of the CPU to user-space programs.
+
+It provides bunch of kernel interfaces allowing VMMs(Virtual Machine Monitor) like QEMU or Firecracker to use hardware level CPU isolation for each VM.
+
+> Witout a user-space program on to, KVM does nothing visible
+
+**What it Provides:**
++ Kernel-level hardware virtualization using VT-x or AMD-V
++ Near-native CPU performance for virtual machines 
++ Memory isolation between VMs is enorced by the hardware
++ The foundation that QEMU, Firecracker, and .. containers build on.
+
+**What it does not provide:**
++ Device emulation (no network, disk, or display)
++ A user interface or management layer
++ Cross-architectre support (KVM requires host and gyest to share the same CPU architecture)
+
+## QEMU
+
+Quick Emulator, is a machine emulator and visualizer. It emulates complete computer system, including CPU, memory, disk, network, and other hardware devices entirely in **software**. It means that QEMU is capable of running a guest VM with an OS designed for ARM on an x86 host, or emulate a RISC-V system on AMD hardware, **without any modification to the guest**.
+
+When it runs without KVM all CPU instructions should be translated into host machine's language and this translation happens in **Software** using its internal Tiny Code Generator (TCG). This makes virtualization extremely flexible but the translation makes it very slow.When QEMU runs with KVM, it offloads CPU virtualization to the kernel module and uses hardware acceleration, reducing overhead to near-native levels. It handles and manages everything KVM cannot like **device enumation**, **disk I/O**, **Networking**, **display output**, and **VM lifecycles management.**
+
+**What it provides:**
++ Full system emulatio, including CPU, memory (when there is no KVM), disk and network
++ Corss-architecture support thanks to TCg for development and testing.
++ Device emulation using VirtIO paravirtualized drivers for near-native I/O performance
++ Snapshotting, live migration, and state save/restore
++ The user-space component that makes VM usable in practice
+
+
+
 ## EPT
 
 Each VM operates as if it has it's own physical memory space, with its guest OS managming page tables. However since multiple VMs are running on a same host/physical machine, the guest physical address must be translated into host physical address this is where memory management becomes more complicated.
@@ -411,6 +449,8 @@ Steps into use of EPT:
 > EPT is a multi-tiered page table stored in memory, and maintained by the hypervisor.
 
 ## TCG
+
+
 
 ## Scenario. Cache Hierarchy Stress (Cache line bouncing & LLC Eviction Patterns)
 
