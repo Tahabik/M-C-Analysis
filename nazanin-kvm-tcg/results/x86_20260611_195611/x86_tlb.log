@@ -1,0 +1,9 @@
+
+ Performance counter stats for process id '7974':
+
+           346,226      dTLB-load-misses                                                      
+           564,158      dtlb_load_misses.miss_causes_a_walk                                      
+                 0      page-faults                                                           
+
+      12.003254137 seconds time elapsed
+

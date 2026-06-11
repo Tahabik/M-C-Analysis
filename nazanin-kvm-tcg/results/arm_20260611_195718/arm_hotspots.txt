@@ -1,0 +1,2410 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 80  of event 'cache-misses'
+# Event count (approx.): 3922281
+#
+# Children      Self       Samples  Symbol                                   
+# ........  ........  ............  .........................................
+#
+    79.96%     0.00%             0  [.] 0000000000000000
+            |          
+            |--5.32%--helper_access_check_cp_reg
+            |          |          
+            |           --1.29%--asm_sysvec_apic_timer_interrupt
+            |                     sysvec_apic_timer_interrupt
+            |                     irq_exit_rcu
+            |                     __irq_exit_rcu
+            |                     handle_softirqs
+            |                     sched_balance_softirq
+            |                     sched_balance_domains
+            |                     sched_balance_rq
+            |          
+            |--3.81%--helper_lookup_tb_ptr
+            |          
+            |--3.76%--0x71068aba20d6
+            |          helper_lookup_tb_ptr
+            |          0x6356816ec4c1
+            |          get_page_addr_code_hostp
+            |          0x6356816fba0b
+            |          0x6356816fb84f
+            |          tlb_set_page_full
+            |          address_space_translate_for_iotlb
+            |          
+            |--2.51%--0x71069239d020
+            |          
+            |--2.21%--0x7106897cc1bf
+            |          0x63568170148a
+            |          0x6356817002e0
+            |          cpu_io_recompile
+            |          tcg_tb_lookup
+            |          g_tree_lookup
+            |          0x7106de505abc
+            |          
+            |--1.90%--0x71068979cb34
+            |          helper_ldul_mmu
+            |          0x6356816ff6e2
+            |          0x6356816fead6
+            |          0x6356816fe962
+            |          memory_region_dispatch_read
+            |          0x6356816125a9
+            |          0x635681611d4f
+            |          0x635681417d76
+            |          0x635681417a33
+            |          gic_acknowledge_irq
+            |          0x635681415390
+            |          
+            |--1.86%--0x710693362e00
+            |          
+            |--1.80%--0x71068978c38a
+            |          
+            |--1.78%--0x7106898de2c2
+            |          
+            |--1.70%--helper_ldq_mmu
+            |          
+            |--1.70%--0x71068978ec83
+            |          
+            |--1.63%--0x7106971db2e5
+            |          helper_lookup_tb_ptr
+            |          0x6356816ec5aa
+            |          qht_lookup_custom
+            |          
+            |--1.54%--0x710694945c05
+            |          
+            |--1.54%--0x7106898a503b
+            |          helper_lookup_tb_ptr
+            |          0x6356816ec4c1
+            |          get_page_addr_code_hostp
+            |          0x6356816fb8d9
+            |          
+            |--1.54%--0x710689761680
+            |          
+            |--1.47%--0x7106899da6e0
+            |          helper_lookup_tb_ptr
+            |          
+            |--1.45%--0x710692f18787
+            |          helper_lookup_tb_ptr
+            |          0x6356816ec4c1
+            |          get_page_addr_code_hostp
+            |          qemu_ram_block_from_host
+            |          
+            |--1.42%--0x710689782a7c
+            |          
+            |--1.41%--0x7106935369cf
+            |          
+            |--1.40%--0x7106897cac0f
+            |          helper_set_cp_reg64
+            |          0x635681721999
+            |          0x635681c9d27e
+            |          event_notifier_set
+            |          __libc_write (inlined)
+            |          __syscall_cancel_arch (inlined)
+            |          entry_SYSCALL_64_after_hwframe
+            |          do_syscall_64
+            |          x64_sys_call
+            |          __x64_sys_write
+            |          ksys_write
+            |          vfs_write
+            |          rw_verify_area
+            |          security_file_permission
+            |          apparmor_file_permission
+            |          begin_current_label_crit_section
+            |          
+            |--1.34%--0x71068a826e80
+            |          helper_lookup_tb_ptr
+            |          0x6356816ec5aa
+            |          qht_lookup_custom
+            |          
+            |--1.33%--0x710692dcd680
+            |          
+            |--1.31%--0x7106898a89d2
+            |          helper_lookup_tb_ptr
+            |          
+            |--1.30%--0x71068dfeb6e8
+            |          
+            |--1.30%--0x71068af23346
+            |          0x6356816feebd
+            |          0x6356816fecf2
+            |          asm_sysvec_apic_timer_interrupt
+            |          sysvec_apic_timer_interrupt
+            |          __sysvec_apic_timer_interrupt
+            |          hrtimer_interrupt
+            |          __hrtimer_run_queues
+            |          hrtimer_wakeup
+            |          wake_up_process
+            |          try_to_wake_up
+            |          ttwu_do_activate
+            |          enqueue_task
+            |          psi_task_change
+            |          
+            |--1.25%--0x71069237bd76
+            |          
+            |--1.25%--0x71068aedb780
+            |          
+            |--1.22%--0x7106897feb8c
+            |          
+            |--1.22%--0x7106897bf69c
+            |          
+            |--1.22%--0x71068d088071
+            |          
+            |--1.22%--0x71068979c9cc
+            |          helper_ldul_mmu
+            |          0x6356816ff6e2
+            |          0x6356816feb30
+            |          cpu_io_recompile
+            |          g_tree_lookup
+            |          
+            |--1.21%--helper_msr_i_daifset
+            |          
+            |--1.21%--0x71068982bad2
+            |          
+            |--1.21%--0x7106897b4dc1
+            |          helper_lookup_tb_ptr
+            |          
+            |--1.20%--0x710689d5d74a
+            |          
+            |--1.20%--0x7106898a1fa2
+            |          helper_lookup_tb_ptr
+            |          
+            |--1.19%--0x710689d5ba8c
+            |          
+            |--1.19%--helper_rbit
+            |          
+            |--1.19%--0x71068a7dc5c0
+            |          
+            |--1.19%--0x710689786380
+            |          
+            |--1.19%--0x71068976abc8
+            |          
+            |--1.18%--0x7106898a1dc5
+            |          
+            |--1.18%--0x71068985dfcf
+            |          
+            |--1.16%--0x7106898dae01
+            |          helper_lookup_tb_ptr
+            |          
+            |--1.14%--0x71068977c07e
+            |          
+            |--1.12%--0x71068d8e8183
+            |          
+            |--1.12%--0x71068abf3e60
+            |          helper_access_check_cp_reg
+            |          
+            |--1.11%--0x71068a469c0a
+            |          
+            |--1.11%--0x7106897cc0f5
+            |          
+            |--1.07%--0x71068977bc01
+            |          
+            |--1.01%--0x7106897cc33b
+            |          0x63568170148a
+            |          0x635681700286
+            |          0x63568170012f
+            |          memory_region_dispatch_write
+            |          0x6356816125a9
+            |          0x6356814189b5
+            |          0x63568141887a
+            |          
+             --1.01%--0x710689799fb8
+
+    19.87%    10.15%             8  [.] helper_lookup_tb_ptr
+            |          
+            |--10.15%--0
+            |          |          
+            |          |--3.81%--helper_lookup_tb_ptr
+            |          |          
+            |          |--1.47%--0x7106899da6e0
+            |          |          helper_lookup_tb_ptr
+            |          |          
+            |          |--1.31%--0x7106898a89d2
+            |          |          helper_lookup_tb_ptr
+            |          |          
+            |          |--1.21%--0x7106897b4dc1
+            |          |          helper_lookup_tb_ptr
+            |          |          
+            |          |--1.20%--0x7106898a1fa2
+            |          |          helper_lookup_tb_ptr
+            |          |          
+            |           --1.16%--0x7106898dae01
+            |                     helper_lookup_tb_ptr
+            |          
+             --9.72%--helper_lookup_tb_ptr
+                       |          
+                       |--6.75%--0x6356816ec4c1
+                       |          get_page_addr_code_hostp
+                       |          |          
+                       |          |--3.76%--0x6356816fba0b
+                       |          |          0x6356816fb84f
+                       |          |          tlb_set_page_full
+                       |          |          address_space_translate_for_iotlb
+                       |          |          
+                       |          |--1.54%--0x6356816fb8d9
+                       |          |          
+                       |           --1.45%--qemu_ram_block_from_host
+                       |          
+                        --2.97%--0x6356816ec5aa
+                                  qht_lookup_custom
+
+    14.58%     0.00%             0  [.] _start
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               |          
+               |--13.32%--main_loop_wait
+               |          |          
+               |          |--5.45%--qemu_clock_run_all_timers
+               |          |          0x635681cb4326
+               |          |          0x635681718a91
+               |          |          |          
+               |          |          |--2.64%--0x635681710980
+               |          |          |          
+               |          |          |--1.44%--0x635681415310
+               |          |          |          
+               |          |           --1.37%--0x63568141562c
+               |          |                     qemu_cpu_kick
+               |          |                     ___pthread_cond_broadcast (inlined)
+               |          |                     futex_wake (inlined)
+               |          |                     entry_SYSCALL_64_after_hwframe
+               |          |                     do_syscall_64
+               |          |                     x64_sys_call
+               |          |                     __x64_sys_futex
+               |          |                     do_futex
+               |          |                     futex_wake
+               |          |                     wake_up_q
+               |          |                     try_to_wake_up
+               |          |                     ttwu_do_activate
+               |          |                     enqueue_task
+               |          |                     enqueue_task_fair
+               |          |                     enqueue_entity
+               |          |                     update_curr
+               |          |                     update_se
+               |          |                     __cgroup_account_cputime
+               |          |          
+               |          |--3.30%--g_mutex_unlock
+               |          |          
+               |          |--2.83%--g_main_context_check
+               |          |          |          
+               |          |          |--1.42%--0x7106de4cca55
+               |          |          |          0x7106de4c9504
+               |          |          |          g_source_ref
+               |          |          |          
+               |          |           --1.37%--0x7106de4ccbdd
+               |          |                     __clock_gettime (inlined)
+               |          |                     0x7106dece4a09
+               |          |          
+               |          |--1.19%--0x63568169e307
+               |          |          
+               |           --0.53%--___pthread_mutex_lock (inlined)
+               |          
+                --1.27%--replay_mutex_lock
+
+    14.58%     0.00%             0  [.] __libc_start_main_impl (inlined)
+            |
+            ---call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               |          
+               |--13.32%--main_loop_wait
+               |          |          
+               |          |--5.45%--qemu_clock_run_all_timers
+               |          |          0x635681cb4326
+               |          |          0x635681718a91
+               |          |          |          
+               |          |          |--2.64%--0x635681710980
+               |          |          |          
+               |          |          |--1.44%--0x635681415310
+               |          |          |          
+               |          |           --1.37%--0x63568141562c
+               |          |                     qemu_cpu_kick
+               |          |                     ___pthread_cond_broadcast (inlined)
+               |          |                     futex_wake (inlined)
+               |          |                     entry_SYSCALL_64_after_hwframe
+               |          |                     do_syscall_64
+               |          |                     x64_sys_call
+               |          |                     __x64_sys_futex
+               |          |                     do_futex
+               |          |                     futex_wake
+               |          |                     wake_up_q
+               |          |                     try_to_wake_up
+               |          |                     ttwu_do_activate
+               |          |                     enqueue_task
+               |          |                     enqueue_task_fair
+               |          |                     enqueue_entity
+               |          |                     update_curr
+               |          |                     update_se
+               |          |                     __cgroup_account_cputime
+               |          |          
+               |          |--3.30%--g_mutex_unlock
+               |          |          
+               |          |--2.83%--g_main_context_check
+               |          |          |          
+               |          |          |--1.42%--0x7106de4cca55
+               |          |          |          0x7106de4c9504
+               |          |          |          g_source_ref
+               |          |          |          
+               |          |           --1.37%--0x7106de4ccbdd
+               |          |                     __clock_gettime (inlined)
+               |          |                     0x7106dece4a09
+               |          |          
+               |          |--1.19%--0x63568169e307
+               |          |          
+               |           --0.53%--___pthread_mutex_lock (inlined)
+               |          
+                --1.27%--replay_mutex_lock
+
+    14.58%     0.00%             0  [.] call_init (inlined)
+            |
+            ---__libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               |          
+               |--13.32%--main_loop_wait
+               |          |          
+               |          |--5.45%--qemu_clock_run_all_timers
+               |          |          0x635681cb4326
+               |          |          0x635681718a91
+               |          |          |          
+               |          |          |--2.64%--0x635681710980
+               |          |          |          
+               |          |          |--1.44%--0x635681415310
+               |          |          |          
+               |          |           --1.37%--0x63568141562c
+               |          |                     qemu_cpu_kick
+               |          |                     ___pthread_cond_broadcast (inlined)
+               |          |                     futex_wake (inlined)
+               |          |                     entry_SYSCALL_64_after_hwframe
+               |          |                     do_syscall_64
+               |          |                     x64_sys_call
+               |          |                     __x64_sys_futex
+               |          |                     do_futex
+               |          |                     futex_wake
+               |          |                     wake_up_q
+               |          |                     try_to_wake_up
+               |          |                     ttwu_do_activate
+               |          |                     enqueue_task
+               |          |                     enqueue_task_fair
+               |          |                     enqueue_entity
+               |          |                     update_curr
+               |          |                     update_se
+               |          |                     __cgroup_account_cputime
+               |          |          
+               |          |--3.30%--g_mutex_unlock
+               |          |          
+               |          |--2.83%--g_main_context_check
+               |          |          |          
+               |          |          |--1.42%--0x7106de4cca55
+               |          |          |          0x7106de4c9504
+               |          |          |          g_source_ref
+               |          |          |          
+               |          |           --1.37%--0x7106de4ccbdd
+               |          |                     __clock_gettime (inlined)
+               |          |                     0x7106dece4a09
+               |          |          
+               |          |--1.19%--0x63568169e307
+               |          |          
+               |           --0.53%--___pthread_mutex_lock (inlined)
+               |          
+                --1.27%--replay_mutex_lock
+
+    14.58%     0.00%             0  [.] main
+            |
+            ---0x635681bda748
+               qemu_main_loop
+               |          
+               |--13.32%--main_loop_wait
+               |          |          
+               |          |--5.45%--qemu_clock_run_all_timers
+               |          |          0x635681cb4326
+               |          |          0x635681718a91
+               |          |          |          
+               |          |          |--2.64%--0x635681710980
+               |          |          |          
+               |          |          |--1.44%--0x635681415310
+               |          |          |          
+               |          |           --1.37%--0x63568141562c
+               |          |                     qemu_cpu_kick
+               |          |                     ___pthread_cond_broadcast (inlined)
+               |          |                     futex_wake (inlined)
+               |          |                     entry_SYSCALL_64_after_hwframe
+               |          |                     do_syscall_64
+               |          |                     x64_sys_call
+               |          |                     __x64_sys_futex
+               |          |                     do_futex
+               |          |                     futex_wake
+               |          |                     wake_up_q
+               |          |                     try_to_wake_up
+               |          |                     ttwu_do_activate
+               |          |                     enqueue_task
+               |          |                     enqueue_task_fair
+               |          |                     enqueue_entity
+               |          |                     update_curr
+               |          |                     update_se
+               |          |                     __cgroup_account_cputime
+               |          |          
+               |          |--3.30%--g_mutex_unlock
+               |          |          
+               |          |--2.83%--g_main_context_check
+               |          |          |          
+               |          |          |--1.42%--0x7106de4cca55
+               |          |          |          0x7106de4c9504
+               |          |          |          g_source_ref
+               |          |          |          
+               |          |           --1.37%--0x7106de4ccbdd
+               |          |                     __clock_gettime (inlined)
+               |          |                     0x7106dece4a09
+               |          |          
+               |          |--1.19%--0x63568169e307
+               |          |          
+               |           --0.53%--___pthread_mutex_lock (inlined)
+               |          
+                --1.27%--replay_mutex_lock
+
+    14.58%     0.00%             0  [.] 0x0000635681bda748
+            |
+            ---qemu_main_loop
+               |          
+               |--13.32%--main_loop_wait
+               |          |          
+               |          |--5.45%--qemu_clock_run_all_timers
+               |          |          0x635681cb4326
+               |          |          0x635681718a91
+               |          |          |          
+               |          |          |--2.64%--0x635681710980
+               |          |          |          
+               |          |          |--1.44%--0x635681415310
+               |          |          |          
+               |          |           --1.37%--0x63568141562c
+               |          |                     qemu_cpu_kick
+               |          |                     ___pthread_cond_broadcast (inlined)
+               |          |                     futex_wake (inlined)
+               |          |                     entry_SYSCALL_64_after_hwframe
+               |          |                     do_syscall_64
+               |          |                     x64_sys_call
+               |          |                     __x64_sys_futex
+               |          |                     do_futex
+               |          |                     futex_wake
+               |          |                     wake_up_q
+               |          |                     try_to_wake_up
+               |          |                     ttwu_do_activate
+               |          |                     enqueue_task
+               |          |                     enqueue_task_fair
+               |          |                     enqueue_entity
+               |          |                     update_curr
+               |          |                     update_se
+               |          |                     __cgroup_account_cputime
+               |          |          
+               |          |--3.30%--g_mutex_unlock
+               |          |          
+               |          |--2.83%--g_main_context_check
+               |          |          |          
+               |          |          |--1.42%--0x7106de4cca55
+               |          |          |          0x7106de4c9504
+               |          |          |          g_source_ref
+               |          |          |          
+               |          |           --1.37%--0x7106de4ccbdd
+               |          |                     __clock_gettime (inlined)
+               |          |                     0x7106dece4a09
+               |          |          
+               |          |--1.19%--0x63568169e307
+               |          |          
+               |           --0.53%--___pthread_mutex_lock (inlined)
+               |          
+                --1.27%--replay_mutex_lock
+
+    14.58%     0.00%             0  [.] qemu_main_loop
+            |          
+            |--13.32%--main_loop_wait
+            |          |          
+            |          |--5.45%--qemu_clock_run_all_timers
+            |          |          0x635681cb4326
+            |          |          0x635681718a91
+            |          |          |          
+            |          |          |--2.64%--0x635681710980
+            |          |          |          
+            |          |          |--1.44%--0x635681415310
+            |          |          |          
+            |          |           --1.37%--0x63568141562c
+            |          |                     qemu_cpu_kick
+            |          |                     ___pthread_cond_broadcast (inlined)
+            |          |                     futex_wake (inlined)
+            |          |                     entry_SYSCALL_64_after_hwframe
+            |          |                     do_syscall_64
+            |          |                     x64_sys_call
+            |          |                     __x64_sys_futex
+            |          |                     do_futex
+            |          |                     futex_wake
+            |          |                     wake_up_q
+            |          |                     try_to_wake_up
+            |          |                     ttwu_do_activate
+            |          |                     enqueue_task
+            |          |                     enqueue_task_fair
+            |          |                     enqueue_entity
+            |          |                     update_curr
+            |          |                     update_se
+            |          |                     __cgroup_account_cputime
+            |          |          
+            |          |--3.30%--g_mutex_unlock
+            |          |          
+            |          |--2.83%--g_main_context_check
+            |          |          |          
+            |          |          |--1.42%--0x7106de4cca55
+            |          |          |          0x7106de4c9504
+            |          |          |          g_source_ref
+            |          |          |          
+            |          |           --1.37%--0x7106de4ccbdd
+            |          |                     __clock_gettime (inlined)
+            |          |                     0x7106dece4a09
+            |          |          
+            |          |--1.19%--0x63568169e307
+            |          |          
+            |           --0.53%--___pthread_mutex_lock (inlined)
+            |          
+             --1.27%--replay_mutex_lock
+
+    14.58%     0.00%             0  [.] __libc_start_call_main
+            |
+            ---main
+               0x635681bda748
+               qemu_main_loop
+               |          
+               |--13.31%--main_loop_wait
+               |          |          
+               |          |--5.45%--qemu_clock_run_all_timers
+               |          |          0x635681cb4326
+               |          |          0x635681718a91
+               |          |          |          
+               |          |          |--2.64%--0x635681710980
+               |          |          |          
+               |          |          |--1.44%--0x635681415310
+               |          |          |          
+               |          |           --1.37%--0x63568141562c
+               |          |                     qemu_cpu_kick
+               |          |                     ___pthread_cond_broadcast (inlined)
+               |          |                     futex_wake (inlined)
+               |          |                     entry_SYSCALL_64_after_hwframe
+               |          |                     do_syscall_64
+               |          |                     x64_sys_call
+               |          |                     __x64_sys_futex
+               |          |                     do_futex
+               |          |                     futex_wake
+               |          |                     wake_up_q
+               |          |                     try_to_wake_up
+               |          |                     ttwu_do_activate
+               |          |                     enqueue_task
+               |          |                     enqueue_task_fair
+               |          |                     enqueue_entity
+               |          |                     update_curr
+               |          |                     update_se
+               |          |                     __cgroup_account_cputime
+               |          |          
+               |          |--3.30%--g_mutex_unlock
+               |          |          
+               |          |--2.83%--g_main_context_check
+               |          |          |          
+               |          |          |--1.42%--0x7106de4cca55
+               |          |          |          0x7106de4c9504
+               |          |          |          g_source_ref
+               |          |          |          
+               |          |           --1.37%--0x7106de4ccbdd
+               |          |                     __clock_gettime (inlined)
+               |          |                     0x7106dece4a09
+               |          |          
+               |          |--1.19%--0x63568169e307
+               |          |          
+               |           --0.53%--___pthread_mutex_lock (inlined)
+               |          
+                --1.27%--replay_mutex_lock
+
+    13.32%     0.00%             0  [.] main_loop_wait
+            |          
+            |--5.45%--qemu_clock_run_all_timers
+            |          0x635681cb4326
+            |          0x635681718a91
+            |          |          
+            |          |--2.64%--0x635681710980
+            |          |          
+            |          |--1.44%--0x635681415310
+            |          |          
+            |           --1.37%--0x63568141562c
+            |                     qemu_cpu_kick
+            |                     ___pthread_cond_broadcast (inlined)
+            |                     futex_wake (inlined)
+            |                     entry_SYSCALL_64_after_hwframe
+            |                     do_syscall_64
+            |                     x64_sys_call
+            |                     __x64_sys_futex
+            |                     do_futex
+            |                     futex_wake
+            |                     wake_up_q
+            |                     try_to_wake_up
+            |                     ttwu_do_activate
+            |                     enqueue_task
+            |                     enqueue_task_fair
+            |                     enqueue_entity
+            |                     update_curr
+            |                     update_se
+            |                     __cgroup_account_cputime
+            |          
+            |--3.30%--g_mutex_unlock
+            |          
+            |--2.83%--g_main_context_check
+            |          |          
+            |          |--1.42%--0x7106de4cca55
+            |          |          0x7106de4c9504
+            |          |          g_source_ref
+            |          |          
+            |           --1.37%--0x7106de4ccbdd
+            |                     __clock_gettime (inlined)
+            |                     0x7106dece4a09
+            |          
+            |--1.19%--0x63568169e307
+            |          
+             --0.53%--___pthread_mutex_lock (inlined)
+
+     7.95%     0.00%             0  [.] 0x00006356816ec4c1
+            |
+            ---get_page_addr_code_hostp
+               |          
+               |--4.96%--0x6356816fba0b
+               |          |          
+               |          |--3.76%--0x6356816fb84f
+               |          |          tlb_set_page_full
+               |          |          address_space_translate_for_iotlb
+               |          |          
+               |           --1.20%--0x6356816fb797
+               |                     arm_cpu_tlb_fill_align
+               |                     get_phys_addr
+               |                     0x6356817319e8
+               |                     aa64_va_parameters
+               |          
+               |--1.54%--0x6356816fb8d9
+               |          
+                --1.45%--qemu_ram_block_from_host
+
+     7.95%     0.00%             0  [.] get_page_addr_code_hostp
+            |          
+            |--4.96%--0x6356816fba0b
+            |          |          
+            |          |--3.76%--0x6356816fb84f
+            |          |          tlb_set_page_full
+            |          |          address_space_translate_for_iotlb
+            |          |          
+            |           --1.20%--0x6356816fb797
+            |                     arm_cpu_tlb_fill_align
+            |                     get_phys_addr
+            |                     0x6356817319e8
+            |                     aa64_va_parameters
+            |          
+            |--1.54%--0x6356816fb8d9
+            |          
+             --1.45%--qemu_ram_block_from_host
+
+     6.44%     5.15%             2  [.] helper_access_check_cp_reg
+            |          
+            |--5.15%--0
+            |          |          
+            |          |--4.03%--helper_access_check_cp_reg
+            |          |          
+            |           --1.12%--0x71068abf3e60
+            |                     helper_access_check_cp_reg
+            |          
+             --1.29%--helper_access_check_cp_reg
+                       asm_sysvec_apic_timer_interrupt
+                       sysvec_apic_timer_interrupt
+                       irq_exit_rcu
+                       __irq_exit_rcu
+                       handle_softirqs
+                       sched_balance_softirq
+                       sched_balance_domains
+                       sched_balance_rq
+
+     5.46%     0.00%             0  [.] __clone3 (inlined)
+            |
+            ---start_thread
+               |          
+                --5.42%--0x635681c85baa
+                          |          
+                          |--4.08%--0x63568170e47f
+                          |          cpu_exec
+                          |          |          
+                          |           --4.07%--0x6356816fe163
+                          |                     |          
+                          |                     |--1.63%--0x6356816fdc35
+                          |                     |          tb_gen_code
+                          |                     |          tcg_tb_insert
+                          |                     |          0x6356816b85de
+                          |                     |          
+                          |                     |--1.24%--arm_get_tb_cpu_state
+                          |                     |          
+                          |                      --1.20%--0x6356816fdac0
+                          |                                0x6356816ec4c1
+                          |                                get_page_addr_code_hostp
+                          |                                0x6356816fba0b
+                          |                                0x6356816fb797
+                          |                                arm_cpu_tlb_fill_align
+                          |                                get_phys_addr
+                          |                                0x6356817319e8
+                          |                                aa64_va_parameters
+                          |          
+                           --1.32%--0x63568170e3a8
+                                     |          
+                                      --1.32%--cpu_thread_is_idle
+
+     5.46%     0.00%             0  [.] start_thread
+            |          
+             --5.42%--0x635681c85baa
+                       |          
+                       |--4.08%--0x63568170e47f
+                       |          cpu_exec
+                       |          |          
+                       |           --4.07%--0x6356816fe163
+                       |                     |          
+                       |                     |--1.63%--0x6356816fdc35
+                       |                     |          tb_gen_code
+                       |                     |          tcg_tb_insert
+                       |                     |          0x6356816b85de
+                       |                     |          
+                       |                     |--1.24%--arm_get_tb_cpu_state
+                       |                     |          
+                       |                      --1.20%--0x6356816fdac0
+                       |                                0x6356816ec4c1
+                       |                                get_page_addr_code_hostp
+                       |                                0x6356816fba0b
+                       |                                0x6356816fb797
+                       |                                arm_cpu_tlb_fill_align
+                       |                                get_phys_addr
+                       |                                0x6356817319e8
+                       |                                aa64_va_parameters
+                       |          
+                        --1.32%--0x63568170e3a8
+                                  |          
+                                   --1.32%--cpu_thread_is_idle
+
+     5.45%     0.00%             0  [.] qemu_clock_run_all_timers
+            |
+            ---0x635681cb4326
+               0x635681718a91
+               |          
+               |--2.64%--0x635681710980
+               |          
+               |--1.44%--0x635681415310
+               |          
+                --1.37%--0x63568141562c
+                          qemu_cpu_kick
+                          ___pthread_cond_broadcast (inlined)
+                          futex_wake (inlined)
+                          entry_SYSCALL_64_after_hwframe
+                          do_syscall_64
+                          x64_sys_call
+                          __x64_sys_futex
+                          do_futex
+                          futex_wake
+                          wake_up_q
+                          try_to_wake_up
+                          ttwu_do_activate
+                          enqueue_task
+                          enqueue_task_fair
+                          enqueue_entity
+                          update_curr
+                          update_se
+                          __cgroup_account_cputime
+
+     5.45%     0.00%             0  [.] 0x0000635681cb4326
+            |
+            ---0x635681718a91
+               |          
+               |--2.64%--0x635681710980
+               |          
+               |--1.44%--0x635681415310
+               |          
+                --1.37%--0x63568141562c
+                          qemu_cpu_kick
+                          ___pthread_cond_broadcast (inlined)
+                          futex_wake (inlined)
+                          entry_SYSCALL_64_after_hwframe
+                          do_syscall_64
+                          x64_sys_call
+                          __x64_sys_futex
+                          do_futex
+                          futex_wake
+                          wake_up_q
+                          try_to_wake_up
+                          ttwu_do_activate
+                          enqueue_task
+                          enqueue_task_fair
+                          enqueue_entity
+                          update_curr
+                          update_se
+                          __cgroup_account_cputime
+
+     5.45%     0.00%             0  [.] 0x0000635681718a91
+            |          
+            |--2.64%--0x635681710980
+            |          
+            |--1.44%--0x635681415310
+            |          
+             --1.37%--0x63568141562c
+                       qemu_cpu_kick
+                       ___pthread_cond_broadcast (inlined)
+                       futex_wake (inlined)
+                       entry_SYSCALL_64_after_hwframe
+                       do_syscall_64
+                       x64_sys_call
+                       __x64_sys_futex
+                       do_futex
+                       futex_wake
+                       wake_up_q
+                       try_to_wake_up
+                       ttwu_do_activate
+                       enqueue_task
+                       enqueue_task_fair
+                       enqueue_entity
+                       update_curr
+                       update_se
+                       __cgroup_account_cputime
+
+     5.42%     0.00%             0  [.] 0x0000635681c85baa
+            |          
+            |--4.08%--0x63568170e47f
+            |          cpu_exec
+            |          |          
+            |           --4.07%--0x6356816fe163
+            |                     |          
+            |                     |--1.63%--0x6356816fdc35
+            |                     |          tb_gen_code
+            |                     |          tcg_tb_insert
+            |                     |          0x6356816b85de
+            |                     |          
+            |                     |--1.24%--arm_get_tb_cpu_state
+            |                     |          
+            |                      --1.20%--0x6356816fdac0
+            |                                0x6356816ec4c1
+            |                                get_page_addr_code_hostp
+            |                                0x6356816fba0b
+            |                                0x6356816fb797
+            |                                arm_cpu_tlb_fill_align
+            |                                get_phys_addr
+            |                                0x6356817319e8
+            |                                aa64_va_parameters
+            |          
+             --1.32%--0x63568170e3a8
+                       |          
+                        --1.32%--cpu_thread_is_idle
+
+     4.96%     0.00%             0  [.] 0x00006356816fba0b
+            |          
+            |--3.76%--0x6356816fb84f
+            |          tlb_set_page_full
+            |          address_space_translate_for_iotlb
+            |          
+             --1.20%--0x6356816fb797
+                       arm_cpu_tlb_fill_align
+                       get_phys_addr
+                       0x6356817319e8
+                       aa64_va_parameters
+
+     4.08%     0.00%             0  [.] 0x000063568170e47f
+            |
+            ---cpu_exec
+               |          
+                --4.07%--0x6356816fe163
+                          |          
+                          |--1.63%--0x6356816fdc35
+                          |          tb_gen_code
+                          |          tcg_tb_insert
+                          |          0x6356816b85de
+                          |          
+                          |--1.24%--arm_get_tb_cpu_state
+                          |          
+                           --1.20%--0x6356816fdac0
+                                     0x6356816ec4c1
+                                     get_page_addr_code_hostp
+                                     0x6356816fba0b
+                                     0x6356816fb797
+                                     arm_cpu_tlb_fill_align
+                                     get_phys_addr
+                                     0x6356817319e8
+                                     aa64_va_parameters
+
+     4.08%     0.01%             1  [.] cpu_exec
+            |          
+             --4.07%--cpu_exec
+                       0x6356816fe163
+                       |          
+                       |--1.63%--0x6356816fdc35
+                       |          tb_gen_code
+                       |          tcg_tb_insert
+                       |          0x6356816b85de
+                       |          
+                       |--1.24%--arm_get_tb_cpu_state
+                       |          
+                        --1.20%--0x6356816fdac0
+                                  0x6356816ec4c1
+                                  get_page_addr_code_hostp
+                                  0x6356816fba0b
+                                  0x6356816fb797
+                                  arm_cpu_tlb_fill_align
+                                  get_phys_addr
+                                  0x6356817319e8
+                                  aa64_va_parameters
+
+     4.07%     0.00%             0  [.] 0x00006356816fe163
+            |          
+            |--1.63%--0x6356816fdc35
+            |          tb_gen_code
+            |          tcg_tb_insert
+            |          0x6356816b85de
+            |          
+            |--1.24%--arm_get_tb_cpu_state
+            |          
+             --1.20%--0x6356816fdac0
+                       0x6356816ec4c1
+                       get_page_addr_code_hostp
+                       0x6356816fba0b
+                       0x6356816fb797
+                       arm_cpu_tlb_fill_align
+                       get_phys_addr
+                       0x6356817319e8
+                       aa64_va_parameters
+
+     3.76%     3.76%             1  [.] address_space_translate_for_iotlb
+            |
+            ---0x71068aba20d6
+               helper_lookup_tb_ptr
+               0x6356816ec4c1
+               get_page_addr_code_hostp
+               0x6356816fba0b
+               0x6356816fb84f
+               tlb_set_page_full
+               address_space_translate_for_iotlb
+
+     3.76%     0.00%             0  [.] 0x000071068aba20d6
+            |
+            ---helper_lookup_tb_ptr
+               0x6356816ec4c1
+               get_page_addr_code_hostp
+               0x6356816fba0b
+               0x6356816fb84f
+               tlb_set_page_full
+               address_space_translate_for_iotlb
+
+     3.76%     0.00%             0  [.] 0x00006356816fb84f
+            |
+            ---tlb_set_page_full
+               address_space_translate_for_iotlb
+
+     3.76%     0.00%             0  [.] tlb_set_page_full
+            |
+            ---address_space_translate_for_iotlb
+
+     3.43%     1.22%             1  [.] g_tree_lookup
+            |          
+            |--2.21%--g_tree_lookup
+            |          0x7106de505abc
+            |          
+             --1.22%--0
+                       0x71068979c9cc
+                       helper_ldul_mmu
+                       0x6356816ff6e2
+                       0x6356816feb30
+                       cpu_io_recompile
+                       g_tree_lookup
+
+     3.43%     0.00%             0  [.] cpu_io_recompile
+            |          
+            |--2.21%--tcg_tb_lookup
+            |          g_tree_lookup
+            |          0x7106de505abc
+            |          
+             --1.22%--g_tree_lookup
+
+     3.30%     3.30%             1  [.] g_mutex_unlock
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               g_mutex_unlock
+
+     3.21%     0.00%             0  [.] 0x000063568170148a
+            |          
+            |--2.21%--0x6356817002e0
+            |          cpu_io_recompile
+            |          tcg_tb_lookup
+            |          g_tree_lookup
+            |          0x7106de505abc
+            |          
+             --1.01%--0x635681700286
+                       0x63568170012f
+                       memory_region_dispatch_write
+                       0x6356816125a9
+                       0x6356814189b5
+                       0x63568141887a
+
+     3.12%     0.00%             0  [.] helper_ldul_mmu
+            |
+            ---0x6356816ff6e2
+               |          
+               |--1.90%--0x6356816fead6
+               |          0x6356816fe962
+               |          memory_region_dispatch_read
+               |          0x6356816125a9
+               |          0x635681611d4f
+               |          0x635681417d76
+               |          0x635681417a33
+               |          gic_acknowledge_irq
+               |          0x635681415390
+               |          
+                --1.22%--0x6356816feb30
+                          cpu_io_recompile
+                          g_tree_lookup
+
+     3.12%     0.00%             0  [.] 0x00006356816ff6e2
+            |          
+            |--1.90%--0x6356816fead6
+            |          0x6356816fe962
+            |          memory_region_dispatch_read
+            |          0x6356816125a9
+            |          0x635681611d4f
+            |          0x635681417d76
+            |          0x635681417a33
+            |          gic_acknowledge_irq
+            |          0x635681415390
+            |          
+             --1.22%--0x6356816feb30
+                       cpu_io_recompile
+                       g_tree_lookup
+
+     2.97%     2.97%             2  [.] qht_lookup_custom
+            |          
+            |--1.63%--0x7106971db2e5
+            |          helper_lookup_tb_ptr
+            |          0x6356816ec5aa
+            |          qht_lookup_custom
+            |          
+             --1.34%--0x71068a826e80
+                       helper_lookup_tb_ptr
+                       0x6356816ec5aa
+                       qht_lookup_custom
+
+     2.97%     0.00%             0  [.] 0x00006356816ec5aa
+            |
+            ---qht_lookup_custom
+
+     2.91%     0.00%             0  [.] 0x00006356816125a9
+            |          
+            |--1.90%--0x635681611d4f
+            |          0x635681417d76
+            |          0x635681417a33
+            |          gic_acknowledge_irq
+            |          0x635681415390
+            |          
+             --1.01%--0x6356814189b5
+                       0x63568141887a
+
+     2.83%     0.00%             0  [.] g_main_context_check
+            |          
+            |--1.42%--0x7106de4cca55
+            |          0x7106de4c9504
+            |          g_source_ref
+            |          
+             --1.37%--0x7106de4ccbdd
+                       __clock_gettime (inlined)
+                       0x7106dece4a09
+
+     2.80%     0.00%             0  [.] entry_SYSCALL_64_after_hwframe
+            |
+            ---do_syscall_64
+               |          
+                --2.79%--x64_sys_call
+                          |          
+                          |--1.40%--__x64_sys_write
+                          |          ksys_write
+                          |          vfs_write
+                          |          rw_verify_area
+                          |          security_file_permission
+                          |          apparmor_file_permission
+                          |          begin_current_label_crit_section
+                          |          
+                           --1.37%--__x64_sys_futex
+                                     do_futex
+                                     futex_wake
+                                     wake_up_q
+                                     try_to_wake_up
+                                     ttwu_do_activate
+                                     enqueue_task
+                                     enqueue_task_fair
+                                     enqueue_entity
+                                     update_curr
+                                     update_se
+                                     __cgroup_account_cputime
+
+     2.80%     0.00%             0  [.] do_syscall_64
+            |          
+             --2.79%--x64_sys_call
+                       |          
+                       |--1.40%--__x64_sys_write
+                       |          ksys_write
+                       |          vfs_write
+                       |          rw_verify_area
+                       |          security_file_permission
+                       |          apparmor_file_permission
+                       |          begin_current_label_crit_section
+                       |          
+                        --1.37%--__x64_sys_futex
+                                  do_futex
+                                  futex_wake
+                                  wake_up_q
+                                  try_to_wake_up
+                                  ttwu_do_activate
+                                  enqueue_task
+                                  enqueue_task_fair
+                                  enqueue_entity
+                                  update_curr
+                                  update_se
+                                  __cgroup_account_cputime
+
+     2.79%     0.01%             1  [.] x64_sys_call
+            |          
+             --2.79%--x64_sys_call
+                       |          
+                       |--1.40%--__x64_sys_write
+                       |          ksys_write
+                       |          vfs_write
+                       |          rw_verify_area
+                       |          security_file_permission
+                       |          apparmor_file_permission
+                       |          begin_current_label_crit_section
+                       |          
+                        --1.37%--__x64_sys_futex
+                                  do_futex
+                                  futex_wake
+                                  wake_up_q
+                                  try_to_wake_up
+                                  ttwu_do_activate
+                                  enqueue_task
+                                  enqueue_task_fair
+                                  enqueue_entity
+                                  update_curr
+                                  update_se
+                                  __cgroup_account_cputime
+
+     2.67%     0.00%             0  [.] try_to_wake_up
+            |
+            ---ttwu_do_activate
+               enqueue_task
+               |          
+               |--1.37%--enqueue_task_fair
+               |          enqueue_entity
+               |          update_curr
+               |          update_se
+               |          __cgroup_account_cputime
+               |          
+                --1.30%--psi_task_change
+
+     2.67%     0.00%             0  [.] ttwu_do_activate
+            |
+            ---enqueue_task
+               |          
+               |--1.37%--enqueue_task_fair
+               |          enqueue_entity
+               |          update_curr
+               |          update_se
+               |          __cgroup_account_cputime
+               |          
+                --1.30%--psi_task_change
+
+     2.67%     0.00%             0  [.] enqueue_task
+            |          
+            |--1.37%--enqueue_task_fair
+            |          enqueue_entity
+            |          update_curr
+            |          update_se
+            |          __cgroup_account_cputime
+            |          
+             --1.30%--psi_task_change
+
+     2.64%     2.64%             1  [.] 0x00000000009f5980
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               qemu_clock_run_all_timers
+               0x635681cb4326
+               0x635681718a91
+               0x635681710980
+
+     2.64%     0.00%             0  [.] 0x0000635681710980
+     2.59%     0.00%             0  [.] asm_sysvec_apic_timer_interrupt
+            |
+            ---sysvec_apic_timer_interrupt
+               |          
+               |--1.30%--__sysvec_apic_timer_interrupt
+               |          hrtimer_interrupt
+               |          __hrtimer_run_queues
+               |          hrtimer_wakeup
+               |          wake_up_process
+               |          try_to_wake_up
+               |          ttwu_do_activate
+               |          enqueue_task
+               |          psi_task_change
+               |          
+                --1.29%--irq_exit_rcu
+                          __irq_exit_rcu
+                          handle_softirqs
+                          sched_balance_softirq
+                          sched_balance_domains
+                          sched_balance_rq
+
+     2.59%     0.00%             0  [.] sysvec_apic_timer_interrupt
+            |          
+            |--1.30%--__sysvec_apic_timer_interrupt
+            |          hrtimer_interrupt
+            |          __hrtimer_run_queues
+            |          hrtimer_wakeup
+            |          wake_up_process
+            |          try_to_wake_up
+            |          ttwu_do_activate
+            |          enqueue_task
+            |          psi_task_change
+            |          
+             --1.29%--irq_exit_rcu
+                       __irq_exit_rcu
+                       handle_softirqs
+                       sched_balance_softirq
+                       sched_balance_domains
+                       sched_balance_rq
+
+     2.51%     2.51%             1  [.] 0x000071069239d020
+            |
+            ---0x71069239d020
+
+     2.21%     2.21%             1  [.] 0x000000000009aabc
+            |
+            ---0x7106897cc1bf
+               0x63568170148a
+               0x6356817002e0
+               cpu_io_recompile
+               tcg_tb_lookup
+               g_tree_lookup
+               0x7106de505abc
+
+     2.21%     0.00%             0  [.] 0x00007106897cc1bf
+            |
+            ---0x63568170148a
+               0x6356817002e0
+               cpu_io_recompile
+               tcg_tb_lookup
+               g_tree_lookup
+               0x7106de505abc
+
+     2.21%     0.00%             0  [.] 0x00006356817002e0
+            |
+            ---cpu_io_recompile
+               tcg_tb_lookup
+               g_tree_lookup
+               0x7106de505abc
+
+     2.21%     0.00%             0  [.] tcg_tb_lookup
+            |
+            ---g_tree_lookup
+               0x7106de505abc
+
+     2.21%     0.00%             0  [.] 0x00007106de505abc
+     1.90%     1.90%             1  [.] 0x00000000006fa390
+            |
+            ---0x71068979cb34
+               helper_ldul_mmu
+               0x6356816ff6e2
+               0x6356816fead6
+               0x6356816fe962
+               memory_region_dispatch_read
+               0x6356816125a9
+               0x635681611d4f
+               0x635681417d76
+               0x635681417a33
+               gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] 0x000071068979cb34
+            |
+            ---helper_ldul_mmu
+               0x6356816ff6e2
+               0x6356816fead6
+               0x6356816fe962
+               memory_region_dispatch_read
+               0x6356816125a9
+               0x635681611d4f
+               0x635681417d76
+               0x635681417a33
+               gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] 0x00006356816fead6
+            |
+            ---0x6356816fe962
+               memory_region_dispatch_read
+               0x6356816125a9
+               0x635681611d4f
+               0x635681417d76
+               0x635681417a33
+               gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] 0x00006356816fe962
+            |
+            ---memory_region_dispatch_read
+               0x6356816125a9
+               0x635681611d4f
+               0x635681417d76
+               0x635681417a33
+               gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] memory_region_dispatch_read
+            |
+            ---0x6356816125a9
+               0x635681611d4f
+               0x635681417d76
+               0x635681417a33
+               gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] 0x0000635681611d4f
+            |
+            ---0x635681417d76
+               0x635681417a33
+               gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] 0x0000635681417d76
+            |
+            ---0x635681417a33
+               gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] 0x0000635681417a33
+            |
+            ---gic_acknowledge_irq
+               0x635681415390
+
+     1.90%     0.00%             0  [.] gic_acknowledge_irq
+            |
+            ---0x635681415390
+
+     1.90%     0.00%             0  [.] 0x0000635681415390
+     1.86%     1.86%             1  [.] 0x0000710693362e00
+            |
+            ---0x710693362e00
+
+     1.80%     1.80%             1  [.] 0x000071068978c38a
+            |
+            ---0x71068978c38a
+
+     1.78%     1.78%             1  [.] 0x00007106898de2c2
+            |
+            ---0x7106898de2c2
+
+     1.70%     1.70%             1  [.] helper_ldq_mmu
+            |
+            ---helper_ldq_mmu
+
+     1.70%     1.70%             1  [.] 0x000071068978ec83
+            |
+            ---0x71068978ec83
+
+     1.63%     0.00%             0  [.] 0x00007106971db2e5
+            |
+            ---helper_lookup_tb_ptr
+               0x6356816ec5aa
+               qht_lookup_custom
+
+     1.63%     1.63%             1  [.] 0x000000000099d5de
+            |
+            ---start_thread
+               0x635681c85baa
+               0x63568170e47f
+               cpu_exec
+               0x6356816fe163
+               0x6356816fdc35
+               tb_gen_code
+               tcg_tb_insert
+               0x6356816b85de
+
+     1.63%     0.00%             0  [.] 0x00006356816fdc35
+            |
+            ---tb_gen_code
+               tcg_tb_insert
+               0x6356816b85de
+
+     1.63%     0.00%             0  [.] tb_gen_code
+            |
+            ---tcg_tb_insert
+               0x6356816b85de
+
+     1.63%     0.00%             0  [.] tcg_tb_insert
+            |
+            ---0x6356816b85de
+
+     1.63%     0.00%             0  [.] 0x00006356816b85de
+     1.54%     1.54%             1  [.] 0x00000000009e08d9
+            |
+            ---0x7106898a503b
+               helper_lookup_tb_ptr
+               0x6356816ec4c1
+               get_page_addr_code_hostp
+               0x6356816fb8d9
+
+     1.54%     0.00%             0  [.] 0x00007106898a503b
+            |
+            ---helper_lookup_tb_ptr
+               0x6356816ec4c1
+               get_page_addr_code_hostp
+               0x6356816fb8d9
+
+     1.54%     1.54%             1  [.] 0x0000710689761680
+            |
+            ---0x710689761680
+
+     1.54%     1.54%             1  [.] 0x0000710694945c05
+            |
+            ---0x710694945c05
+
+     1.54%     0.00%             0  [.] 0x00006356816fb8d9
+     1.47%     0.00%             0  [.] 0x00007106899da6e0
+            |
+            ---helper_lookup_tb_ptr
+
+     1.45%     1.45%             1  [.] qemu_ram_block_from_host
+            |
+            ---0x710692f18787
+               helper_lookup_tb_ptr
+               0x6356816ec4c1
+               get_page_addr_code_hostp
+               qemu_ram_block_from_host
+
+     1.45%     0.00%             0  [.] 0x0000710692f18787
+            |
+            ---helper_lookup_tb_ptr
+               0x6356816ec4c1
+               get_page_addr_code_hostp
+               qemu_ram_block_from_host
+
+     1.44%     1.44%             1  [.] 0x00000000006fa310
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               qemu_clock_run_all_timers
+               0x635681cb4326
+               0x635681718a91
+               0x635681415310
+
+     1.44%     0.00%             0  [.] 0x0000635681415310
+     1.43%     0.00%             0  [.] __syscall_cancel_arch (inlined)
+            |
+            ---entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               |          
+                --1.42%--x64_sys_call
+                          |          
+                           --1.40%--__x64_sys_write
+                                     ksys_write
+                                     vfs_write
+                                     rw_verify_area
+                                     security_file_permission
+                                     apparmor_file_permission
+                                     begin_current_label_crit_section
+
+     1.42%     1.42%             1  [.] 0x0000710689782a7c
+            |
+            ---0x710689782a7c
+
+     1.42%     1.42%             1  [.] g_source_ref
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               g_main_context_check
+               0x7106de4cca55
+               0x7106de4c9504
+               g_source_ref
+
+     1.42%     0.00%             0  [.] 0x00007106de4cca55
+            |
+            ---0x7106de4c9504
+               g_source_ref
+
+     1.42%     0.00%             0  [.] 0x00007106de4c9504
+            |
+            ---g_source_ref
+
+     1.41%     1.41%             1  [.] 0x00007106935369cf
+            |
+            ---0x7106935369cf
+
+     1.40%     1.40%             1  [k] begin_current_label_crit_section
+            |
+            ---0x7106897cac0f
+               helper_set_cp_reg64
+               0x635681721999
+               0x635681c9d27e
+               event_notifier_set
+               __libc_write (inlined)
+               __syscall_cancel_arch (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_write
+               ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] 0x00007106897cac0f
+            |
+            ---helper_set_cp_reg64
+               0x635681721999
+               0x635681c9d27e
+               event_notifier_set
+               __libc_write (inlined)
+               __syscall_cancel_arch (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_write
+               ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] helper_set_cp_reg64
+            |
+            ---0x635681721999
+               0x635681c9d27e
+               event_notifier_set
+               __libc_write (inlined)
+               __syscall_cancel_arch (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_write
+               ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] 0x0000635681721999
+            |
+            ---0x635681c9d27e
+               event_notifier_set
+               __libc_write (inlined)
+               __syscall_cancel_arch (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_write
+               ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] 0x0000635681c9d27e
+            |
+            ---event_notifier_set
+               __libc_write (inlined)
+               __syscall_cancel_arch (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_write
+               ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] event_notifier_set
+            |
+            ---__libc_write (inlined)
+               __syscall_cancel_arch (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_write
+               ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] __libc_write (inlined)
+            |
+            ---__syscall_cancel_arch (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_write
+               ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] __x64_sys_write
+            |
+            ---ksys_write
+               vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] ksys_write
+            |
+            ---vfs_write
+               rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] vfs_write
+            |
+            ---rw_verify_area
+               security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] rw_verify_area
+            |
+            ---security_file_permission
+               apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] security_file_permission
+            |
+            ---apparmor_file_permission
+               begin_current_label_crit_section
+
+     1.40%     0.00%             0  [.] apparmor_file_permission
+            |
+            ---begin_current_label_crit_section
+
+     1.37%     1.37%             1  [k] __cgroup_account_cputime
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               qemu_clock_run_all_timers
+               0x635681cb4326
+               0x635681718a91
+               0x63568141562c
+               qemu_cpu_kick
+               ___pthread_cond_broadcast (inlined)
+               futex_wake (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_futex
+               do_futex
+               futex_wake
+               wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] 0x000063568141562c
+            |
+            ---qemu_cpu_kick
+               ___pthread_cond_broadcast (inlined)
+               futex_wake (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_futex
+               do_futex
+               futex_wake
+               wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] qemu_cpu_kick
+            |
+            ---___pthread_cond_broadcast (inlined)
+               futex_wake (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_futex
+               do_futex
+               futex_wake
+               wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] ___pthread_cond_broadcast (inlined)
+            |
+            ---futex_wake (inlined)
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_futex
+               do_futex
+               futex_wake
+               wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] futex_wake (inlined)
+            |
+            ---entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               x64_sys_call
+               __x64_sys_futex
+               do_futex
+               futex_wake
+               wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     1.37%             1  [.] 0x0000000000000a09
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               g_main_context_check
+               0x7106de4ccbdd
+               __clock_gettime (inlined)
+               0x7106dece4a09
+
+     1.37%     0.00%             0  [.] __x64_sys_futex
+            |
+            ---do_futex
+               futex_wake
+               wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] do_futex
+            |
+            ---futex_wake
+               wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] futex_wake
+            |
+            ---wake_up_q
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] wake_up_q
+            |
+            ---try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               enqueue_task_fair
+               enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] enqueue_task_fair
+            |
+            ---enqueue_entity
+               update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] enqueue_entity
+            |
+            ---update_curr
+               update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] update_curr
+            |
+            ---update_se
+               __cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] 0x00007106de4ccbdd
+            |
+            ---__clock_gettime (inlined)
+               0x7106dece4a09
+
+     1.37%     0.00%             0  [.] __clock_gettime (inlined)
+            |
+            ---0x7106dece4a09
+
+     1.37%     0.00%             0  [.] update_se
+            |
+            ---__cgroup_account_cputime
+
+     1.37%     0.00%             0  [.] 0x00007106dece4a09
+     1.34%     0.00%             0  [.] 0x000071068a826e80
+            |
+            ---helper_lookup_tb_ptr
+               0x6356816ec5aa
+               qht_lookup_custom
+
+     1.33%     1.33%             1  [.] 0x0000710692dcd680
+            |
+            ---0x710692dcd680
+
+     1.32%     0.00%             0  [.] 0x000063568170e3a8
+            |          
+             --1.32%--cpu_thread_is_idle
+
+     1.32%     1.32%             1  [.] cpu_thread_is_idle
+            |
+            ---start_thread
+               0x635681c85baa
+               0x63568170e3a8
+               cpu_thread_is_idle
+
+     1.31%     0.00%             0  [.] 0x00007106898a89d2
+            |
+            ---helper_lookup_tb_ptr
+
+     1.30%     1.30%             1  [.] 0x000071068dfeb6e8
+            |
+            ---0x71068dfeb6e8
+
+     1.30%     1.30%             1  [k] psi_task_change
+            |
+            ---0x71068af23346
+               0x6356816feebd
+               0x6356816fecf2
+               asm_sysvec_apic_timer_interrupt
+               sysvec_apic_timer_interrupt
+               __sysvec_apic_timer_interrupt
+               hrtimer_interrupt
+               __hrtimer_run_queues
+               hrtimer_wakeup
+               wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] 0x000071068af23346
+            |
+            ---0x6356816feebd
+               0x6356816fecf2
+               asm_sysvec_apic_timer_interrupt
+               sysvec_apic_timer_interrupt
+               __sysvec_apic_timer_interrupt
+               hrtimer_interrupt
+               __hrtimer_run_queues
+               hrtimer_wakeup
+               wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] 0x00006356816feebd
+            |
+            ---0x6356816fecf2
+               asm_sysvec_apic_timer_interrupt
+               sysvec_apic_timer_interrupt
+               __sysvec_apic_timer_interrupt
+               hrtimer_interrupt
+               __hrtimer_run_queues
+               hrtimer_wakeup
+               wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] 0x00006356816fecf2
+            |
+            ---asm_sysvec_apic_timer_interrupt
+               sysvec_apic_timer_interrupt
+               __sysvec_apic_timer_interrupt
+               hrtimer_interrupt
+               __hrtimer_run_queues
+               hrtimer_wakeup
+               wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] __sysvec_apic_timer_interrupt
+            |
+            ---hrtimer_interrupt
+               __hrtimer_run_queues
+               hrtimer_wakeup
+               wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] hrtimer_interrupt
+            |
+            ---__hrtimer_run_queues
+               hrtimer_wakeup
+               wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] __hrtimer_run_queues
+            |
+            ---hrtimer_wakeup
+               wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] hrtimer_wakeup
+            |
+            ---wake_up_process
+               try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.30%     0.00%             0  [.] wake_up_process
+            |
+            ---try_to_wake_up
+               ttwu_do_activate
+               enqueue_task
+               psi_task_change
+
+     1.29%     1.29%             1  [k] sched_balance_rq
+            |
+            ---helper_access_check_cp_reg
+               asm_sysvec_apic_timer_interrupt
+               sysvec_apic_timer_interrupt
+               irq_exit_rcu
+               __irq_exit_rcu
+               handle_softirqs
+               sched_balance_softirq
+               sched_balance_domains
+               sched_balance_rq
+
+     1.29%     0.00%             0  [.] irq_exit_rcu
+            |
+            ---__irq_exit_rcu
+               handle_softirqs
+               sched_balance_softirq
+               sched_balance_domains
+               sched_balance_rq
+
+     1.29%     0.00%             0  [.] __irq_exit_rcu
+            |
+            ---handle_softirqs
+               sched_balance_softirq
+               sched_balance_domains
+               sched_balance_rq
+
+     1.29%     0.00%             0  [.] handle_softirqs
+            |
+            ---sched_balance_softirq
+               sched_balance_domains
+               sched_balance_rq
+
+     1.29%     0.00%             0  [.] sched_balance_softirq
+            |
+            ---sched_balance_domains
+               sched_balance_rq
+
+     1.29%     0.00%             0  [.] sched_balance_domains
+            |
+            ---sched_balance_rq
+
+     1.27%     1.27%             1  [.] replay_mutex_lock
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               replay_mutex_lock
+
+     1.25%     1.25%             1  [.] 0x000071068aedb780
+            |
+            ---0x71068aedb780
+
+     1.25%     1.25%             1  [.] 0x000071069237bd76
+            |
+            ---0x71069237bd76
+
+     1.24%     1.24%             1  [.] arm_get_tb_cpu_state
+            |
+            ---start_thread
+               0x635681c85baa
+               0x63568170e47f
+               cpu_exec
+               0x6356816fe163
+               arm_get_tb_cpu_state
+
+     1.22%     1.22%             1  [.] 0x00007106897bf69c
+            |
+            ---0x7106897bf69c
+
+     1.22%     1.22%             1  [.] 0x00007106897feb8c
+            |
+            ---0x7106897feb8c
+
+     1.22%     1.22%             1  [.] 0x000071068d088071
+            |
+            ---0x71068d088071
+
+     1.22%     0.00%             0  [.] 0x000071068979c9cc
+            |
+            ---helper_ldul_mmu
+               0x6356816ff6e2
+               0x6356816feb30
+               cpu_io_recompile
+               g_tree_lookup
+
+     1.22%     0.00%             0  [.] 0x00006356816feb30
+            |
+            ---cpu_io_recompile
+               g_tree_lookup
+
+     1.21%     1.21%             1  [.] helper_msr_i_daifset
+            |
+            ---helper_msr_i_daifset
+
+     1.21%     1.21%             1  [.] 0x000071068982bad2
+            |
+            ---0x71068982bad2
+
+     1.21%     0.00%             0  [.] 0x00007106897b4dc1
+            |
+            ---helper_lookup_tb_ptr
+
+     1.20%     1.20%             1  [.] aa64_va_parameters
+            |
+            ---start_thread
+               0x635681c85baa
+               0x63568170e47f
+               cpu_exec
+               0x6356816fe163
+               0x6356816fdac0
+               0x6356816ec4c1
+               get_page_addr_code_hostp
+               0x6356816fba0b
+               0x6356816fb797
+               arm_cpu_tlb_fill_align
+               get_phys_addr
+               0x6356817319e8
+               aa64_va_parameters
+
+     1.20%     0.00%             0  [.] 0x00006356816fdac0
+            |
+            ---0x6356816ec4c1
+               get_page_addr_code_hostp
+               0x6356816fba0b
+               0x6356816fb797
+               arm_cpu_tlb_fill_align
+               get_phys_addr
+               0x6356817319e8
+               aa64_va_parameters
+
+     1.20%     0.00%             0  [.] 0x00006356816fb797
+            |
+            ---arm_cpu_tlb_fill_align
+               get_phys_addr
+               0x6356817319e8
+               aa64_va_parameters
+
+     1.20%     0.00%             0  [.] arm_cpu_tlb_fill_align
+            |
+            ---get_phys_addr
+               0x6356817319e8
+               aa64_va_parameters
+
+     1.20%     0.00%             0  [.] get_phys_addr
+            |
+            ---0x6356817319e8
+               aa64_va_parameters
+
+     1.20%     0.00%             0  [.] 0x00006356817319e8
+            |
+            ---aa64_va_parameters
+
+     1.20%     1.20%             1  [.] 0x0000710689d5d74a
+            |
+            ---0x710689d5d74a
+
+     1.20%     0.00%             0  [.] 0x00007106898a1fa2
+            |
+            ---helper_lookup_tb_ptr
+
+     1.19%     1.19%             1  [.] 0x0000000000983307
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               0x63568169e307
+
+     1.19%     0.00%             0  [.] 0x000063568169e307
+     1.19%     1.19%             1  [.] helper_rbit
+            |
+            ---helper_rbit
+
+     1.19%     1.19%             1  [.] 0x0000710689d5ba8c
+            |
+            ---0x710689d5ba8c
+
+     1.19%     1.19%             1  [.] 0x0000710689786380
+            |
+            ---0x710689786380
+
+     1.19%     1.19%             1  [.] 0x000071068a7dc5c0
+            |
+            ---0x71068a7dc5c0
+
+     1.19%     1.19%             1  [.] 0x000071068976abc8
+            |
+            ---0x71068976abc8
+
+     1.18%     1.18%             1  [.] 0x00007106898a1dc5
+            |
+            ---0x7106898a1dc5
+
+     1.18%     1.18%             1  [.] 0x000071068985dfcf
+            |
+            ---0x71068985dfcf
+
+     1.16%     0.00%             0  [.] 0x00007106898dae01
+            |
+            ---helper_lookup_tb_ptr
+
+     1.14%     1.14%             1  [.] 0x000071068977c07e
+            |
+            ---0x71068977c07e
+
+     1.12%     1.12%             1  [.] 0x000071068d8e8183
+            |
+            ---0x71068d8e8183
+
+     1.12%     0.00%             0  [.] 0x000071068abf3e60
+            |
+            ---helper_access_check_cp_reg
+
+     1.11%     1.11%             1  [.] 0x00007106897cc0f5
+            |
+            ---0x7106897cc0f5
+
+     1.11%     1.11%             1  [.] 0x000071068a469c0a
+            |
+            ---0x71068a469c0a
+
+     1.07%     1.07%             1  [.] 0x000071068977bc01
+            |
+            ---0x71068977bc01
+
+     1.01%     1.01%             1  [.] 0x00000000006fd87a
+            |
+            ---0x7106897cc33b
+               0x63568170148a
+               0x635681700286
+               0x63568170012f
+               memory_region_dispatch_write
+               0x6356816125a9
+               0x6356814189b5
+               0x63568141887a
+
+     1.01%     0.00%             0  [.] 0x00007106897cc33b
+            |
+            ---0x63568170148a
+               0x635681700286
+               0x63568170012f
+               memory_region_dispatch_write
+               0x6356816125a9
+               0x6356814189b5
+               0x63568141887a
+
+     1.01%     0.00%             0  [.] 0x0000635681700286
+            |
+            ---0x63568170012f
+               memory_region_dispatch_write
+               0x6356816125a9
+               0x6356814189b5
+               0x63568141887a
+
+     1.01%     0.00%             0  [.] 0x000063568170012f
+            |
+            ---memory_region_dispatch_write
+               0x6356816125a9
+               0x6356814189b5
+               0x63568141887a
+
+     1.01%     0.00%             0  [.] memory_region_dispatch_write
+            |
+            ---0x6356816125a9
+               0x6356814189b5
+               0x63568141887a
+
+     1.01%     1.01%             1  [.] 0x0000710689799fb8
+            |
+            ---0x710689799fb8
+
+     1.01%     0.00%             0  [.] 0x00006356814189b5
+            |
+            ---0x63568141887a
+
+     1.01%     0.00%             0  [.] 0x000063568141887a
+     0.53%     0.53%             1  [.] pthread_mutex_lock@@GLIBC_2.2.5
+            |
+            ---__libc_start_main_impl (inlined)
+               call_init (inlined)
+               __libc_start_call_main
+               main
+               0x635681bda748
+               qemu_main_loop
+               main_loop_wait
+               ___pthread_mutex_lock (inlined)
+
+     0.53%     0.00%             0  [.] ___pthread_mutex_lock (inlined)
+     0.07%     0.07%             1  [.] 0x00000000009d9861
+     0.07%     0.00%             0  [.] 0x000071068cd9d7d0
+     0.07%     0.00%             0  [.] 0x00006356816fee99
+     0.07%     0.00%             0  [.] 0x00006356816fc397
+     0.07%     0.00%             0  [.] 0x00006356816fbc53
+     0.07%     0.00%             0  [.] 0x00006356816f4861
+     0.04%     0.04%             1  [.] 0x00000000000619ba
+     0.04%     0.00%             0  [.] 0x00007106de4cc9ba
+     0.04%     0.04%             1  [.] _int_free_merge_chunk
+     0.04%     0.00%             0  [.] __malloc_arena_thread_freeres
+     0.04%     0.00%             0  [.] tcache_thread_shutdown (inlined)
+     0.04%     0.00%             0  [.] _int_free_chunk (inlined)
+     0.04%     0.00%             0  [.] _int_free_create_chunk (inlined)
+     0.02%     0.00%             0  [.] ___pthread_cond_timedwait64 (inlined)
+     0.02%     0.00%             0  [.] __pthread_cond_wait_common (inlined)
+     0.02%     0.00%             0  [.] qemu_poll_ns
+     0.02%     0.00%             0  [.] ppoll
+     0.02%     0.00%             0  [.] __x64_sys_ppoll
+     0.02%     0.00%             0  [.] do_sys_poll
+     0.02%     0.00%             0  [.] do_poll.constprop.0
+     0.02%     0.00%             0  [.] 0x0000635681cb103e
+     0.02%     0.00%             0  [.] qemu_cond_timedwait_impl
+     0.02%     0.00%             0  [.] 0x0000635681c930de
+     0.01%     0.00%             0  [.] __futex_abstimed_wait_cancelable64 (inlined)
+     0.01%     0.00%             0  [.] __futex_abstimed_wait_common (inlined)
+     0.01%     0.01%             1  [.] arm_security_space
+     0.01%     0.01%             1  [k] n_tty_poll
+     0.01%     0.01%             1  [k] fdget
+     0.01%     0.01%             1  [k] restore_fpregs_from_fpstate
+     0.01%     0.01%             1  [.] pthread_cond_timedwait@@GLIBC_2.3.2
+     0.01%     0.01%             1  [k] tcp_poll
+     0.01%     0.01%             1  [.] 0x00000000008edead
+     0.01%     0.00%             0  [.] __libc_start_call_main
+     0.01%     0.00%             0  [.] arch_exit_to_user_mode_prepare.isra.0
+     0.01%     0.00%             0  [.] qemu_process_cpu_events
+     0.01%     0.00%             0  [.] sock_poll
+     0.01%     0.00%             0  [.] switch_fpu_return
+     0.01%     0.00%             0  [.] __condvar_confirm_wakeup (inlined)
+     0.01%     0.00%             0  [.] tty_poll
+     0.01%     0.00%             0  [.] 0x00006356816fddc5
+     0.01%     0.00%             0  [.] 0x0000635681608ead
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

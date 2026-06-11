@@ -1,0 +1,19 @@
+
+ Performance counter stats for process id '17353':
+
+    21,069,794,031      cycles                                                                  (36.66%)
+    27,377,883,631      instructions                                                            (45.76%)
+       111,279,319      cache-misses                                                            (45.51%)
+       564,021,272      cache-references                                                        (45.41%)
+        23,354,023      LLC-load-misses                                                         (45.33%)
+         4,926,777      LLC-store-misses                                                        (45.31%)
+       318,127,230      L1-dcache-load-misses                                                   (36.12%)
+       367,761,547      l2_rqsts.miss                                                           (36.17%)
+       669,541,233      l2_rqsts.references                                                     (36.58%)
+         9,140,513      dtlb_load_misses.miss_causes_a_walk                                        (36.45%)
+         7,459,092      branch-misses                                                           (36.46%)
+             1,596      page-faults                                                           
+          4,992.60 msec task-clock                                                            
+
+      12.003594776 seconds time elapsed
+

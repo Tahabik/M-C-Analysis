@@ -1,0 +1,19 @@
+
+ Performance counter stats for process id '7974':
+
+    11,865,654,407      cycles                                                                  (33.20%)
+     1,093,552,216      instructions                                                            (45.45%)
+       102,403,269      cache-misses                                                            (46.13%)
+       451,531,070      cache-references                                                        (46.18%)
+        24,387,296      LLC-load-misses                                                         (48.95%)
+         5,748,421      LLC-store-misses                                                        (50.30%)
+       236,207,615      L1-dcache-load-misses                                                   (37.24%)
+       288,816,220      l2_rqsts.miss                                                           (37.31%)
+       486,281,480      l2_rqsts.references                                                     (34.69%)
+         2,084,877      dtlb_load_misses.miss_causes_a_walk                                        (33.01%)
+           880,164      branch-misses                                                           (32.99%)
+                 0      page-faults                                                           
+          3,049.69 msec task-clock                                                            
+
+      12.003414321 seconds time elapsed
+

@@ -1,0 +1,9 @@
+
+ Performance counter stats for process id '17353':
+
+            89,385      dTLB-load-misses                                                      
+           137,299      dtlb_load_misses.miss_causes_a_walk                                      
+                 0      page-faults                                                           
+
+      12.002915028 seconds time elapsed
+

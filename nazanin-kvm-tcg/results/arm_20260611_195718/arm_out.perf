@@ -1,0 +1,650 @@
+qemu-system-aar   17353 13101.632326:        256 cache-misses: 
+	ffffffffb5f15519 fdget+0xa9 ([kernel.kallsyms])
+	ffffffffb5f06767 do_poll.constprop.0+0xc7 ([kernel.kallsyms])
+	ffffffffb5f06bd5 do_sys_poll+0x1e5 ([kernel.kallsyms])
+	ffffffffb5f075ef __x64_sys_ppoll+0xdf ([kernel.kallsyms])
+	ffffffffb5947d3b x64_sys_call+0x213b ([kernel.kallsyms])
+	ffffffffb6d10b75 do_syscall_64+0x115 ([kernel.kallsyms])
+	ffffffffb560012b entry_SYSCALL_64_after_hwframe+0x76 ([kernel.kallsyms])
+	    7106dd6acae2 __syscall_cancel_arch+0x0 (inlined)
+	    7106dd728376 ppoll+0x46 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    635681ca4945 qemu_poll_ns+0x75 (/usr/bin/qemu-system-aarch64)
+	    635681c9ef06 main_loop_wait+0x196 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17353 13101.632348:        256 cache-misses: 
+	ffffffffb6b04345 tcp_poll+0x1d5 ([kernel.kallsyms])
+	ffffffffb69c80c4 sock_poll+0x54 ([kernel.kallsyms])
+	ffffffffb5f067b4 do_poll.constprop.0+0x114 ([kernel.kallsyms])
+	ffffffffb5f06bd5 do_sys_poll+0x1e5 ([kernel.kallsyms])
+	ffffffffb5f075ef __x64_sys_ppoll+0xdf ([kernel.kallsyms])
+	ffffffffb5947d3b x64_sys_call+0x213b ([kernel.kallsyms])
+	ffffffffb6d10b75 do_syscall_64+0x115 ([kernel.kallsyms])
+	ffffffffb560012b entry_SYSCALL_64_after_hwframe+0x76 ([kernel.kallsyms])
+	    7106dd6acae2 __syscall_cancel_arch+0x0 (inlined)
+	    7106dd728376 ppoll+0x46 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    635681ca4945 qemu_poll_ns+0x75 (/usr/bin/qemu-system-aarch64)
+	    635681c9ef06 main_loop_wait+0x196 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17353 13101.632358:        256 cache-misses: 
+	ffffffffb65b4de5 n_tty_poll+0x85 ([kernel.kallsyms])
+	ffffffffb65adcb4 tty_poll+0x54 ([kernel.kallsyms])
+	ffffffffb5f067b4 do_poll.constprop.0+0x114 ([kernel.kallsyms])
+	ffffffffb5f06bd5 do_sys_poll+0x1e5 ([kernel.kallsyms])
+	ffffffffb5f075ef __x64_sys_ppoll+0xdf ([kernel.kallsyms])
+	ffffffffb5947d3b x64_sys_call+0x213b ([kernel.kallsyms])
+	ffffffffb6d10b75 do_syscall_64+0x115 ([kernel.kallsyms])
+	ffffffffb560012b entry_SYSCALL_64_after_hwframe+0x76 ([kernel.kallsyms])
+	    7106dd6acae2 __syscall_cancel_arch+0x0 (inlined)
+	    7106dd728376 ppoll+0x46 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    635681ca4945 qemu_poll_ns+0x75 (/usr/bin/qemu-system-aarch64)
+	    635681c9ef06 main_loop_wait+0x196 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17353 13101.632382:       1605 cache-misses: 
+	    7106de4cc9ba [unknown] (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    7106de4cced9 g_main_context_check+0x39 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    635681c9ef4f main_loop_wait+0x1df (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13101.632475:        256 cache-misses: 
+	    635681608ead [unknown] (/usr/bin/qemu-system-aarch64)
+	    63568160dab3 qemu_process_cpu_events+0x53 (/usr/bin/qemu-system-aarch64)
+	    63568170e3a8 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13101.632486:        256 cache-misses: 
+	    6356816fe1ab cpu_exec+0x2b (/usr/bin/qemu-system-aarch64)
+	    63568170e47f [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13101.632495:        256 cache-misses: 
+	    635681725ff4 arm_security_space+0x4 (/usr/bin/qemu-system-aarch64)
+	    6356816fddc5 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fe163 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fe22f cpu_exec+0xaf (/usr/bin/qemu-system-aarch64)
+	    63568170e47f [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13101.632537:       2916 cache-misses: 
+	    6356816f4861 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fbc53 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fc397 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fee99 [unknown] (/usr/bin/qemu-system-aarch64)
+	    71068cd9d7d0 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13101.633497:      46401 cache-misses: 
+	    71068985dfcf [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13102.112406:      20872 cache-misses: 
+	    7106dd6a7980 ___pthread_mutex_lock+0x0 (inlined)
+	    635681c9ef1e main_loop_wait+0x1ae (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13102.148320:     158161 cache-misses: 
+	    63568189a1a5 helper_access_check_cp_reg+0x5 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13102.281878:     147541 cache-misses: 
+	    63568161b2c9 address_space_translate_for_iotlb+0x69 (/usr/bin/qemu-system-aarch64)
+	    6356816fb058 tlb_set_page_full+0xa8 (/usr/bin/qemu-system-aarch64)
+	    6356816fb84f [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fba0b [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fc88d get_page_addr_code_hostp+0x7d (/usr/bin/qemu-system-aarch64)
+	    6356816ec4c1 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816ec7e9 helper_lookup_tb_ptr+0x1c9 (/usr/bin/qemu-system-aarch64)
+	    71068aba20d6 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13102.284545:      98568 cache-misses: 
+	    71069239d020 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13102.656761:      86541 cache-misses: 
+	    7106de505abc [unknown] (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    7106de5091bd g_tree_lookup+0xd (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    6356816c4b7b tcg_tb_lookup+0x5b (/usr/bin/qemu-system-aarch64)
+	    6356816f8def cpu_io_recompile+0x1f (/usr/bin/qemu-system-aarch64)
+	    6356817002e0 [unknown] (/usr/bin/qemu-system-aarch64)
+	    63568170148a [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106897cc1bf [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13102.666394:      74675 cache-misses: 
+	    635681415390 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681415d32 gic_acknowledge_irq+0x1b2 (/usr/bin/qemu-system-aarch64)
+	    635681417a33 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681417d76 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681611d4f [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816125a9 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681612728 memory_region_dispatch_read+0xb8 (/usr/bin/qemu-system-aarch64)
+	    6356816fe962 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fead6 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816ff6e2 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681700d27 helper_ldul_mmu+0x17 (/usr/bin/qemu-system-aarch64)
+	    71068979cb34 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13103.680191:      63901 cache-misses: 
+	    635681c8ca64 qht_lookup_custom+0x74 (/usr/bin/qemu-system-aarch64)
+	    6356816ec5aa [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816ec7e9 helper_lookup_tb_ptr+0x1c9 (/usr/bin/qemu-system-aarch64)
+	    7106971db2e5 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13103.868618:      66903 cache-misses: 
+	    6356816ec625 helper_lookup_tb_ptr+0x5 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13104.032300:     129325 cache-misses: 
+	    7106de4f8d68 g_mutex_unlock+0x8 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    635681c9ee46 main_loop_wait+0xd6 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13104.033404:      63812 cache-misses: 
+	    6356816b85de [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816c4a58 tcg_tb_insert+0x48 (/usr/bin/qemu-system-aarch64)
+	    6356816fcda8 tb_gen_code+0x478 (/usr/bin/qemu-system-aarch64)
+	    6356816fdc35 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fe163 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fe22f cpu_exec+0xaf (/usr/bin/qemu-system-aarch64)
+	    63568170e47f [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13104.161107:      66752 cache-misses: 
+	    71068978ec83 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13104.192537:      60367 cache-misses: 
+	    6356816fb8d9 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fc88d get_page_addr_code_hostp+0x7d (/usr/bin/qemu-system-aarch64)
+	    6356816ec4c1 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816ec7e9 helper_lookup_tb_ptr+0x1c9 (/usr/bin/qemu-system-aarch64)
+	    7106898a503b [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13104.288576:      60367 cache-misses: 
+	    710689761680 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13104.705064:      60367 cache-misses: 
+	    710694945c05 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13104.801071:      69897 cache-misses: 
+	    7106898de2c2 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13105.217629:      70753 cache-misses: 
+	    71068978c38a [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13105.287081:      72877 cache-misses: 
+	    710693362e00 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13105.290243:      66759 cache-misses: 
+	    635681700d50 helper_ldq_mmu+0x0 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13105.291188:      51049 cache-misses: 
+	    71068dfeb6e8 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13105.291939:      50987 cache-misses: 
+	ffffffffb5afc603 psi_task_change+0x63 ([kernel.kallsyms])
+	ffffffffb5aa045c enqueue_task+0xfc ([kernel.kallsyms])
+	ffffffffb5aa0c25 ttwu_do_activate+0x75 ([kernel.kallsyms])
+	ffffffffb5aa7c38 try_to_wake_up+0x578 ([kernel.kallsyms])
+	ffffffffb5aa7fa5 wake_up_process+0x15 ([kernel.kallsyms])
+	ffffffffb5b73e52 hrtimer_wakeup+0x22 ([kernel.kallsyms])
+	ffffffffb5b745cc __hrtimer_run_queues+0x10c ([kernel.kallsyms])
+	ffffffffb5b754f4 hrtimer_interrupt+0x104 ([kernel.kallsyms])
+	ffffffffb59ecf28 __sysvec_apic_timer_interrupt+0x58 ([kernel.kallsyms])
+	ffffffffb6d188a4 sysvec_apic_timer_interrupt+0x44 ([kernel.kallsyms])
+	ffffffffb5600f0b asm_sysvec_apic_timer_interrupt+0x1b ([kernel.kallsyms])
+	    6356816fecf2 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816feebd [unknown] (/usr/bin/qemu-system-aarch64)
+	    71068af23346 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13105.296259:      52627 cache-misses: 
+	    635681c8ca26 qht_lookup_custom+0x36 (/usr/bin/qemu-system-aarch64)
+	    6356816ec5aa [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816ec7e9 helper_lookup_tb_ptr+0x1c9 (/usr/bin/qemu-system-aarch64)
+	    71068a826e80 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13105.728528:     103596 cache-misses: 
+	    635681710980 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681718a91 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681cb4326 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681cb44d0 qemu_clock_run_all_timers+0x40 (/usr/bin/qemu-system-aarch64)
+	    635681c9efa4 main_loop_wait+0x234 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13105.728866:      50461 cache-misses: 
+	ffffffffb5ac087c sched_balance_rq+0x7bc ([kernel.kallsyms])
+	ffffffffb5ac1567 sched_balance_domains+0x207 ([kernel.kallsyms])
+	ffffffffb5ac1b11 sched_balance_softirq+0x51 ([kernel.kallsyms])
+	ffffffffb5a4cb31 handle_softirqs+0xe1 ([kernel.kallsyms])
+	ffffffffb5a4cec0 __irq_exit_rcu+0x100 ([kernel.kallsyms])
+	ffffffffb5a4d2ce irq_exit_rcu+0xe ([kernel.kallsyms])
+	ffffffffb6d188a9 sysvec_apic_timer_interrupt+0x49 ([kernel.kallsyms])
+	ffffffffb5600f0b asm_sysvec_apic_timer_interrupt+0x1b ([kernel.kallsyms])
+	    63568189a1a5 helper_access_check_cp_reg+0x5 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13105.732442:      54765 cache-misses: 
+	ffffffffb61a1f55 begin_current_label_crit_section+0x25 ([kernel.kallsyms])
+	ffffffffb61a2d7b apparmor_file_permission+0x1b ([kernel.kallsyms])
+	ffffffffb6123bbb security_file_permission+0x5b ([kernel.kallsyms])
+	ffffffffb5edef57 rw_verify_area+0x57 ([kernel.kallsyms])
+	ffffffffb5ee2e9c vfs_write+0x7c ([kernel.kallsyms])
+	ffffffffb5ee3671 ksys_write+0x71 ([kernel.kallsyms])
+	ffffffffb5ee3719 __x64_sys_write+0x19 ([kernel.kallsyms])
+	ffffffffb5945e2f x64_sys_call+0x22f ([kernel.kallsyms])
+	ffffffffb6d10b75 do_syscall_64+0x115 ([kernel.kallsyms])
+	ffffffffb560012b entry_SYSCALL_64_after_hwframe+0x76 ([kernel.kallsyms])
+	    7106dd6acae2 __syscall_cancel_arch+0x0 (inlined)
+	    7106dd728e6e __libc_write+0x1e (inlined)
+	    635681c87370 event_notifier_set+0x40 (/usr/bin/qemu-system-aarch64)
+	    635681c9d27e [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681721999 [unknown] (/usr/bin/qemu-system-aarch64)
+	    63568189a136 helper_set_cp_reg64+0x46 (/usr/bin/qemu-system-aarch64)
+	    7106897cac0f [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13106.209642:      51336 cache-misses: 
+	    6356816ec6d0 helper_lookup_tb_ptr+0xb0 (/usr/bin/qemu-system-aarch64)
+	    7106898a89d2 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13106.244204:      51637 cache-misses: 
+	    6356816086e7 cpu_thread_is_idle+0x37 (/usr/bin/qemu-system-aarch64)
+	    63568170e3a8 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13106.752705:      47121 cache-misses: 
+	    6356816ec642 helper_lookup_tb_ptr+0x22 (/usr/bin/qemu-system-aarch64)
+	    7106898a1fa2 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13106.762947:      53757 cache-misses: 
+	ffffffffb5bbcd43 __cgroup_account_cputime+0x23 ([kernel.kallsyms])
+	ffffffffb5aa94fa update_se+0x12a ([kernel.kallsyms])
+	ffffffffb5ab7212 update_curr+0x32 ([kernel.kallsyms])
+	ffffffffb5ab8f1f enqueue_entity+0x2f ([kernel.kallsyms])
+	ffffffffb5ab93ba enqueue_task_fair+0x12a ([kernel.kallsyms])
+	ffffffffb5aa03e9 enqueue_task+0x89 ([kernel.kallsyms])
+	ffffffffb5aa0c25 ttwu_do_activate+0x75 ([kernel.kallsyms])
+	ffffffffb5aa7c38 try_to_wake_up+0x578 ([kernel.kallsyms])
+	ffffffffb5aa8009 wake_up_q+0x39 ([kernel.kallsyms])
+	ffffffffb5b9ce36 futex_wake+0x196 ([kernel.kallsyms])
+	ffffffffb5b99658 do_futex+0x188 ([kernel.kallsyms])
+	ffffffffb5b99ce0 __x64_sys_futex+0x120 ([kernel.kallsyms])
+	ffffffffb594758e x64_sys_call+0x198e ([kernel.kallsyms])
+	ffffffffb6d10b75 do_syscall_64+0x115 ([kernel.kallsyms])
+	ffffffffb560012b entry_SYSCALL_64_after_hwframe+0x76 ([kernel.kallsyms])
+	    7106dd6a2b5c futex_wake+0x1cc (inlined)
+	    7106dd6a2b5c ___pthread_cond_broadcast+0x1cc (inlined)
+	    635681608ca6 qemu_cpu_kick+0x26 (/usr/bin/qemu-system-aarch64)
+	    63568141562c [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681718a91 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681cb4326 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681cb44d0 qemu_clock_run_all_timers+0x40 (/usr/bin/qemu-system-aarch64)
+	    635681c9efa4 main_loop_wait+0x234 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13106.763109:      47121 cache-misses: 
+	    710689d5d74a [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13107.264751:      46654 cache-misses: 
+	    635681891ee0 helper_rbit+0x0 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13107.268327:      46654 cache-misses: 
+	    710689d5ba8c [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13107.296965:      46575 cache-misses: 
+	    710689786380 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13107.301285:      53757 cache-misses: 
+	    7106dece4a09 [unknown] ([vdso])
+	    7106dd6f5d0d __clock_gettime+0x1d (inlined)
+	    7106de4ccbdd [unknown] (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    7106de4cced9 g_main_context_check+0x39 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    635681c9ef4f main_loop_wait+0x1df (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13107.776900:      46575 cache-misses: 
+	    71068a7dc5c0 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13107.780238:      47146 cache-misses: 
+	    63568172a6b6 aa64_va_parameters+0x856 (/usr/bin/qemu-system-aarch64)
+	    6356817319e8 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356817350b8 get_phys_addr+0x88 (/usr/bin/qemu-system-aarch64)
+	    635681747898 arm_cpu_tlb_fill_align+0x168 (/usr/bin/qemu-system-aarch64)
+	    6356816fb797 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fba0b [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fc88d get_page_addr_code_hostp+0x7d (/usr/bin/qemu-system-aarch64)
+	    6356816ec4c1 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fdac0 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fe163 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fe22f cpu_exec+0xaf (/usr/bin/qemu-system-aarch64)
+	    63568170e47f [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13107.868993:      46523 cache-misses: 
+	    71068976abc8 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.256888:      47382 cache-misses: 
+	    63568196ff24 helper_msr_i_daifset+0x4 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13108.260104:      55520 cache-misses: 
+	    7106de4c1f2a g_source_ref+0x1a (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    7106de4c9504 [unknown] (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    7106de4cca55 [unknown] (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    7106de4cced9 g_main_context_check+0x39 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    635681c9ef4f main_loop_wait+0x1df (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13108.260393:      47316 cache-misses: 
+	    6356816ec6be helper_lookup_tb_ptr+0x9e (/usr/bin/qemu-system-aarch64)
+	    7106897b4dc1 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.289011:      47316 cache-misses: 
+	    71068982bad2 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.294033:      48952 cache-misses: 
+	    71068aedb780 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.295363:      48952 cache-misses: 
+	    71069237bd76 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.298274:      57561 cache-misses: 
+	    6356816ec7c0 helper_lookup_tb_ptr+0x1a0 (/usr/bin/qemu-system-aarch64)
+	    7106899da6e0 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.299166:      43818 cache-misses: 
+	    63568189a1c7 helper_access_check_cp_reg+0x27 (/usr/bin/qemu-system-aarch64)
+	    71068abf3e60 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.299756:      44062 cache-misses: 
+	    71068d8e8183 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.304276:      44736 cache-misses: 
+	    71068977c07e [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.385041:      46456 cache-misses: 
+	    7106898a1dc5 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13108.388124:      56290 cache-misses: 
+	    635681415310 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681718a91 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681cb4326 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681cb44d0 qemu_clock_run_all_timers+0x40 (/usr/bin/qemu-system-aarch64)
+	    635681c9efa4 main_loop_wait+0x234 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13108.800729:      48502 cache-misses: 
+	    63568173b340 arm_get_tb_cpu_state+0x0 (/usr/bin/qemu-system-aarch64)
+	    6356816fe163 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816fe22f cpu_exec+0xaf (/usr/bin/qemu-system-aarch64)
+	    63568170e47f [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13108.801954:      45342 cache-misses: 
+	    6356816ec6fc helper_lookup_tb_ptr+0xdc (/usr/bin/qemu-system-aarch64)
+	    7106898dae01 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13108.810672:      42979 cache-misses: 
+	    6356816ec620 helper_lookup_tb_ptr+0x0 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13109.312936:      41995 cache-misses: 
+	    71068977bc01 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13109.816127:      46849 cache-misses: 
+	    63568169e307 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c9ef90 main_loop_wait+0x220 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13109.824828:      43443 cache-misses: 
+	    71068a469c0a [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13109.828592:      43443 cache-misses: 
+	    7106897cc0f5 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13109.921378:      47892 cache-misses: 
+	    71068d088071 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   18926 13110.166517:        256 cache-misses: 
+	ffffffffb594758e x64_sys_call+0x198e ([kernel.kallsyms])
+	ffffffffb6d10b75 do_syscall_64+0x115 ([kernel.kallsyms])
+	ffffffffb560012b entry_SYSCALL_64_after_hwframe+0x76 ([kernel.kallsyms])
+	    7106dd6acae2 __syscall_cancel_arch+0x0 (inlined)
+	    7106dd6a09c7 __futex_abstimed_wait_common+0x47 (inlined)
+	    7106dd6a09c7 __futex_abstimed_wait_cancelable64+0x47 (inlined)
+	    7106dd6a3662 __pthread_cond_wait_common+0x1d2 (inlined)
+	    7106dd6a3662 ___pthread_cond_timedwait64+0x1d2 (inlined)
+	    635681c930de [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c9323d qemu_cond_timedwait_impl+0x9d (/usr/bin/qemu-system-aarch64)
+	    635681cb103e [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   18926 13110.166541:        256 cache-misses: 
+	ffffffffb59b3876 restore_fpregs_from_fpstate+0x56 ([kernel.kallsyms])
+	ffffffffb59b3974 switch_fpu_return+0x64 ([kernel.kallsyms])
+	ffffffffb5945bd5 arch_exit_to_user_mode_prepare.isra.0+0xc5 ([kernel.kallsyms])
+	ffffffffb6d10bb0 do_syscall_64+0x150 ([kernel.kallsyms])
+	ffffffffb560012b entry_SYSCALL_64_after_hwframe+0x76 ([kernel.kallsyms])
+	    7106dd6acae2 __syscall_cancel_arch+0x0 (inlined)
+	    7106dd6a09c7 __futex_abstimed_wait_common+0x47 (inlined)
+	    7106dd6a09c7 __futex_abstimed_wait_cancelable64+0x47 (inlined)
+	    7106dd6a3662 __pthread_cond_wait_common+0x1d2 (inlined)
+	    7106dd6a3662 ___pthread_cond_timedwait64+0x1d2 (inlined)
+	    635681c930de [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c9323d qemu_cond_timedwait_impl+0x9d (/usr/bin/qemu-system-aarch64)
+	    635681cb103e [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   18926 13110.166552:        256 cache-misses: 
+	    7106dd6a357f __condvar_confirm_wakeup+0xef (inlined)
+	    7106dd6a357f __pthread_cond_wait_common+0xef (inlined)
+	    7106dd6a357f ___pthread_cond_timedwait64+0xef (inlined)
+	    635681c930de [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c9323d qemu_cond_timedwait_impl+0x9d (/usr/bin/qemu-system-aarch64)
+	    635681cb103e [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681c85baa [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106dd6a40da start_thread+0x2fa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   18926 13110.166572:       1472 cache-misses: 
+	    7106dd6b24da _int_free_create_chunk+0xfa (inlined)
+	    7106dd6b24da _int_free_merge_chunk+0xfa (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd6b5046 _int_free_chunk+0x1e6 (inlined)
+	    7106dd6b5046 tcache_thread_shutdown+0x1e6 (inlined)
+	    7106dd6b5046 __malloc_arena_thread_freeres+0x1e6 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd6a3f75 start_thread+0x195 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd7377ac __clone3+0x2c (inlined)
+
+qemu-system-aar   17357 13110.304506:      47965 cache-misses: 
+	    7106897bf69c [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17353 13110.336034:      49655 cache-misses: 
+	    6356816aa6c0 replay_mutex_lock+0x0 (/usr/bin/qemu-system-aarch64)
+	    6356816359c2 qemu_main_loop+0x182 (/usr/bin/qemu-system-aarch64)
+	    635681bda748 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356812b84e9 main+0x79 (/usr/bin/qemu-system-aarch64)
+	    7106dd62a601 __libc_start_call_main+0x81 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7106dd62a718 call_init+0x88 (inlined)
+	    7106dd62a718 __libc_start_main_impl+0x88 (inlined)
+	    6356812bc895 _start+0x25 (/usr/bin/qemu-system-aarch64)
+
+qemu-system-aar   17357 13110.848326:      47965 cache-misses: 
+	    7106897feb8c [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13111.302155:      55391 cache-misses: 
+	    7106935369cf [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13111.303125:      55765 cache-misses: 
+	    710689782a7c [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13111.304925:      56832 cache-misses: 
+	    635681622bb0 qemu_ram_block_from_host+0x140 (/usr/bin/qemu-system-aarch64)
+	    6356816fc8c9 get_page_addr_code_hostp+0xb9 (/usr/bin/qemu-system-aarch64)
+	    6356816ec4c1 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816ec7e9 helper_lookup_tb_ptr+0x1c9 (/usr/bin/qemu-system-aarch64)
+	    710692f18787 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13111.306763:      52066 cache-misses: 
+	    710692dcd680 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13111.364065:      47835 cache-misses: 
+	    7106de5091b4 g_tree_lookup+0x4 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8800.0)
+	    6356816f8def cpu_io_recompile+0x1f (/usr/bin/qemu-system-aarch64)
+	    6356816feb30 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816ff6e2 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681700d27 helper_ldul_mmu+0x17 (/usr/bin/qemu-system-aarch64)
+	    71068979c9cc [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13111.872208:      39508 cache-misses: 
+	    6356816ec620 helper_lookup_tb_ptr+0x0 (/usr/bin/qemu-system-aarch64)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13113.312485:      39508 cache-misses: 
+	    710689799fb8 [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
+qemu-system-aar   17357 13113.312777:      39508 cache-misses: 
+	    63568141887a [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356814189b5 [unknown] (/usr/bin/qemu-system-aarch64)
+	    6356816125a9 [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681614547 memory_region_dispatch_write+0xd7 (/usr/bin/qemu-system-aarch64)
+	    63568170012f [unknown] (/usr/bin/qemu-system-aarch64)
+	    635681700286 [unknown] (/usr/bin/qemu-system-aarch64)
+	    63568170148a [unknown] (/usr/bin/qemu-system-aarch64)
+	    7106897cc33b [unknown] (/tmp/perf-17353.map)
+	               0 [unknown] ([unknown])
+
