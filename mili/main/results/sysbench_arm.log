@@ -1,0 +1,409 @@
+=== Sysbench Memory Sweep: arm ===
+Running block size 1K...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 1KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 1048576 (551714.11 per second)
+
+1024.00 MiB transferred (538.78 MiB/sec)
+
+
+General statistics:
+    total time:                          1.8943s
+    total number of events:              1048576
+
+Latency (ms):
+         min:                                    0.00
+         avg:                                    0.00
+         max:                                    3.65
+         95th percentile:                        0.00
+         sum:                                  587.02
+
+Threads fairness:
+    events (avg/stddev):           1048576.0000/0.00
+    execution time (avg/stddev):   0.5870/0.00
+
+
+ Performance counter stats for process id '26048':
+
+    25,511,071,986      cycles:u                                                              
+    58,759,706,345      instructions:u                                                        
+        43,254,406      cache-misses:u                                                        
+       186,833,892      L1-dcache-load-misses:u                                               
+       864,060,925      L1-icache-load-misses:u                                               
+         4,483,411      iTLB-load-misses:u                                                    
+           180,111      dTLB-load-misses:u                                                    
+
+       5.945155419 seconds time elapsed
+
+Running block size 4K...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 4KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 262144 (428653.87 per second)
+
+1024.00 MiB transferred (1674.43 MiB/sec)
+
+
+General statistics:
+    total time:                          0.6064s
+    total number of events:              262144
+
+Latency (ms):
+         min:                                    0.00
+         avg:                                    0.00
+         max:                                    0.70
+         95th percentile:                        0.00
+         sum:                                  272.39
+
+Threads fairness:
+    events (avg/stddev):           262144.0000/0.00
+    execution time (avg/stddev):   0.2724/0.00
+
+
+ Performance counter stats for process id '26048':
+
+     6,412,243,568      cycles:u                                                              
+    15,446,514,048      instructions:u                                                        
+        15,967,740      cache-misses:u                                                        
+        47,386,753      L1-dcache-load-misses:u                                               
+       205,701,846      L1-icache-load-misses:u                                               
+         1,024,524      iTLB-load-misses:u                                                    
+            46,471      dTLB-load-misses:u                                                    
+
+       1.519993936 seconds time elapsed
+
+Running block size 16K...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 16KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 65536 (221408.33 per second)
+
+1024.00 MiB transferred (3459.51 MiB/sec)
+
+
+General statistics:
+    total time:                          0.2905s
+    total number of events:              65536
+
+Latency (ms):
+         min:                                    0.00
+         avg:                                    0.00
+         max:                                    1.21
+         95th percentile:                        0.00
+         sum:                                  203.43
+
+Threads fairness:
+    events (avg/stddev):           65536.0000/0.00
+    execution time (avg/stddev):   0.2034/0.00
+
+
+ Performance counter stats for process id '26048':
+
+     4,729,185,711      cycles:u                                                              
+    11,249,862,692      instructions:u                                                        
+        14,963,840      cache-misses:u                                                        
+        48,738,740      L1-dcache-load-misses:u                                               
+       153,088,406      L1-icache-load-misses:u                                               
+           831,681      iTLB-load-misses:u                                                    
+            39,034      dTLB-load-misses:u                                                    
+
+       1.158805203 seconds time elapsed
+
+Running block size 64K...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 64KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 16384 (69224.26 per second)
+
+1024.00 MiB transferred (4326.52 MiB/sec)
+
+
+General statistics:
+    total time:                          0.2316s
+    total number of events:              16384
+
+Latency (ms):
+         min:                                    0.01
+         avg:                                    0.01
+         max:                                    1.47
+         95th percentile:                        0.01
+         sum:                                  204.95
+
+Threads fairness:
+    events (avg/stddev):           16384.0000/0.00
+    execution time (avg/stddev):   0.2050/0.00
+
+
+ Performance counter stats for process id '26048':
+
+     4,447,747,823      cycles:u                                                              
+    10,271,354,615      instructions:u                                                        
+        15,445,129      cache-misses:u                                                        
+        59,559,983      L1-dcache-load-misses:u                                               
+       141,551,464      L1-icache-load-misses:u                                               
+           788,411      iTLB-load-misses:u                                                    
+            41,304      dTLB-load-misses:u                                                    
+
+       1.156249203 seconds time elapsed
+
+Running block size 256K...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 256KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 4096 (18948.73 per second)
+
+1024.00 MiB transferred (4737.18 MiB/sec)
+
+
+General statistics:
+    total time:                          0.2110s
+    total number of events:              4096
+
+Latency (ms):
+         min:                                    0.05
+         avg:                                    0.05
+         max:                                    0.94
+         95th percentile:                        0.05
+         sum:                                  198.75
+
+Threads fairness:
+    events (avg/stddev):           4096.0000/0.00
+    execution time (avg/stddev):   0.1987/0.00
+
+
+ Performance counter stats for process id '26048':
+
+     4,366,678,623      cycles:u                                                              
+     9,890,917,314      instructions:u                                                        
+        18,752,689      cache-misses:u                                                        
+        56,173,178      L1-dcache-load-misses:u                                               
+       139,537,534      L1-icache-load-misses:u                                               
+           782,477      iTLB-load-misses:u                                                    
+            38,354      dTLB-load-misses:u                                                    
+
+       1.075991127 seconds time elapsed
+
+Running block size 1M...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 1024KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 1024 ( 4789.87 per second)
+
+1024.00 MiB transferred (4789.87 MiB/sec)
+
+
+General statistics:
+    total time:                          0.2080s
+    total number of events:              1024
+
+Latency (ms):
+         min:                                    0.19
+         avg:                                    0.20
+         max:                                    1.20
+         95th percentile:                        0.25
+         sum:                                  200.78
+
+Threads fairness:
+    events (avg/stddev):           1024.0000/0.00
+    execution time (avg/stddev):   0.2008/0.00
+
+
+ Performance counter stats for process id '26048':
+
+     4,343,536,689      cycles:u                                                              
+     9,933,940,505      instructions:u                                                        
+        16,192,278      cache-misses:u                                                        
+        55,711,723      L1-dcache-load-misses:u                                               
+       138,129,463      L1-icache-load-misses:u                                               
+           780,727      iTLB-load-misses:u                                                    
+            38,244      dTLB-load-misses:u                                                    
+
+       1.069125248 seconds time elapsed
+
+Running block size 4M...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 4096KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 256 ( 1116.55 per second)
+
+1024.00 MiB transferred (4466.19 MiB/sec)
+
+
+General statistics:
+    total time:                          0.2235s
+    total number of events:              256
+
+Latency (ms):
+         min:                                    0.72
+         avg:                                    0.84
+         max:                                    1.75
+         95th percentile:                        1.03
+         sum:                                  214.39
+
+Threads fairness:
+    events (avg/stddev):           256.0000/0.00
+    execution time (avg/stddev):   0.2144/0.00
+
+
+ Performance counter stats for process id '26048':
+
+     4,429,127,978      cycles:u                                                              
+    10,101,134,163      instructions:u                                                        
+        30,429,421      cache-misses:u                                                        
+        55,775,451      L1-dcache-load-misses:u                                               
+       139,923,661      L1-icache-load-misses:u                                               
+           783,601      iTLB-load-misses:u                                                    
+            39,879      dTLB-load-misses:u                                                    
+
+       1.137253346 seconds time elapsed
+
+Running block size 16M...
+sysbench 1.0.20 (using system LuaJIT 2.1.1723681758)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 16384KiB
+  total size: 1024MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 64 (  228.53 per second)
+
+1024.00 MiB transferred (3656.41 MiB/sec)
+
+
+General statistics:
+    total time:                          0.2726s
+    total number of events:              64
+
+Latency (ms):
+         min:                                    3.06
+         avg:                                    4.20
+         max:                                    5.69
+         95th percentile:                        4.74
+         sum:                                  268.50
+
+Threads fairness:
+    events (avg/stddev):           64.0000/0.00
+    execution time (avg/stddev):   0.2685/0.00
+
+
+ Performance counter stats for process id '26048':
+
+     4,788,965,877      cycles:u                                                              
+    10,948,799,927      instructions:u                                                        
+        47,209,725      cache-misses:u                                                        
+        56,868,830      L1-dcache-load-misses:u                                               
+       140,218,799      L1-icache-load-misses:u                                               
+           790,681      iTLB-load-misses:u                                                    
+            38,904      dTLB-load-misses:u                                                    
+
+       1.190328970 seconds time elapsed
+

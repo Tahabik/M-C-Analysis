@@ -1,0 +1,15 @@
+Running Matrix Multiplication (GEMM) of size 256 x 256...
+GEMM 256 x 256 completed in 0.029 seconds (1.147 GFLOPS)
+
+ Performance counter stats for process id '26247':
+
+       175,620,395      cycles:u                                                              
+       252,324,323      instructions:u                                                        
+           513,703      cache-misses:u                                                        
+        17,770,944      L1-dcache-load-misses:u                                               
+         1,186,685      L1-icache-load-misses:u                                               
+            30,149      iTLB-load-misses:u                                                    
+            22,776      dTLB-load-misses:u                                                    
+
+       0.147592356 seconds time elapsed
+

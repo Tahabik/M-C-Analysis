@@ -1,0 +1,25 @@
+=== Self-Modifying Code (SMC) Benchmark ===
+Running 100000 iterations...
+Architecture detected: ARM64 (aarch64)
+Progress: 20000/100000 (Returned value matches: YES)
+Progress: 40000/100000 (Returned value matches: YES)
+Progress: 60000/100000 (Returned value matches: YES)
+Progress: 80000/100000 (Returned value matches: YES)
+
+Results:
+Time elapsed    : 1.262007 seconds
+Throughput      : 0.079 Million modifications/sec (MOps)
+Latency per loop: 12620.07 ns
+
+ Performance counter stats for process id '26048':
+
+     8,655,801,784      cycles:u                                                              
+    19,196,658,825      instructions:u                                                        
+        19,809,925      cache-misses:u                                                        
+       720,138,789      L1-dcache-load-misses:u                                               
+       235,403,956      L1-icache-load-misses:u                                               
+           853,811      iTLB-load-misses:u                                                    
+            50,562      dTLB-load-misses:u                                                    
+
+       2.065574347 seconds time elapsed
+
