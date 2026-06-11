@@ -7,19 +7,19 @@ Progress: 60000/100000 (Returned value matches: YES)
 Progress: 80000/100000 (Returned value matches: NO)
 
 Results:
-Time elapsed    : 0.013734 seconds
-Throughput      : 7.281 Million modifications/sec (MOps)
-Latency per loop: 137.34 ns
+Time elapsed    : 0.012779 seconds
+Throughput      : 7.825 Million modifications/sec (MOps)
+Latency per loop: 127.79 ns
 
  Performance counter stats for process id '26247':
 
-       115,724,071      cycles:u                                                              
-       135,336,347      instructions:u                                                        
-           540,988      cache-misses:u                                                        
-           913,189      L1-dcache-load-misses:u                                               
-         1,364,688      L1-icache-load-misses:u                                               
-            29,170      iTLB-load-misses:u                                                    
-            21,716      dTLB-load-misses:u                                                    
+       118,340,614      cycles:u                                                              
+       135,499,945      instructions:u                                                        
+           706,408      cache-misses:u                                                        
+           906,276      L1-dcache-load-misses:u                                               
+         1,372,432      L1-icache-load-misses:u                                               
+            31,212      iTLB-load-misses:u                                                    
+            22,500      dTLB-load-misses:u                                                    
 
-       0.126306944 seconds time elapsed
+       0.125597212 seconds time elapsed
 

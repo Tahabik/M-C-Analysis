@@ -3,13 +3,13 @@ GEMM 256 x 256 completed in 0.195 seconds (0.172 GFLOPS)
 
  Performance counter stats for process id '26048':
 
-     4,299,916,856      cycles:u                                                              
-     9,132,637,684      instructions:u                                                        
-        31,574,760      cache-misses:u                                                        
-        53,182,913      L1-dcache-load-misses:u                                               
-       129,078,086      L1-icache-load-misses:u                                               
-           757,082      iTLB-load-misses:u                                                    
-            40,364      dTLB-load-misses:u                                                    
+     4,117,583,046      cycles:u                                                              
+     9,074,778,943      instructions:u                                                        
+        22,405,861      cache-misses:u                                                        
+        53,085,167      L1-dcache-load-misses:u                                               
+       128,030,204      L1-icache-load-misses:u                                               
+           746,357      iTLB-load-misses:u                                                    
+             8,921      dTLB-load-misses:u                                                    
 
-       1.081303117 seconds time elapsed
+       1.076782872 seconds time elapsed
 

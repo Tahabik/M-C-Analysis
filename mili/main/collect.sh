@@ -54,6 +54,32 @@ run_custom_benchmarks() {
     "/root/benchmark" \
     >"$chase_log" 2>&1
 
+  sizes=(
+    $((16 * 1024))        # 16 KB (fits in L1d)
+    $((64 * 1024))        # 64 KB (fits in L1d/L2)
+    $((256 * 1024))       # 256 KB (fits in L2)
+    $((1024 * 1024))      # 1 MB (fits in L3)
+    $((4 * 1024 * 1024))  # 4 MB (exceeds individual L3 core slice)
+    $((16 * 1024 * 1024)) # 16 MB (fits in large L3 or DRAM)
+    $((64 * 1024 * 1024)) # 64 MB (DRAM)
+  )
+
+  # Not random
+  for size in "${sizes[@]}"; do
+    perf stat -e cycles,instructions,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,iTLB-load-misses,dTLB-load-misses -p "$pid" \
+      ssh -o StrictHostKeyChecking=no -p "$port" root@127.0.0.1 \
+      "/root/benchmark pointerchasing ${size} 0" \
+      >>"$chase_log" 2>&1
+  done
+
+  # Random
+  for size in "${sizes[@]}"; do
+    perf stat -e cycles,instructions,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,iTLB-load-misses,dTLB-load-misses -p "$pid" \
+      ssh -o StrictHostKeyChecking=no -p "$port" root@127.0.0.1 \
+      "/root/benchmark pointerchasing ${size} 1" \
+      >>"$chase_log" 2>&1
+  done
+
   echo "Running custom Matrix Multiplication (GEMM 256) on $target (PID: $pid, Port: $port)..."
   local gemm_log="$OUTPUT_DIR/custom_gemm_${target}.log"
 

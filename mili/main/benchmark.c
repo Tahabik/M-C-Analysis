@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -159,6 +160,19 @@ int main(int argc, char* argv[]) {
         int N = 512;
         if (argc > 2) N = atoi(argv[2]);
         run_matrix_multiplication(N);
+        return 0;
+    }
+
+    if (argc > 1 && strcmp(argv[1], "pointerchasing") == 0) {
+        size_t size = 16 * 1024;
+        int random_mode = 0;
+        if (argc == 4) {
+          size = atoi(argv[2]);
+          random_mode = atoi(argv[3]);
+        }
+        printf("=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: %d) ===\n", random_mode);
+        printf("%12s | %s | %11s | %13s | %13s\n", "Size (Bytes)", "Access ", "Time (sec)", "Latency (ns)", "Throughput");
+        run_pointer_chasing(size, random_mode);
         return 0;
     }
 

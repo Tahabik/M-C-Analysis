@@ -1,30 +1,254 @@
 === Pointer Chasing Cache/Memory Latency Benchmark ===
 Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
 -----------------------------------------------------------------------------
-       16384 | Seq     |     0.077 s |      3.827 ns |    261.272 Mops
-       16384 | Random  |     0.074 s |      3.711 ns |    269.435 Mops
-       65536 | Seq     |     0.079 s |      3.941 ns |    253.738 Mops
-       65536 | Random  |     0.109 s |      5.451 ns |    183.437 Mops
-      262144 | Seq     |     0.084 s |      4.196 ns |    238.346 Mops
-      262144 | Random  |     0.155 s |      7.746 ns |    129.104 Mops
-     1048576 | Seq     |     0.087 s |      4.370 ns |    228.843 Mops
-     1048576 | Random  |     0.235 s |     11.759 ns |     85.038 Mops
-     4194304 | Seq     |     0.177 s |      8.859 ns |    112.875 Mops
-     4194304 | Random  |     0.310 s |     15.500 ns |     64.518 Mops
-    16777216 | Seq     |     0.179 s |      8.925 ns |    112.039 Mops
-    16777216 | Random  |     1.215 s |     60.756 ns |     16.459 Mops
-    67108864 | Seq     |     0.031 s |      6.141 ns |    162.844 Mops
-    67108864 | Random  |     0.389 s |     77.862 ns |     12.843 Mops
+       16384 | Seq     |     0.079 s |      3.944 ns |    253.537 Mops
+       16384 | Random  |     0.078 s |      3.892 ns |    256.921 Mops
+       65536 | Seq     |     0.080 s |      3.991 ns |    250.594 Mops
+       65536 | Random  |     0.111 s |      5.553 ns |    180.087 Mops
+      262144 | Seq     |     0.087 s |      4.339 ns |    230.488 Mops
+      262144 | Random  |     0.165 s |      8.253 ns |    121.173 Mops
+     1048576 | Seq     |     0.090 s |      4.523 ns |    221.098 Mops
+     1048576 | Random  |     0.245 s |     12.236 ns |     81.727 Mops
+     4194304 | Seq     |     0.111 s |      5.542 ns |    180.434 Mops
+     4194304 | Random  |     0.345 s |     17.245 ns |     57.989 Mops
+    16777216 | Seq     |     0.122 s |      6.112 ns |    163.604 Mops
+    16777216 | Random  |     1.253 s |     62.642 ns |     15.964 Mops
+    67108864 | Seq     |     0.055 s |     10.974 ns |     91.127 Mops
+    67108864 | Random  |     0.391 s |     78.252 ns |     12.779 Mops
 
  Performance counter stats for process id '26048':
 
-    22,497,862,047      cycles:u                                                              
-    32,123,301,368      instructions:u                                                        
-       132,905,431      cache-misses:u                                                        
-       328,493,658      L1-dcache-load-misses:u                                               
-       167,671,908      L1-icache-load-misses:u                                               
-           966,968      iTLB-load-misses:u                                                    
-            51,561      dTLB-load-misses:u                                                    
+    22,126,299,202      cycles:u                                                              
+    29,746,618,100      instructions:u                                                        
+       162,881,714      cache-misses:u                                                        
+       329,035,300      L1-dcache-load-misses:u                                               
+       161,724,000      L1-icache-load-misses:u                                               
+           983,186      iTLB-load-misses:u                                                    
+           697,238      dTLB-load-misses:u                                                    
 
-       5.292896470 seconds time elapsed
+       5.305395862 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 0) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+       16384 | Seq     |     0.076 s |      3.812 ns |    262.324 Mops
+
+ Performance counter stats for process id '26048':
+
+     3,591,207,557      cycles:u                                                              
+     7,286,985,628      instructions:u                                                        
+        22,378,392      cache-misses:u                                                        
+        35,188,494      L1-dcache-load-misses:u                                               
+       125,526,902      L1-icache-load-misses:u                                               
+           734,988      iTLB-load-misses:u                                                    
+             9,421      dTLB-load-misses:u                                                    
+
+       0.924966579 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 0) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+       65536 | Seq     |     0.082 s |      4.112 ns |    243.171 Mops
+
+ Performance counter stats for process id '26048':
+
+     3,631,867,079      cycles:u                                                              
+     7,386,407,932      instructions:u                                                        
+        22,141,312      cache-misses:u                                                        
+        53,879,295      L1-dcache-load-misses:u                                               
+       124,925,737      L1-icache-load-misses:u                                               
+           736,453      iTLB-load-misses:u                                                    
+             8,958      dTLB-load-misses:u                                                    
+
+       0.941946784 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 0) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+      262144 | Seq     |     0.085 s |      4.274 ns |    233.980 Mops
+
+ Performance counter stats for process id '26048':
+
+     3,613,045,014      cycles:u                                                              
+     7,351,630,573      instructions:u                                                        
+        20,924,293      cache-misses:u                                                        
+        53,478,941      L1-dcache-load-misses:u                                               
+       124,493,582      L1-icache-load-misses:u                                               
+           720,083      iTLB-load-misses:u                                                    
+             7,749      dTLB-load-misses:u                                                    
+
+       0.917026809 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 0) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+     1048576 | Seq     |     0.089 s |      4.441 ns |    225.194 Mops
+
+ Performance counter stats for process id '26048':
+
+     3,687,317,892      cycles:u                                                              
+     7,450,528,337      instructions:u                                                        
+        21,646,391      cache-misses:u                                                        
+        54,199,692      L1-dcache-load-misses:u                                               
+       126,690,772      L1-icache-load-misses:u                                               
+           741,545      iTLB-load-misses:u                                                    
+             8,566      dTLB-load-misses:u                                                    
+
+       0.936970308 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 0) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+     4194304 | Seq     |     0.095 s |      4.752 ns |    210.446 Mops
+
+ Performance counter stats for process id '26048':
+
+     3,737,044,710      cycles:u                                                              
+     7,511,171,042      instructions:u                                                        
+        24,107,598      cache-misses:u                                                        
+        54,589,490      L1-dcache-load-misses:u                                               
+       125,119,108      L1-icache-load-misses:u                                               
+           742,499      iTLB-load-misses:u                                                    
+             7,442      dTLB-load-misses:u                                                    
+
+       0.948358762 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 0) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+    16777216 | Seq     |     0.194 s |      9.693 ns |    103.165 Mops
+
+ Performance counter stats for process id '26048':
+
+     4,279,064,967      cycles:u                                                              
+     8,666,263,393      instructions:u                                                        
+        48,322,715      cache-misses:u                                                        
+        57,438,865      L1-dcache-load-misses:u                                               
+       128,301,512      L1-icache-load-misses:u                                               
+           745,836      iTLB-load-misses:u                                                    
+             8,146      dTLB-load-misses:u                                                    
+
+       1.074474834 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 0) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+    67108864 | Seq     |     0.053 s |     10.614 ns |     94.213 Mops
+
+ Performance counter stats for process id '26048':
+
+     4,066,311,401      cycles:u                                                              
+     8,440,601,169      instructions:u                                                        
+        37,796,254      cache-misses:u                                                        
+        47,499,946      L1-dcache-load-misses:u                                               
+       129,432,621      L1-icache-load-misses:u                                               
+           748,110      iTLB-load-misses:u                                                    
+            25,423      dTLB-load-misses:u                                                    
+
+       1.035698557 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+       16384 | Random  |     0.079 s |      3.949 ns |    253.232 Mops
+
+ Performance counter stats for process id '26048':
+
+     3,650,526,525      cycles:u                                                              
+     7,205,011,827      instructions:u                                                        
+        28,656,323      cache-misses:u                                                        
+        34,029,106      L1-dcache-load-misses:u                                               
+       123,463,706      L1-icache-load-misses:u                                               
+           730,036      iTLB-load-misses:u                                                    
+            10,382      dTLB-load-misses:u                                                    
+
+       0.946335864 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+       65536 | Random  |     0.112 s |      5.615 ns |    178.102 Mops
+
+ Performance counter stats for process id '26048':
+
+     3,772,215,069      cycles:u                                                              
+     7,384,832,882      instructions:u                                                        
+        23,581,872      cache-misses:u                                                        
+        53,710,944      L1-dcache-load-misses:u                                               
+       124,162,551      L1-icache-load-misses:u                                               
+           733,431      iTLB-load-misses:u                                                    
+             7,784      dTLB-load-misses:u                                                    
+
+       0.961600944 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+      262144 | Random  |     0.177 s |      8.847 ns |    113.029 Mops
+
+ Performance counter stats for process id '26048':
+
+     4,119,610,305      cycles:u                                                              
+     7,399,088,162      instructions:u                                                        
+        28,118,492      cache-misses:u                                                        
+        53,628,954      L1-dcache-load-misses:u                                               
+       124,173,201      L1-icache-load-misses:u                                               
+           726,840      iTLB-load-misses:u                                                    
+             8,890      dTLB-load-misses:u                                                    
+
+       1.044668914 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+     1048576 | Random  |     0.243 s |     12.165 ns |     82.206 Mops
+
+ Performance counter stats for process id '26048':
+
+     4,372,287,263      cycles:u                                                              
+     7,567,776,570      instructions:u                                                        
+        21,199,005      cache-misses:u                                                        
+        56,169,662      L1-dcache-load-misses:u                                               
+       128,769,785      L1-icache-load-misses:u                                               
+           741,007      iTLB-load-misses:u                                                    
+             8,958      dTLB-load-misses:u                                                    
+
+       1.108687887 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+     4194304 | Random  |     0.367 s |     18.344 ns |     54.513 Mops
+
+ Performance counter stats for process id '26048':
+
+     5,051,084,408      cycles:u                                                              
+     7,988,033,229      instructions:u                                                        
+        25,831,889      cache-misses:u                                                        
+        69,952,087      L1-dcache-load-misses:u                                               
+       129,984,368      L1-icache-load-misses:u                                               
+           752,955      iTLB-load-misses:u                                                    
+            10,451      dTLB-load-misses:u                                                    
+
+       1.265833183 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+    16777216 | Random  |     1.510 s |     75.501 ns |     13.245 Mops
+
+ Performance counter stats for process id '26048':
+
+    11,247,492,226      cycles:u                                                              
+    12,606,521,756      instructions:u                                                        
+        97,119,013      cache-misses:u                                                        
+        90,155,730      L1-dcache-load-misses:u                                               
+       142,746,580      L1-icache-load-misses:u                                               
+           872,161      iTLB-load-misses:u                                                    
+           170,113      dTLB-load-misses:u                                                    
+
+       2.738853600 seconds time elapsed
+
+=== Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
+Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
+    67108864 | Random  |     0.380 s |     75.923 ns |     13.171 Mops
+
+ Performance counter stats for process id '26048':
+
+     8,586,009,564      cycles:u                                                              
+    14,793,335,983      instructions:u                                                        
+        55,409,507      cache-misses:u                                                        
+        62,690,534      L1-dcache-load-misses:u                                               
+       140,433,845      L1-icache-load-misses:u                                               
+           821,581      iTLB-load-misses:u                                                    
+           482,129      dTLB-load-misses:u                                                    
+
+       2.132748657 seconds time elapsed
 

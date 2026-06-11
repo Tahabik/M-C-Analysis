@@ -17,38 +17,38 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 1048576 (7308000.51 per second)
+Total operations: 1048576 (7139399.17 per second)
 
-1024.00 MiB transferred (7136.72 MiB/sec)
+1024.00 MiB transferred (6972.07 MiB/sec)
 
 
 General statistics:
-    total time:                          0.1423s
+    total time:                          0.1457s
     total number of events:              1048576
 
 Latency (ms):
          min:                                    0.00
          avg:                                    0.00
-         max:                                    0.15
+         max:                                    0.09
          95th percentile:                        0.00
-         sum:                                   64.43
+         sum:                                   65.86
 
 Threads fairness:
     events (avg/stddev):           1048576.0000/0.00
-    execution time (avg/stddev):   0.0644/0.00
+    execution time (avg/stddev):   0.0659/0.00
 
 
  Performance counter stats for process id '26247':
 
-     1,083,132,114      cycles:u                                                              
-     1,978,454,799      instructions:u                                                        
-         2,204,815      cache-misses:u                                                        
-         4,937,396      L1-dcache-load-misses:u                                               
-         5,377,591      L1-icache-load-misses:u                                               
-           105,358      iTLB-load-misses:u                                                    
-            83,475      dTLB-load-misses:u                                                    
+       714,567,969      cycles:u                                                              
+     1,433,425,164      instructions:u                                                        
+           928,742      cache-misses:u                                                        
+         2,109,046      L1-dcache-load-misses:u                                               
+         1,585,938      L1-icache-load-misses:u                                               
+            39,573      iTLB-load-misses:u                                                    
+            31,346      dTLB-load-misses:u                                                    
 
-       0.473273568 seconds time elapsed
+       0.265174339 seconds time elapsed
 
 Running block size 4K...
 sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)
@@ -68,38 +68,38 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 262144 (3916281.89 per second)
+Total operations: 262144 (3897473.54 per second)
 
-1024.00 MiB transferred (15297.98 MiB/sec)
+1024.00 MiB transferred (15224.51 MiB/sec)
 
 
 General statistics:
-    total time:                          0.0658s
+    total time:                          0.0661s
     total number of events:              262144
 
 Latency (ms):
          min:                                    0.00
          avg:                                    0.00
-         max:                                    0.05
+         max:                                    0.13
          95th percentile:                        0.00
-         sum:                                   45.83
+         sum:                                   46.14
 
 Threads fairness:
     events (avg/stddev):           262144.0000/0.00
-    execution time (avg/stddev):   0.0458/0.00
+    execution time (avg/stddev):   0.0461/0.00
 
 
  Performance counter stats for process id '26247':
 
-       372,098,528      cycles:u                                                              
-       994,546,173      instructions:u                                                        
-           466,344      cache-misses:u                                                        
-         1,312,742      L1-dcache-load-misses:u                                               
-         1,451,102      L1-icache-load-misses:u                                               
-            36,566      iTLB-load-misses:u                                                    
-            30,413      dTLB-load-misses:u                                                    
+       376,136,770      cycles:u                                                              
+       993,490,618      instructions:u                                                        
+           765,045      cache-misses:u                                                        
+         1,240,224      L1-dcache-load-misses:u                                               
+         1,250,909      L1-icache-load-misses:u                                               
+            32,671      iTLB-load-misses:u                                                    
+            26,608      dTLB-load-misses:u                                                    
 
-       0.175322541 seconds time elapsed
+       0.179036611 seconds time elapsed
 
 Running block size 16K...
 sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)
@@ -119,13 +119,13 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 65536 (1377424.22 per second)
+Total operations: 65536 (1373968.76 per second)
 
-1024.00 MiB transferred (21522.25 MiB/sec)
+1024.00 MiB transferred (21468.26 MiB/sec)
 
 
 General statistics:
-    total time:                          0.0464s
+    total time:                          0.0466s
     total number of events:              65536
 
 Latency (ms):
@@ -133,24 +133,24 @@ Latency (ms):
          avg:                                    0.00
          max:                                    0.15
          95th percentile:                        0.00
-         sum:                                   41.22
+         sum:                                   41.40
 
 Threads fairness:
     events (avg/stddev):           65536.0000/0.00
-    execution time (avg/stddev):   0.0412/0.00
+    execution time (avg/stddev):   0.0414/0.00
 
 
  Performance counter stats for process id '26247':
 
-       289,461,215      cycles:u                                                              
-       885,351,070      instructions:u                                                        
-           443,721      cache-misses:u                                                        
-         1,150,820      L1-dcache-load-misses:u                                               
-         1,440,089      L1-icache-load-misses:u                                               
-            36,657      iTLB-load-misses:u                                                    
-            31,227      dTLB-load-misses:u                                                    
+       293,070,672      cycles:u                                                              
+       886,634,970      instructions:u                                                        
+           689,444      cache-misses:u                                                        
+         1,137,037      L1-dcache-load-misses:u                                               
+         1,465,225      L1-icache-load-misses:u                                               
+            37,381      iTLB-load-misses:u                                                    
+            30,336      dTLB-load-misses:u                                                    
 
-       0.154931552 seconds time elapsed
+       0.154849287 seconds time elapsed
 
 Running block size 64K...
 sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)
@@ -170,38 +170,38 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 16384 (377163.08 per second)
+Total operations: 16384 (370717.26 per second)
 
-1024.00 MiB transferred (23572.69 MiB/sec)
+1024.00 MiB transferred (23169.83 MiB/sec)
 
 
 General statistics:
-    total time:                          0.0423s
+    total time:                          0.0430s
     total number of events:              16384
 
 Latency (ms):
          min:                                    0.00
          avg:                                    0.00
-         max:                                    0.22
+         max:                                    0.20
          95th percentile:                        0.00
-         sum:                                   40.52
+         sum:                                   41.09
 
 Threads fairness:
     events (avg/stddev):           16384.0000/0.00
-    execution time (avg/stddev):   0.0405/0.00
+    execution time (avg/stddev):   0.0411/0.00
 
 
  Performance counter stats for process id '26247':
 
-       268,622,353      cycles:u                                                              
-       857,307,043      instructions:u                                                        
-           465,127      cache-misses:u                                                        
-        18,510,757      L1-dcache-load-misses:u                                               
-         1,302,102      L1-icache-load-misses:u                                               
-            33,130      iTLB-load-misses:u                                                    
-            28,027      dTLB-load-misses:u                                                    
+       282,592,535      cycles:u                                                              
+       861,538,021      instructions:u                                                        
+           942,502      cache-misses:u                                                        
+        18,569,472      L1-dcache-load-misses:u                                               
+         1,549,127      L1-icache-load-misses:u                                               
+            42,479      iTLB-load-misses:u                                                    
+            32,869      dTLB-load-misses:u                                                    
 
-       0.151440362 seconds time elapsed
+       0.157645817 seconds time elapsed
 
 Running block size 256K...
 sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)
@@ -221,38 +221,38 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 4096 (97399.81 per second)
+Total operations: 4096 (95785.77 per second)
 
-1024.00 MiB transferred (24349.95 MiB/sec)
+1024.00 MiB transferred (23946.44 MiB/sec)
 
 
 General statistics:
-    total time:                          0.0409s
+    total time:                          0.0416s
     total number of events:              4096
 
 Latency (ms):
          min:                                    0.01
          avg:                                    0.01
-         max:                                    0.16
+         max:                                    0.08
          95th percentile:                        0.01
-         sum:                                   40.07
+         sum:                                   40.62
 
 Threads fairness:
     events (avg/stddev):           4096.0000/0.00
-    execution time (avg/stddev):   0.0401/0.00
+    execution time (avg/stddev):   0.0406/0.00
 
 
  Performance counter stats for process id '26247':
 
-       262,897,967      cycles:u                                                              
-       851,144,163      instructions:u                                                        
-           451,999      cache-misses:u                                                        
-        18,005,637      L1-dcache-load-misses:u                                               
-         1,345,455      L1-icache-load-misses:u                                               
-            31,847      iTLB-load-misses:u                                                    
-            32,548      dTLB-load-misses:u                                                    
+       276,930,051      cycles:u                                                              
+       851,284,365      instructions:u                                                        
+           912,315      cache-misses:u                                                        
+        18,014,970      L1-dcache-load-misses:u                                               
+         1,446,320      L1-icache-load-misses:u                                               
+            37,398      iTLB-load-misses:u                                                    
+            35,358      dTLB-load-misses:u                                                    
 
-       0.150037895 seconds time elapsed
+       0.153840635 seconds time elapsed
 
 Running block size 1M...
 sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)
@@ -272,38 +272,38 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 1024 (24159.53 per second)
+Total operations: 1024 (24043.18 per second)
 
-1024.00 MiB transferred (24159.53 MiB/sec)
+1024.00 MiB transferred (24043.18 MiB/sec)
 
 
 General statistics:
-    total time:                          0.0412s
+    total time:                          0.0413s
     total number of events:              1024
 
 Latency (ms):
          min:                                    0.04
          avg:                                    0.04
-         max:                                    0.12
+         max:                                    0.15
          95th percentile:                        0.04
-         sum:                                   40.40
+         sum:                                   40.62
 
 Threads fairness:
     events (avg/stddev):           1024.0000/0.00
-    execution time (avg/stddev):   0.0404/0.00
+    execution time (avg/stddev):   0.0406/0.00
 
 
  Performance counter stats for process id '26247':
 
-       265,106,612      cycles:u                                                              
-       848,675,415      instructions:u                                                        
-           798,134      cache-misses:u                                                        
-        17,806,529      L1-dcache-load-misses:u                                               
-         1,266,335      L1-icache-load-misses:u                                               
-            31,081      iTLB-load-misses:u                                                    
-            28,236      dTLB-load-misses:u                                                    
+       270,123,251      cycles:u                                                              
+       848,473,811      instructions:u                                                        
+           851,825      cache-misses:u                                                        
+        17,799,101      L1-dcache-load-misses:u                                               
+         1,231,571      L1-icache-load-misses:u                                               
+            28,797      iTLB-load-misses:u                                                    
+            27,002      dTLB-load-misses:u                                                    
 
-       0.150989906 seconds time elapsed
+       0.157802907 seconds time elapsed
 
 Running block size 4M...
 sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)
@@ -323,38 +323,38 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 256 ( 6198.38 per second)
+Total operations: 256 ( 5981.23 per second)
 
-1024.00 MiB transferred (24793.54 MiB/sec)
+1024.00 MiB transferred (23924.90 MiB/sec)
 
 
 General statistics:
-    total time:                          0.0402s
+    total time:                          0.0416s
     total number of events:              256
 
 Latency (ms):
          min:                                    0.15
          avg:                                    0.16
-         max:                                    0.31
-         95th percentile:                        0.16
-         sum:                                   39.86
+         max:                                    0.52
+         95th percentile:                        0.19
+         sum:                                   41.29
 
 Threads fairness:
     events (avg/stddev):           256.0000/0.00
-    execution time (avg/stddev):   0.0399/0.00
+    execution time (avg/stddev):   0.0413/0.00
 
 
  Performance counter stats for process id '26247':
 
-       263,401,961      cycles:u                                                              
-       848,698,960      instructions:u                                                        
-           572,020      cache-misses:u                                                        
-        17,866,684      L1-dcache-load-misses:u                                               
-         1,404,684      L1-icache-load-misses:u                                               
-            36,577      iTLB-load-misses:u                                                    
-            31,327      dTLB-load-misses:u                                                    
+       272,215,471      cycles:u                                                              
+       849,040,153      instructions:u                                                        
+         1,186,654      cache-misses:u                                                        
+        17,854,846      L1-dcache-load-misses:u                                               
+         1,410,768      L1-icache-load-misses:u                                               
+            38,513      iTLB-load-misses:u                                                    
+            31,679      dTLB-load-misses:u                                                    
 
-       0.149390353 seconds time elapsed
+       0.150880167 seconds time elapsed
 
 Running block size 16M...
 sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)
@@ -374,36 +374,36 @@ Initializing worker threads...
 
 Threads started!
 
-Total operations: 64 ( 1264.95 per second)
+Total operations: 64 ( 1091.90 per second)
 
-1024.00 MiB transferred (20239.23 MiB/sec)
+1024.00 MiB transferred (17470.33 MiB/sec)
 
 
 General statistics:
-    total time:                          0.0494s
+    total time:                          0.0574s
     total number of events:              64
 
 Latency (ms):
-         min:                                    0.69
-         avg:                                    0.77
-         max:                                    1.20
-         95th percentile:                        0.95
-         sum:                                   49.14
+         min:                                    0.71
+         avg:                                    0.89
+         max:                                    1.23
+         95th percentile:                        1.16
+         sum:                                   56.89
 
 Threads fairness:
     events (avg/stddev):           64.0000/0.00
-    execution time (avg/stddev):   0.0491/0.00
+    execution time (avg/stddev):   0.0569/0.00
 
 
  Performance counter stats for process id '26247':
 
-       302,860,033      cycles:u                                                              
-       849,147,755      instructions:u                                                        
-        12,508,314      cache-misses:u                                                        
-        17,794,263      L1-dcache-load-misses:u                                               
-         1,318,464      L1-icache-load-misses:u                                               
-            31,067      iTLB-load-misses:u                                                    
-            29,034      dTLB-load-misses:u                                                    
+       329,597,832      cycles:u                                                              
+       849,915,924      instructions:u                                                        
+        17,593,109      cache-misses:u                                                        
+        17,847,093      L1-dcache-load-misses:u                                               
+         1,447,520      L1-icache-load-misses:u                                               
+            39,010      iTLB-load-misses:u                                                    
+            34,801      dTLB-load-misses:u                                                    
 
-       0.160671696 seconds time elapsed
+       0.189396978 seconds time elapsed
 
