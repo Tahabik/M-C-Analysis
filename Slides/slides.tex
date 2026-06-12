@@ -669,6 +669,61 @@
       \end{columns}
   \end{frame}
 
+  \begin{frame}{Concept Check: What is JIT (Just-In-Time) Compilation?}
+      \begin{columns}[T]
+          % Left Column: Simple Explanation
+          \begin{column}{0.48\textwidth}
+              \textbf{The Translation Problem:}
+              \begin{itemize}\small
+                  \item \textbf{Interpreter:} Translates code line-by-line, every single time. (Too slow).
+                  \item \textbf{Ahead-of-Time (AOT):} Pre-compiled for one specific CPU. (Inflexible).
+                  \item \textbf{JIT (The QEMU Way):} Translates chunks of code on the fly \textit{and saves the result}.
+              \end{itemize}
+              
+              \vspace{0.1cm}
+              \textbf{Why it matters for our traces:}
+              \begin{itemize}\small
+                  \item Guest ARM instructions are compiled into Host x86 instructions \textit{while} the VM runs.
+                  \item Once translated, the CPU executes the cached block at near-native speed.
+              \end{itemize}
+          \end{column}
+
+          % Right Column: TikZ Visual Pipeline
+          \begin{column}{0.52\textwidth}
+              \textbf{The TCG JIT Pipeline:}
+              \vspace{0.4cm}
+              \begin{center}
+              \resizebox{0.95\textwidth}{!}{%
+              \begin{tikzpicture}[
+                  node distance=0.7cm and 0.8cm,
+                  box/.style={draw=SystemSlate, fill=LightGray, rounded corners=2pt, align=center, font=\sffamily\small, minimum width=2.8cm, minimum height=0.8cm, line width=0.8pt},
+                  highlight/.style={draw=SystemSlate, fill=HighlightCyan!20, rounded corners=2pt, align=center, font=\sffamily\bfseries\small, minimum width=2.8cm, minimum height=0.8cm, line width=1pt},
+                  arrow/.style={-{Stealth[scale=1.0]}, line width=1pt, draw=SystemSlate}
+              ]
+                  % Nodes
+                  \node[box] (guest) {Guest ARM\\Instruction Block};
+                  \node[box, below=of guest, fill=AmberAccent!20] (jit) {TCG Engine\\(JIT Compiler)};
+                  \node[highlight, right=1.0cm of jit] (cache) {Translation\\Block Cache (x86)};
+                  \node[box, below=of cache, fill=SystemSlate!10] (exec) {Host CPU\\Execution};
+
+                  % Paths
+                  \draw[arrow] (guest) -- (jit) node[midway, left, font=\scriptsize] {1. Intercept};
+                  \draw[arrow] (jit) -- (cache) node[midway, above, font=\scriptsize] {2. Translate \& Save};
+                  \draw[arrow] (cache) -- (exec) node[midway, right, font=\scriptsize] {3. Execute Native};
+
+                  % Fast Path Loop
+                  \draw[arrow, dashed, draw=HighlightCyan!80!black] (exec.east) -- ++(0.6,0) |- (cache.east) 
+                      node[pos=0.25, right, font=\sffamily\bfseries\scriptsize, color=HighlightCyan!80!black] {Next Loop: Fast Path!};
+                      
+              \end{tikzpicture}%
+              }
+              \end{center}
+              \vspace{0.2cm}
+              \footnotesize \textit{Notice: If this cache is flushed, the CPU must fall back to step 1, destroying performance.}
+          \end{column}
+      \end{columns}
+  \end{frame}
+
   \begin{frame}{Benchmark 2 results and analysis}
   \end{frame}
   \begin{frame}{Benchmark 3 results and analysis}

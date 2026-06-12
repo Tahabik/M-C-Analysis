@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.5.30)  13 JUN 2026 01:53
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.5.30)  13 JUN 2026 02:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1197,6 +1197,10 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
 [18
 
 ]
+Overfull \vbox (9.8018pt too high) detected at line 725
+ []
+
+
 
 [19
 
@@ -1207,6 +1211,10 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
 ]
 
 [21
+
+]
+
+[22
 
 ]
 \tf@nav=\write6
@@ -1227,12 +1235,12 @@ Package rerunfilecheck Info: File `slides.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 28408 strings out of 475840
- 613284 string characters out of 5774984
- 1050730 words of memory out of 5000000
- 50775 multiletter control sequences out of 15000+600000
+ 28446 strings out of 475840
+ 613915 string characters out of 5774984
+ 1050794 words of memory out of 5000000
+ 50813 multiletter control sequences out of 15000+600000
  565888 words of font info for 106 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,13n,123p,463b,1092s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,13n,123p,463b,1174s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on slides.pdf (21 pages).
+Output written on slides.pdf (22 pages).
