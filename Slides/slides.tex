@@ -9,6 +9,15 @@
 \definecolor{SystemSlate}{HTML}{23373B}
 \definecolor{HighlightCyan}{HTML}{00B4D8}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc}
+
+% Define clean, professional color palette matching your theme
+\definecolor{SlateMain}{HTML}{23373B}
+\definecolor{CyanAccent}{HTML}{00B4D8}
+\definecolor{AmberAccent}{HTML}{F7A072}
+\definecolor{LightGray}{HTML}{F4F4F9}
+
 \setbeamercolor{frametitle}{bg=SystemSlate, fg=white}
 \setbeamercolor{progress bar}{fg=HighlightCyan, bg=SystemSlate}
 
@@ -33,35 +42,302 @@
           
           % Right Column: Figure
           \begin{column}{0.4\textwidth}
-              \centering
-              % Replace 'virt-stack' with your actual image filename
-              \includegraphics[width=\textwidth]{figures/virtualization.png}
-              \vspace{0.5cm} % Add some breathing room
-              \small
-              \textit{Figure 1: KVM Virtualization Stack Architecture}
+              \begin{figure}
+                \begin{center}
+                  \includegraphics[width=0.95\textwidth]{figures/virtualization.png}
+                \end{center}
+                \caption{Virtualization}
+              \end{figure}
           \end{column}
           
       \end{columns}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}{Background cont.}
       \begin{itemize}
           \item \textbf{Hardware-Assisted Virtualization:}
           \begin{itemize}
               \item Powered by KVM in the Linux kernel for virtualization on the same host architecture.
               \item Processing is done on actual hardware via CPU Virtualization technologies (VT-x/AMD-V).
           \end{itemize}
-          \item \textbf{Emulation:} For running OSes that run on entirely different CPU architectures! Powered by QEMU's TCG (Tiny Code Generator). 
+          \item \textbf{Emulation:} 
+          \begin{itemize}
+            \item For running OSes that run on entirely different CPU architectures!
+            \item Powered by QEMU's TCG (Tiny Code Generator). 
+          \end{itemize}
       \end{itemize}
   \end{frame}
-  \begin{frame}{Motivation \& Problem}
-    introduce the challenge of virtual memory and two approaches of ept and softmmu
-    introduce the challenge of
-    translation of instructions and how tcg is different from kvm. (Not very complex)
+  \begin{frame}{Motivation: The Virtual Memory Challenge}
+      \begin{columns}[T]
+          % Left Column: Concepts & Overheads
+          \begin{column}{0.55\textwidth}
+              \textbf{The Guest Memory Layering Illusion:}
+              \begin{itemize}
+                  \item Guest OS maps Guest Virtual Addresses (GVA) to Guest Physical Addresses (GPA).
+                  \item Host OS must map GPA to final Host Physical Addresses (HPA).
+              \end{itemize}
+              % \vspace{0.3cm}
+          \end{column}
+          
+          \begin{column}{0.45\textwidth}
+              \textbf{Two Architectural Solutions:}
+              \begin{itemize}
+                  \item \textbf{Hardware EPT (KVM):} The hardware MMU natively walks both page tables simultaneously in silicon. High-speed, but TLB misses are costly.
+                  \item \textbf{Software MMU (TCG):} QEMU maintains an inline software TLB cache. If it misses, it triggers a slow, multi-layered C helper routine loop.
+              \end{itemize}
+          \end{column}
+      \end{columns}
   \end{frame}
-  \begin{frame}{Goal}
+
+  \begin{frame}{EPT Overall Look}
+    \begin{centering}
+      \resizebox{0.95\textwidth}{!}{%
+        \begin{tikzpicture}[
+            node distance=0.8cm and 1.1cm,
+            font=\sffamily\small,
+            box/.style={draw=SlateMain, fill=LightGray, minimum width=2.2cm, minimum height=0.7cm, rounded corners=2pt, align=center, line width=0.8pt},
+            reg/.style={draw=SlateMain, fill=CyanAccent!20, minimum width=2.2cm, minimum height=0.6cm, font=\sffamily\bfseries\small, align=center, line width=1pt},
+            eptbox/.style={draw=SlateMain, fill=AmberAccent!20, minimum width=2.2cm, minimum height=0.7cm, rounded corners=2pt, align=center, line width=0.8pt},
+            arrow/.style={-{Stealth[scale=1.0]}, line width=0.8pt, draw=SlateMain},
+            dasharrow/.style={-{Stealth[scale=1.0]}, line width=0.8pt, draw=SlateMain, dashed},
+            labelnode/.style={font=\sffamily\scriptsize\itshape, color=SlateMain!80}
+        ]
+
+            % --- TOP ROW: GUEST WALK LAYER ---
+            \node[box, fill=white] (gva) {\textbf{GVA} \\ \scriptsize(Virtual Addr)};
+            \node[reg, right=of gva] (cr3) {Guest CR3};
+            \node[box, right=of cr3] (gpml4) {Guest PML4 \\ \scriptsize(Holds GPA)};
+            \node[box, right=of gpml4] (gpdpt) {Guest PDPT \\ \scriptsize(Holds GPA)};
+            \node[box, right=of gpdpt] (gpt) {Guest PT \\ \scriptsize(Holds GPA)};
+
+            % --- MIDDLE LAYER: THE CORE HARDWARE POINTER ---
+            \node[reg, below=2.0cm of cr3, fill=AmberAccent!40] (eptp) {EPTP \\ \scriptsize(EPT Root Pointer)};
+
+            % --- BOTTOM ROW: NESTED EPT LAYER ---
+            \node[eptbox, right=of eptp] (epml4) {EPT PML4 \\ \scriptsize(HPA)};
+            \node[eptbox, right=of epml4] (epdpt) {EPT PDPT \\ \scriptsize(HPA)};
+            \node[eptbox, right=of epdpt] (ept) {EPT PT \\ \scriptsize(HPA)};
+            
+            % --- FINAL OUTPUT ---
+            \node[box, right=0.8cm of ept, fill=CyanAccent!10, minimum width=2.2cm] (hpa) {\textbf{HPA} \\ \scriptsize(Physical RAM)};
+
+            % ================= DRAWING THE CORRECTED PATHS =================
+            
+            % Define safe "Bus" elevations for horizontal routing to prevent line crossing
+            \coordinate (BusHigh) at ($(cr3.south)!0.35!(eptp.north)$); % Used for Upward resolutions
+            \coordinate (BusLow)  at ($(cr3.south)!0.65!(eptp.north)$); % Used for Downward traps
+            
+            % 1. Native step
+            \draw[arrow] (gva) -- (cr3);
+            
+            % 2. CR3 Trap (Straight down)
+            \draw[dasharrow] (cr3.south) -- (eptp.north) node[midway, left, labelnode] {GPA Trap};
+            
+            % 3. EPT Walk Steps
+            \draw[arrow] (eptp) -- (epml4);
+            \draw[arrow] (epml4) -- (epdpt);
+            \draw[arrow] (epdpt) -- (ept);
+
+            % 4. Guest Walk Steps
+            \draw[arrow] (gpml4) -- (gpdpt);
+            \draw[arrow] (gpdpt) -- (gpt);
+
+            \draw[dasharrow, rounded corners=3pt] 
+                (gpml4.south) -- (gpml4.south |- BusLow) 
+                -- ($(eptp.north |- BusLow) + (0.3,0)$) 
+                -- ($(eptp.north) + (0.3,0)$);
+
+            \draw[dasharrow, rounded corners=3pt] 
+                (gpdpt.south) -- (gpdpt.south |- BusLow) 
+                -- ($(eptp.north |- BusLow) + (0.6,0)$) 
+                -- ($(eptp.north) + (0.6,0)$);
+
+            \draw[dasharrow, rounded corners=3pt] 
+                (gpt.south) -- (gpt.south |- BusLow) 
+                -- ($(eptp.north |- BusLow) + (0.9,0)$) 
+                -- ($(eptp.north) + (0.9,0)$);
+
+            \draw[dasharrow, rounded corners=3pt] 
+                ($(ept.north) + (-0.3,0)$) -- ($(ept.north |- BusHigh) + (-0.3,0)$) 
+                -- ($(gpml4.south |- BusHigh) + (0.3,0)$) 
+                -- ($(gpml4.south) + (0.3,0)$)
+                node[pos=0.25, above, labelnode] {Resolves HPA for Table};
+
+            % 7. Final Output routing cleanly into the left side of the HPA block
+            \draw[arrow, rounded corners=3pt] (gpt.east) -- ++(0.3,0) |- (hpa.west);
+            \draw[arrow] (ept.east) -- (hpa.west);
+
+            % Context Labels
+            \node[labelnode, above=0.15cm of gpdpt, font=\sffamily\bfseries\small, color=CyanAccent!80!black] {1D Guest Page Walk (Generates GPAs)};
+            \node[labelnode, below=0.15cm of epdpt, font=\sffamily\bfseries\small, color=AmberAccent!80!black] {2D Hardware EPT Walk (Resolves GPAs to HPAs)};
+
+        \end{tikzpicture}
+
+      }
+    \end{centering}
+  \end{frame}
+
+  \begin{frame}{SoftMMU Overall Look}
+    \begin{centering}
+    % Scale the figure to exactly 95% of the slide's text width
+    \resizebox{0.95\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=0.8cm and 1.2cm,
+        font=\sffamily\small,
+        box/.style={draw=SlateMain, fill=LightGray, minimum width=2.2cm, minimum height=0.7cm, rounded corners=2pt, align=center, line width=0.8pt},
+        tlbbox/.style={draw=SlateMain, fill=CyanAccent!20, minimum width=2.4cm, minimum height=0.8cm, font=\sffamily\bfseries\small, align=center, line width=1pt},
+        slowbox/.style={draw=SlateMain, fill=AmberAccent!20, minimum width=2.2cm, minimum height=0.7cm, rounded corners=2pt, align=center, line width=0.8pt},
+        arrow/.style={-{Stealth[scale=1.0]}, line width=0.8pt, draw=SlateMain},
+        dasharrow/.style={-{Stealth[scale=1.0]}, line width=0.8pt, draw=SlateMain, dashed},
+        labelnode/.style={font=\sffamily\scriptsize\itshape, color=SlateMain!80}
+    ]
+
+        % --- TOP ROW: THE FAST PATH (Inlined in JIT Code) ---
+        \node[box, fill=white] (gva) {\textbf{GVA} \\ \scriptsize(Guest Virtual Addr)};
+        
+        \node[tlbbox, right=1.5cm of gva] (tlb) {SoftMMU TLB \\ \scriptsize(Software Hash Table)};
+        
+        \node[box, right=1.5cm of tlb] (offset) {Add Host Offset \\ \scriptsize(Direct Math)};
+        
+        \node[box, right=1.2cm of offset, fill=CyanAccent!10, minimum width=2.2cm] (hpa) {\textbf{HPA / HVA} \\ \scriptsize(Host Memory)};
+
+        % --- BOTTOM ROW: THE SLOW PATH (Trapping out of JIT to C Helpers) ---
+        \node[slowbox, below=1.8cm of tlb] (tlbfill) {\texttt{tlb\_fill()} \\ \scriptsize(QEMU C Helper)};
+        
+        \node[slowbox, right=of tlbfill] (swwalk) {Software PT Walk \\ \scriptsize(Reads Guest RAM)};
+        
+        \node[slowbox, right=of swwalk] (memapi) {QEMU Mem API \\ \scriptsize(Maps GPA $\to$ HPA)};
+
+        % ================= DRAWING THE PATHS =================
+        
+        % 1. Initial Access
+        \draw[arrow] (gva) -- (tlb) node[midway, above, labelnode] {Lookup};
+
+        % 2. FAST PATH (TLB Hit)
+        \draw[arrow, line width=1.2pt, draw=CyanAccent!80!black] (tlb) -- (offset) 
+            node[midway, above, font=\sffamily\bfseries\scriptsize, color=CyanAccent!80!black] {TLB Hit};
+        \draw[arrow, line width=1.2pt, draw=CyanAccent!80!black] (offset) -- (hpa);
+
+        % 3. SLOW PATH TRAP (TLB Miss)
+        \draw[dasharrow, draw=AmberAccent!80!black, line width=1pt] (tlb.south) -- (tlbfill.north) 
+            node[midway, left, font=\sffamily\bfseries\scriptsize, color=AmberAccent!80!black] {TLB Miss};
+
+        % 4. Slow Path Execution
+        \draw[arrow] (tlbfill) -- (swwalk) node[midway, above, labelnode] {Parse Tables};
+        \draw[arrow] (swwalk) -- (memapi) node[midway, above, labelnode] {Find GPA};
+
+        % 5. Cache Update & Retry
+        % Routing up from Mem API back to the TLB to update it, then retry
+        \coordinate (BusRight) at ($(memapi.north) + (0, 0.4)$);
+        
+        \draw[dasharrow, rounded corners=3pt] 
+            (memapi.north) -- (BusRight) 
+            -| ($(tlb.south) + (0.5,0)$) 
+            node[pos=0.25, above, labelnode] {Update Cache \& Retry};
+
+        % Context Labels
+        \node[labelnode, above=0.2cm of offset, font=\sffamily\bfseries\small, color=CyanAccent!80!black] {Executes in Translated Guest Code (Native Speed)};
+        \node[labelnode, below=0.2cm of swwalk, font=\sffamily\bfseries\small, color=AmberAccent!80!black] {Context Switch to QEMU Emulator Engine (High Penalty)};
+
+    \end{tikzpicture}%
+    }
+    \end{centering}
+  \end{frame}
+
+  \begin{frame}{Motivation: Instruction Pipeline Divergence}
+      \textbf{Instruction Handling Disparity:}
+      \begin{columns}[T]
+          \begin{column}{0.45\textwidth}
+              \begin{itemize}
+                  \item \textbf{KVM Direct Execution:} Guest instructions execute natively on physical execution units at full hardware frequency. 
+                  \item Overheads only trigger during trapping instructions (\textit{VM-Exits}) like I/O or hypercalls.
+              \end{itemize}
+          \end{column}
+
+          % Right Column: Execution Overheads
+          \begin{column}{0.55\textwidth}
+              \vspace{0.2cm}
+              \textbf{TCG Binary Translation:}
+              \begin{itemize}
+                  \item Guest binary blocks are completely intercepted, compiled to Intermediate Representation (IR), and rewritten into Host Assembly.
+                  \item Code changes require synchronous, costly generation cache invalidations (\textit{SMC Penalties}).
+              \end{itemize}
+          \end{column}
+      \end{columns}
+  \end{frame}
+
+% \begin{frame}{Project Goal: Quantifying the "Virtualization Tax"}
+%     \begin{columns}[T]
+%         \begin{column}{0.5\textwidth}
+%             \textbf{Objective:} \\
+%             An extensive performance analysis isolating the architectural overheads of hardware-assisted vs. software-emulated memory subsystems.
+%
+%             \vspace{0.4cm}
+%             \textbf{Key Research Questions:}
+%             \begin{itemize}
+%                 \item How does \textbf{SoftMMU} latency scale as workloads spill across L1, L2, and L3 boundaries?
+%                 \item What is the exact cycle penalty of \textbf{EPT walks} during high-frequency TLB misses?
+%                 \item Can we pinpoint the assembly-level bottleneck in JIT-translated code?
+%             \end{itemize}
+%         \end{column}
+%
+%         \begin{column}{0.5\textwidth}
+%             \textbf{The Telemetry Stack:}
+%             \begin{itemize}
+%                 \item \textbf{Hardware Counters:} \texttt{perf stat} for L1/LLC misses and dTLB stalls.
+%                 \item \textbf{Execution Profiling:} \texttt{perf record/annotate} to map hot-spots to assembly.
+%                 \item \textbf{Kernel Tracing:} \texttt{bpftrace} histograms of \texttt{kvm_mmu_page_fault} vs. QEMU \texttt{tlb_fill}.
+%             \end{itemize}
+%             \vspace{0.3cm}
+%             \centering
+%             \begin{tikzpicture}
+%                 \draw[SlateMain, line width=1pt, fill=CyanAccent!10] (0,0) rectangle (4,0.8) node[midway] {\footnotesize \textbf{Target: Memory Latency}};
+%             \end{tikzpicture}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
+
+% \begin{frame}{Experimental Setup: The Shielded Environment}
+%     \begin{columns}[T]
+%         \begin{column}{0.55\textwidth}
+%             \textbf{Host Configuration (i7-8700K):}
+%             \begin{itemize}
+%                 \item \textbf{Anti-Jitter Isolation:} \\
+%                 \texttt{isolcpus=0-3,6-9 nohz_full=0-3,6-9}
+%                 \item \textbf{Shielded Execution:} 
+%                 Core 0 is strictly quarantined for the Guest; SMT sibling (Core 6) is idled to preserve L1/L2 integrity.
+%                 \item \textbf{Hyper-Threading:} Disabled via core isolation to eliminate "Noisy Neighbor" cache pollution.
+%             \end{itemize}
+%         \end{column}
+%
+%         \begin{column}{0.45\textwidth}
+%             \textbf{Guest Infrastructure:}
+%             \begin{itemize}
+%                 \item \textbf{Environment:} Debian 12 (NoCloud images) orchestrated via QEMU/KVM scripts.
+%                 \item \textbf{Mixed-Arch Analysis:}
+%                 \begin{itemize}
+%                     \item \textbf{x86\_64:} Native KVM vs. TCG.
+%                     \item \textbf{AArch64:} Cross-Arch TCG Emulation.
+%                 \end{itemize}
+%                 \item \textbf{Communication:} SSH-backed automated data collection pipeline.
+%             \end{itemize}
+%             \vspace{0.2cm}
+%             \centering
+%             \begin{tikzpicture}[font=\sffamily\tiny]
+%                 \draw[draw=SlateMain, fill=LightGray] (0,0) rectangle (2.5,1.5);
+%                 \node at (1.25,1.2) {\textbf{Isolated Core 0}};
+%                 \node[draw=CyanAccent, fill=white] at (1.25,0.6) {Guest VM Execution};
+%                 \draw[<->, draw=SlateMain] (2.5,0.75) -- (3.2,0.75) node[right] {SSH / Tracing};
+%             \end{tikzpicture}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
+
+ \begin{frame}{Goal}
     Explain the goal of trying to measure differences via tools like perf and benchmarks
   \end{frame}
+
+
   \begin{frame}{System Setup}
     Explain the cpu isolation (hyper threading disabled), running debian nocloud images via scripts and communicating with them via ssh and perf. one is arm and one is x86
   \end{frame}
