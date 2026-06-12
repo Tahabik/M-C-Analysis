@@ -18,7 +18,7 @@ DATA_FILE_DEFAULT="$OUT_DIR/tcg_mem_default.data"
 REPORT_FILE_DEFAULT="$OUT_DIR/tcg_mem_report_default.txt"
 WORKLOAD_OUT_DEFAULT="$OUT_DIR/tcg_workload_default.txt"
 
-sudo perf mem record -t load,store -C 2 -o "$DATA_FILE_DEFAULT" -- sleep 9999 &
+sudo perf mem record -t load,store -C 3 -o "$DATA_FILE_DEFAULT" -- sleep 9999 &
 PERF_PID=$!
 
 sleep 2
@@ -68,7 +68,7 @@ for size in "${sizes[@]}"; do
 
     echo ">>> Profiling Size: ${kb_size}KB | Mode: ${mode_label}"
 
-    sudo perf mem record -t load,store -C 2 -o "$DATA_FILE" -- sleep 9999 &
+    sudo perf mem record -t load,store -C 3 -o "$DATA_FILE" -- sleep 9999 &
     PERF_PID=$!
 
     sleep 2

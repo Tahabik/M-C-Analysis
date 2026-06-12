@@ -1,0 +1,12 @@
+=== Self-Modifying Code (SMC) Benchmark ===
+Running 100000 iterations...
+Architecture detected: ARM64 (aarch64)
+Progress: 20000/100000 (Returned value matches: YES)
+Progress: 40000/100000 (Returned value matches: YES)
+Progress: 60000/100000 (Returned value matches: YES)
+Progress: 80000/100000 (Returned value matches: YES)
+
+Results:
+Time elapsed    : 1.290746 seconds
+Throughput      : 0.077 Million modifications/sec (MOps)
+Latency per loop: 12907.46 ns

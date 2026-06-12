@@ -1,17 +1,17 @@
 === Pointer Chasing Cache/Memory Latency Benchmark ===
 Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
 -----------------------------------------------------------------------------
-       16384 | Seq     |     0.173 s |      8.674 ns |    115.290 Mops
-       16384 | Random  |     0.173 s |      8.659 ns |    115.493 Mops
-       65536 | Seq     |     0.179 s |      8.972 ns |    111.456 Mops
-       65536 | Random  |     0.269 s |     13.431 ns |     74.453 Mops
-      262144 | Seq     |     0.182 s |      9.086 ns |    110.063 Mops
-      262144 | Random  |     0.266 s |     13.323 ns |     75.060 Mops
-     1048576 | Seq     |     0.188 s |      9.405 ns |    106.331 Mops
-     1048576 | Random  |     0.380 s |     18.994 ns |     52.648 Mops
-     4194304 | Seq     |     0.186 s |      9.315 ns |    107.354 Mops
-     4194304 | Random  |     0.713 s |     35.642 ns |     28.057 Mops
-    16777216 | Seq     |     0.293 s |     14.640 ns |     68.307 Mops
-    16777216 | Random  |     2.239 s |    111.974 ns |      8.931 Mops
-    67108864 | Seq     |     0.073 s |     14.511 ns |     68.912 Mops
-    67108864 | Random  |     0.752 s |    150.385 ns |      6.650 Mops
+       16384 | Seq     |     0.215 s |     10.757 ns |     92.967 Mops
+       16384 | Random  |     0.207 s |     10.350 ns |     96.620 Mops
+       65536 | Seq     |     0.211 s |     10.550 ns |     94.785 Mops
+       65536 | Random  |     0.274 s |     13.698 ns |     73.003 Mops
+      262144 | Seq     |     0.211 s |     10.573 ns |     94.578 Mops
+      262144 | Random  |     0.278 s |     13.889 ns |     71.998 Mops
+     1048576 | Seq     |     0.219 s |     10.958 ns |     91.260 Mops
+     1048576 | Random  |     0.442 s |     22.089 ns |     45.271 Mops
+     4194304 | Seq     |     0.217 s |     10.872 ns |     91.976 Mops
+     4194304 | Random  |     0.771 s |     38.560 ns |     25.933 Mops
+    16777216 | Seq     |     0.228 s |     11.387 ns |     87.819 Mops
+    16777216 | Random  |     2.574 s |    128.702 ns |      7.770 Mops
+    67108864 | Seq     |     0.082 s |     16.344 ns |     61.185 Mops
+    67108864 | Random  |     0.754 s |    150.796 ns |      6.631 Mops

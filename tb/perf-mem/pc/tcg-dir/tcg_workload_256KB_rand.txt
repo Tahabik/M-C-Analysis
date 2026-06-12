@@ -1,3 +1,3 @@
 === Pointer Chasing Cache/Memory Latency Benchmark (Single, Random: 1) ===
 Size (Bytes) | Access  |  Time (sec) |  Latency (ns) |    Throughput
-      262144 | Random  |     0.280 s |     14.014 ns |     71.359 Mops
+      262144 | Random  |     0.303 s |     15.169 ns |     65.926 Mops

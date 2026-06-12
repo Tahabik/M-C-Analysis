@@ -1,21 +1,21 @@
 #!/bin/bash
 
-echo "Caching sudo credentials..."
+echo "Caching sudo credentials"
 sudo -v
 
-OUT_DIR="$HOME/perf-results/gemm-mem-profiles/tcg"
+OUT_DIR="$HOME/perf-results/smc-mem-profiles/tcg"
 mkdir -p "$OUT_DIR"
 
 echo "======================================================"
-echo " Starting Pure perf mem GEMM Benchmark (N=256)"
+echo " Starting Pure perf mem SMC Benchmark (100,000 Iterations)"
 echo " Output Directory: $OUT_DIR"
 echo "======================================================"
 
-MEM_DATA="${OUT_DIR}/tcg_mem_gemm_256.data"
-MEM_REPORT="${OUT_DIR}/tcg_mem_report_gemm_256.txt"
-WORKLOAD_OUT="${OUT_DIR}/tcg_workload_gemm_256.txt"
+MEM_DATA="${OUT_DIR}/tcg_mem_smc_100k.data"
+MEM_REPORT="${OUT_DIR}/tcg_mem_report_smc_100k.txt"
+WORKLOAD_OUT="${OUT_DIR}/tcg_workload_smc_100k.txt"
 
-N_SIZE=256
+ITERATIONS=100000
 
 echo ">>> Tracking Micro Memory Latency (perf mem record)..."
 
@@ -24,10 +24,9 @@ MEM_PID=$!
 
 sleep 2
 
-ssh -i ~/.ssh/id_lab -p 2223 root@localhost "./benchmarks/pc-mm gemm $N_SIZE" >"$WORKLOAD_OUT" 2>&1
+ssh -i ~/.ssh/id_lab -p 2223 root@localhost "./benchmarks/smc $ITERATIONS" >"$WORKLOAD_OUT" 2>&1
 
 sudo kill -INT $MEM_PID
-
 sleep 3
 
 echo ">>> Translating binary data to readable report..."
@@ -36,7 +35,7 @@ sudo perf mem report -i "$MEM_DATA" --stdio >"$MEM_REPORT"
 sudo rm -f "$MEM_DATA"
 
 echo "======================================================"
-echo " GEMM N=256 Complete!"
+echo " SMC Iterations=100k Complete!"
 echo " Check the printed program output in: $WORKLOAD_OUT"
 echo " Check your memory latency table in: $MEM_REPORT"
 echo "======================================================"

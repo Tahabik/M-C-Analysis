@@ -1,2 +1,2 @@
 Running Matrix Multiplication (GEMM) of size 256 x 256...
-GEMM 256 x 256 completed in 0.419 seconds (0.080 GFLOPS)
+GEMM 256 x 256 completed in 1.029 seconds (0.033 GFLOPS)

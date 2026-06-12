@@ -3,7 +3,7 @@
 echo "Caching sudo credentials..."
 sudo -v
 
-OUT_DIR="$HOME/perf-results/mem-profiles"
+OUT_DIR="$HOME/perf-results/mem-profiles/kvm"
 mkdir -p "$OUT_DIR"
 
 echo "======================================================"
