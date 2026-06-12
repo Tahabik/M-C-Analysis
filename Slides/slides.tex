@@ -2,7 +2,10 @@
 \usetheme{moloch} % or \usetheme{metropolis}
 
 % Optional: Fira Sans font (requires XeLaTeX or LuaLaTeX)
-\usepackage[sfdefault]{FiraSans}
+\usepackage{fontspec}
+\setmainfont{Fira Sans} 
+% Or if you want it as your sans-serif font:
+\setsansfont{Fira Sans}
 \usepackage{graphicx}
 
 % Customizing colors for a "systems" feel (Deep Slate / Cyan)
@@ -17,6 +20,8 @@
 \definecolor{CyanAccent}{HTML}{00B4D8}
 \definecolor{AmberAccent}{HTML}{F7A072}
 \definecolor{LightGray}{HTML}{F4F4F9}
+
+\usepackage{colortbl}
 
 \setbeamercolor{frametitle}{bg=SystemSlate, fg=white}
 \setbeamercolor{progress bar}{fg=HighlightCyan, bg=SystemSlate}
@@ -333,19 +338,162 @@
 %     \end{columns}
 % \end{frame}
 
- \begin{frame}{Goal}
-    Explain the goal of trying to measure differences via tools like perf and benchmarks
-  \end{frame}
+\begin{frame}{Project Goal: Quantifying the Virtualization Tax}
+      \begin{itemize}
+          \item \textbf{The Main Objective:} Isolate and measure the exact architectural overheads of hardware-assisted memory management (KVM/EPT) versus software emulation (QEMU/SoftMMU).
+          
+          \vspace{0.4cm}
+          \item \textbf{The Telemetry Stack:} Utilize Linux profiling tools to expose cycle-level bottlenecks:
+          \begin{itemize}
+              \item \texttt{perf stat} for hardware counters (cache misses, dTLB stalls).
+              \item \texttt{perf record} and \texttt{perf meme} to map execution hotspots.
+              \item \textbf{Flamegraphs} to visually pinpoint wasted CPU cycles in the virtualization stack.
+          \end{itemize}
+          
+          \vspace{0.4cm}
+          \item \textbf{Workload Strategy:} Deploy targeted benchmarks (Pointer Chaser, Matrix Multiplication, Self-Modifying Code) to explicitly stress memory latency, compute boundaries, and JIT translation penalties.
+      \end{itemize}
+\end{frame}
 
 
-  \begin{frame}{System Setup}
-    Explain the cpu isolation (hyper threading disabled), running debian nocloud images via scripts and communicating with them via ssh and perf. one is arm and one is x86
+\begin{frame}{Experimental Setup: The Shielded Environment}
+      \begin{itemize}
+          \item \textbf{Host Configuration \& CPU Isolation:}
+          \begin{itemize}
+              \item Dual-core CPU pinning and isolation via kernel command-line parameters
+              \item Hyper-threading and IRQ handling explicitly disabled for those cores to eliminate L1/L2 cache pollution.
+              \item \textit{For further}
+          \end{itemize}
+          
+          \vspace{0.4cm}
+          \item \textbf{Guest VM Infrastructure:}
+          \begin{itemize}
+              \item Orchestrating Debian (NoCloud images) via custom QEMU/KVM scripts.
+              \item \textbf{Mixed-Architecture Target:}
+              \begin{itemize}
+                  \item \textbf{x86\_64:} Native KVM vs. TCG Emulation.
+                  \item \textbf{ARM (AArch64):} Cross-Architecture TCG Emulation.
+              \end{itemize}
+          \end{itemize}
+
+          \vspace{0.4cm}
+          \item \textbf{Telemetry Pipeline:}
+          \begin{itemize}
+              \item Fully automated data collection communicating via SSH.
+              \item \texttt{perf} executed on host to preserve isolated guest execution.
+          \end{itemize}
+      \end{itemize}
+
+      \vfill
+      \begin{flushleft}
+          \scriptsize Isolation details \& scripts: \href{https://github.com/Tahabik/M-C-Analysis}{\texttt{https://github.com/Tahabik/M-C-Analysis}}
+      \end{flushleft}
   \end{frame}
-  \begin{frame}{Benchmarks}
-    Explain the benchmarks that we have with brief explanation and what stress do they put.
+
+ \begin{frame}{Workload Methodology: The Benchmarks}
+      \begin{itemize}
+          \item \textbf{Pointer Chaser (Memory Latency Bound):}
+          \begin{itemize}
+              \item Traverses a linked list with randomized and sequential memory allocations.
+              \item \textbf{Stress Profile:} Maximizes dTLB misses and forces constant cache eviction to evaluate the raw penalty of EPT page walks versus SoftMMU table parsing.
+          \end{itemize}
+          
+          \vspace{0.3cm}
+          \item \textbf{Matrix Multiplication (Compute \& Cache Bound):}
+          \begin{itemize}
+              \item Performs dense linear algebra operations ($O(n^3)$ complexity).
+              \item \textbf{Stress Profile:} Exhibits high spatial and temporal data locality. Tests how well each subsystem handles streaming data across L1, L2, and L3 cache boundaries.
+          \end{itemize}
+
+          \vspace{0.3cm}
+          \item \textbf{Self-Modifying Code (Translation Bound):}
+          \begin{itemize}
+              \item Generates or alters instructions at runtime before executing them.
+              \item \textbf{Stress Profile:} Directly forces the invalidation of JIT-compiled translation blocks. Exposes the execution penalty of QEMU TCG code generation cache flushes.
+          \end{itemize}
+      \end{itemize}
   \end{frame}
-  \begin{frame}{Benchmark 1 results and analysis}
+
+  \begin{frame}{Benchmark 1 Analysis Roadmap: Pointer Chaser}
+      \begin{itemize}
+          \item \textbf{Phase 1: Microarchitectural Profiling (\texttt{perf stat})}
+          \begin{itemize}
+              \item Baseline evaluation of Sequential vs. Random access patterns.
+              \item Hard metrics tracking: IPC, dTLB stalls, and LLC miss ratios.
+          \end{itemize}
+          
+          \vspace{0.3cm}
+          \item \textbf{Phase 2: Memory Characterization (\texttt{perf mem} \& \texttt{report})}
+          \begin{itemize}
+              \item Mapping hit distributions across the cache hierarchy ($L1 \to L2 \to L3 \to \text{DRAM}$).
+              \item Isolating the assembly-level stall points inside the dereference loop.
+          \end{itemize}
+
+          \vspace{0.3cm}
+          \item \textbf{Phase 3: Macro-Execution Profile (Flamegraphs)}
+          \begin{itemize}
+              \item Visualizing KVM kernel violation traps versus TCG engine execution.
+              \item Quantifying the exact ratio of JIT execution to \texttt{tlb\_fill()} C helper overrides.
+          \end{itemize}
+      \end{itemize}
   \end{frame}
+
+  \begin{frame}{Benchmark 1: Microarchitectural Profiling (\texttt{perf stat})}
+      \begin{columns}[T]
+          % Left Column: Key Findings & Metrics
+          \begin{column}{0.5\textwidth}
+              \textbf{Core Metric Insights:}
+              \begin{itemize}
+                  \item \textbf{IPC Collapse:} Track the exact memory footprint size where IPC drops (e.g., when transitioning from L3 cache to DRAM).
+                  \item \textbf{The Translation Tax:} Contrast the massive instruction expansion in TCG versus KVM's near 1:1 execution mapping.
+                  \item \textbf{TLB vs. Cache Violations:} Pinpoint the size boundary where \texttt{dTLB-load-misses} spike for both environments.
+              \end{itemize}
+          \end{column}
+
+          % Right Column: Expected vs. Observed Behaviors
+          \begin{column}{0.5\textwidth}
+              \textbf{Architectural Comparative Summary:}
+              \begin{itemize}
+                  \item \textbf{Sequential Access:} Hardware prefetchers effectively hide memory latency across both x86 and ARM in KVM.
+                  \item \textbf{Random Access (Stress):} TCG incurs high software TLB miss costs; KVM suffers from costly 2D hardware page walks.
+                  \item \textbf{Instruction Stream:} TCG shows significantly higher \texttt{L1-icache} and \texttt{iTLB} misses due to dynamic JIT code generation.
+              \end{itemize}
+          \end{column}
+      \end{columns}
+  \end{frame}
+
+    \begin{frame}{Microarchitectural Profiling: KVM vs. TCG (\texttt{perf stat})}
+      \textbf{Pointer Chaser Telemetry at Extremes (L1d vs. DRAM Bound)}
+      \vspace{0.2cm}
+      
+      \begin{table}[]
+          \centering
+          \renewcommand{\arraystretch}{1.3} % Adds padding for readability
+          \resizebox{0.95\textwidth}{!}{%
+          \begin{tabular}{l | c | c | l}
+              \rowcolor{SystemSlate}
+              \textcolor{white}{\textbf{Metric}} & \textcolor{white}{\textbf{x86 KVM (Hardware)}} & \textcolor{white}{\textbf{ARM TCG (SoftMMU)}} & \textcolor{white}{\textbf{Multiplier / Insight}} \\
+              \hline
+              \textbf{Baseline Latency} (16KB Seq) & 1.13 ns & 3.81 ns & 3.3x (SoftMMU Base Overhead) \\
+              \rowcolor{LightGray}
+              \textbf{Stress Latency} (64MB Rand) & 61.09 ns & 75.92 ns & Gap narrows at physical DRAM limit \\
+              \textbf{Total Instructions Executed} & 0.92 Billion & 29.74 Billion & \textbf{~32x Instruction Bloat} in TCG \\
+              \rowcolor{LightGray}
+              \textbf{L1 iCache Misses} (64MB Rand) & 1.4 Million & 140.4 Million & \textbf{100x Thrashing} from JIT/C Helpers \\
+              \textbf{dTLB Misses} (64MB Rand) & 38,000 & 482,000 & Heavy software page-table parsing \\
+          \end{tabular}%
+          }
+      \end{table}
+
+      \vspace{0.3cm}
+      \textbf{Key Architectural Takeaways:}
+      \begin{itemize}
+          \item \textbf{Instruction Expansion:} TCG generates massive instruction bloat to maintain software MMU hash tables compared to KVM's native 2D page walk.
+          \item \textbf{Pipeline Pollution:} TCG dynamic translation completely destroys instruction locality, resulting in 100x more instruction cache misses.
+          \item \textbf{The Memory Wall:} Both virtualization strategies hit severe bottlenecks at 16MB, indicating host L3 cache overflow.
+      \end{itemize}
+    \end{frame}
+
   \begin{frame}{Benchmark 2 results and analysis}
   \end{frame}
   \begin{frame}{Benchmark 3 results and analysis}
