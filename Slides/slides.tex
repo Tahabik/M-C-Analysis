@@ -1,0 +1,91 @@
+\documentclass[aspectratio=169]{beamer} % 16:9 is standard for modern projectors
+\usetheme{moloch} % or \usetheme{metropolis}
+
+% Optional: Fira Sans font (requires XeLaTeX or LuaLaTeX)
+\usepackage[sfdefault]{FiraSans}
+\usepackage{graphicx}
+
+% Customizing colors for a "systems" feel (Deep Slate / Cyan)
+\definecolor{SystemSlate}{HTML}{23373B}
+\definecolor{HighlightCyan}{HTML}{00B4D8}
+
+\setbeamercolor{frametitle}{bg=SystemSlate, fg=white}
+\setbeamercolor{progress bar}{fg=HighlightCyan, bg=SystemSlate}
+
+\title{Overheads of Hardware vs. Software Virtualization}
+\subtitle{A quantitive analysis of KVM and QEMU TCG Memory subsystems}
+\author{Milad Zarei - Taha Biklariyan - Nazanin Sharifi}
+\date{Semester 4042}
+\institute{OS Tracing - Dr. Azhari @ IUST}
+
+\begin{document}
+  \maketitle
+  \begin{frame}{Background}
+      \begin{columns}[T] % [T] aligns columns at the top
+          
+          % Left Column: Content
+          \begin{column}{0.6\textwidth}
+              \begin{itemize}
+                  \item Virtualization is widely-used in cloud computing, OS development, etc.
+                  \item Allows you to run multiple \textit{guest operating systems} inside a \textit{host operating system}.
+                  \item \textbf{Hardware-Assisted Virtualization:}
+                  \begin{itemize}
+                      \item Powered by KVM in the Linux kernel for virtualization on the same host architecture.
+                      \item Processing is done on actual hardware via CPU Virtualization technologies (VT-x/AMD-V).
+                  \end{itemize}
+              \end{itemize}
+          \end{column}
+          
+          % Right Column: Figure
+          \begin{column}{0.4\textwidth}
+              \centering
+              % Replace 'virt-stack' with your actual image filename
+              \includegraphics[width=\textwidth]{figures/virtualization.webp}
+              \vspace{0.5cm} % Add some breathing room
+              \small
+              \textit{Figure 1: KVM Virtualization Stack Architecture}
+          \end{column}
+          
+      \end{columns}
+  \end{frame}
+
+  \begin{frame}{Background}
+    \begin{itemize}
+      \item Virtualization is widely-used in cloud computing, OS development. etc.
+      \item Allows you to run multiple \textit{guest operating systems} inside a \textit{host operating system}.
+      
+    \end{itemize}
+  \end{frame}
+  \begin{frame}
+    \begin{itemize}
+      \item Most common methods of virtualization:
+        \begin{itemize}
+          \item \textbf{Hardware-Assisted}: Powered by KVM in the Linux kernel for virtualization that runs on the same architecture as the host.
+            Most of the processing is done on the actual hardware, alongside the host! By the help of CPU Virtualization technologies.
+          \item \textbf{Emulation:} For running OSes that run on entirely different CPU architectures! Powered by QEMU's TCG (Tiny Code Generator). 
+        \end{itemize}
+    \end{itemize}
+  \end{frame}
+  \begin{frame}{Motivation \& Problem}
+    introduce the challenge of virtual memory and two approaches of ept and softmmu
+    introduce the challenge of
+    translation of instructions and how tcg is different from kvm. (Not very complex)
+  \end{frame}
+  \begin{frame}{Goal}
+    Explain the goal of trying to measure differences via tools like perf and benchmarks
+  \end{frame}
+  \begin{frame}{System Setup}
+    Explain the cpu isolation (hyper threading disabled), running debian nocloud images via scripts and communicating with them via ssh and perf. one is arm and one is x86
+  \end{frame}
+  \begin{frame}{Benchmarks}
+    Explain the benchmarks that we have with brief explanation and what stress do they put.
+  \end{frame}
+  \begin{frame}{Benchmark 1 results and analysis}
+  \end{frame}
+  \begin{frame}{Benchmark 2 results and analysis}
+  \end{frame}
+  \begin{frame}{Benchmark 3 results and analysis}
+  \end{frame}
+  \begin{frame}{Benchmark 4 results and analysis}
+  \end{frame}
+\end{document}
