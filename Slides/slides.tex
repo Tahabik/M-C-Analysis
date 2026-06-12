@@ -518,6 +518,61 @@
       \end{columns}
   \end{frame}
 
+  \begin{frame}{Phase 2 Results: The Source of Latency (\texttt{perf mem})}
+      \textbf{High-Latency Load Distribution ($>30$ CPU Cycles)}
+      \vspace{0.2cm}
+
+      \begin{columns}[T]
+          % Left Column: KVM
+          \begin{column}{0.5\textwidth}
+              \textbf{Hardware EPT (KVM)}
+              \vspace{0.1cm}
+              \begin{table}[]
+                  \renewcommand{\arraystretch}{1.2}
+                  \resizebox{\textwidth}{!}{%
+                  \begin{tabular}{l | c}
+                      \rowcolor{SystemSlate}
+                      \textcolor{white}{\textbf{Bottleneck Symbol}} & \textcolor{white}{\textbf{Subsystem}} \\
+                      \hline
+                      \rowcolor{LightGray}
+                      \texttt{kvm\_lapic\_find...} & Interrupt Routing \\
+                      \texttt{eventfd\_poll} & Host Kernel I/O \\
+                      \rowcolor{LightGray}
+                      \texttt{update\_curr} & Host Scheduler \\
+                      \texttt{gsi\_handler} & QEMU Event Loop \\
+                  \end{tabular}%
+                  }
+              \end{table}
+              \vspace{0.1cm}
+              \footnotesize \textit{\textbf{Insight:} Hardware page walks are fast enough that the primary latency shifts to virtual interrupt handling and host context switches.}
+          \end{column}
+
+          % Right Column: TCG
+          \begin{column}{0.5\textwidth}
+              \textbf{Software MMU (TCG)}
+              \vspace{0.1cm}
+              \begin{table}[]
+                  \renewcommand{\arraystretch}{1.2}
+                  \resizebox{\textwidth}{!}{%
+                  \begin{tabular}{l | c}
+                      \rowcolor{AmberAccent!90} % Highlights the TCG issue
+                      \textbf{Bottleneck Symbol} & \textbf{Subsystem} \\
+                      \hline
+                      \rowcolor{LightGray}
+                      \texttt{tlb\_fill} & SoftMMU Fallback \\
+                      \texttt{cpu\_mmu\_lookup} & SoftMMU Hash Table \\
+                      \rowcolor{LightGray}
+                      \texttt{helper\_le\_ldq\_mmu} & JIT Memory Helper \\
+                      \texttt{address\_space\_...} & QEMU Mem API \\
+                  \end{tabular}%
+                  }
+              \end{table}
+              \vspace{0.1cm}
+              \footnotesize \textit{\textbf{The Anomaly:} The SoftMMU data structures themselves are evicted to physical RAM. Emulation stalls parsing its own page tables.}
+          \end{column}
+      \end{columns}
+  \end{frame}
+
   \begin{frame}{Phase 3 Setup: Visualizing the Execution Stack}
       \begin{columns}[T]
           % Left Column: The Tool
@@ -543,6 +598,73 @@
               \begin{center}
                   \textit{\small \textcolor{SystemSlate!70}{Next: Mapping the real-world traces against these expectations.}}
               \end{center}
+          \end{column}
+      \end{columns}
+  \end{frame}
+
+  \begin{frame}{Phase 3: KVM Profile — The Polling Dominance}
+      \begin{columns}[T]
+          % Left Column: KVM Call Graph Insights
+          \begin{column}{0.48\textwidth}
+              \textbf{Host Stack Analysis:}
+              \begin{itemize}
+                  \item \textbf{The Event Loop Trap:} \textbf{86.6\%} of cache-miss samples originate from the core \texttt{qemu\_main\_loop}.
+                  \item \textbf{Syscall Bottleneck:} Drills straight down into \texttt{main\_loop\_wait} (79.5\%) and \texttt{ppoll} (29.6\%).
+                  \item \textbf{Kernel Tax:} 23.1\% of stalls occur deep within the host kernel's \texttt{do\_sys\_poll}.
+              \end{itemize}
+              \vspace{0.4cm}
+              \footnotesize \textit{\textbf{Takeaway:} Guest code execution is so fast that hardware stalls shift completely to host I/O multiplexing and kernel context switches.}
+          \end{column}
+
+          % Right Column: Abstracted Visual Call Tree
+          \begin{column}{0.52\textwidth}
+              \textbf{Dominant Execution Path:}
+              \vspace{0.3cm}
+              \begin{center}
+              \resizebox{0.95\textwidth}{!}{%
+              \begin{tikzpicture}[
+                  box/.style={draw=white, line width=0.5pt, font=\sffamily\bfseries\scriptsize, align=center, minimum height=0.55cm}
+              ]
+                  \node[box, fill=SystemSlate, text=white, minimum width=7cm] (l1) at (0,0) {\texttt{qemu\_main\_loop} (86.6\%)};
+                  \node[box, fill=SystemSlate!80, text=white, minimum width=6.4cm] (l2) at (0,0.6) {\texttt{main\_loop\_wait} (79.5\%)};
+                  \node[box, fill=AmberAccent!90, text=black, minimum width=4.5cm] (l3) at (-0.95,1.2) {\texttt{qemu\_poll\_ns} (29.6\%)};
+                  \node[box, fill=AmberAccent!70, text=black, minimum width=4.0cm] (l4) at (-1.2,1.8) {\texttt{do\_sys\_poll} (23.1\%)};
+              \end{tikzpicture}%
+              }
+              \end{center}
+          \end{column}
+      \end{columns}
+  \end{frame}
+
+  \begin{frame}{Phase 3: TCG Profile — The JIT Cache Pressure}
+      \begin{columns}[T]
+          % Left Column: TCG Call Graph Insights
+          \begin{column}{0.48\textwidth}
+              \textbf{Host Stack Analysis:}
+              \begin{itemize}\small
+                  \item \textbf{JIT Domination:} Nearly \textbf{80\% (79.96\%)} of all pipeline stalls happen directly inside the runtime JIT code buffer.
+                  \item \textbf{Translation Chaining:} Significant cycles are spent in \texttt{helper\_lookup\_tb\_ptr} attempting to chain execution blocks together without exiting to the main loop.
+                  \item \textbf{Cache Thrashing:} High instruction-cache misses occur because the host CPU is constantly swinging between executing guest code and running SoftMMU lookup helpers.
+              \end{itemize}
+          \end{column}
+
+          % Right Column: Conceptual Profile
+          \begin{column}{0.52\textwidth}
+              \textbf{Dominant Execution Path:}
+              \vspace{0.3cm}
+              \begin{center}
+              \resizebox{0.95\textwidth}{!}{%
+              \begin{tikzpicture}[
+                  box/.style={draw=white, line width=0.5pt, font=\sffamily\bfseries\scriptsize, align=center, minimum height=0.55cm}
+              ]
+                  \node[box, fill=HighlightCyan, text=black, minimum width=7cm] (t1) at (0,0) {\textbf{JIT Translated Code Cache} (79.96\%)};
+                  \node[box, fill=HighlightCyan!70, text=black, minimum width=4.0cm] (t2) at (-1.5,0.6) {\texttt{helper\_access\_check...} (5.3\%)};
+                  \node[box, fill=HighlightCyan!50, text=black, minimum width=3.0cm] (t3) at (2.0,0.6) {\texttt{helper\_lookup\_tb\_ptr} (3.8\%)};
+              \end{tikzpicture}%
+              }
+              \end{center}
+              \vspace{0.4cm}
+              \footnotesize \textit{\textbf{Takeaway:} Unlike KVM, TCG spends almost zero time polling. The host CPU is entirely bottle-necked compiling, executing, and resolving addresses for guest instructions.}
           \end{column}
       \end{columns}
   \end{frame}
