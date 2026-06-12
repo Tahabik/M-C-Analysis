@@ -28,11 +28,6 @@
               \begin{itemize}
                   \item Virtualization is widely-used in cloud computing, OS development, etc.
                   \item Allows you to run multiple \textit{guest operating systems} inside a \textit{host operating system}.
-                  \item \textbf{Hardware-Assisted Virtualization:}
-                  \begin{itemize}
-                      \item Powered by KVM in the Linux kernel for virtualization on the same host architecture.
-                      \item Processing is done on actual hardware via CPU Virtualization technologies (VT-x/AMD-V).
-                  \end{itemize}
               \end{itemize}
           \end{column}
           
@@ -40,7 +35,7 @@
           \begin{column}{0.4\textwidth}
               \centering
               % Replace 'virt-stack' with your actual image filename
-              \includegraphics[width=\textwidth]{figures/virtualization.webp}
+              \includegraphics[width=\textwidth]{figures/virtualization.png}
               \vspace{0.5cm} % Add some breathing room
               \small
               \textit{Figure 1: KVM Virtualization Stack Architecture}
@@ -49,22 +44,15 @@
       \end{columns}
   \end{frame}
 
-  \begin{frame}{Background}
-    \begin{itemize}
-      \item Virtualization is widely-used in cloud computing, OS development. etc.
-      \item Allows you to run multiple \textit{guest operating systems} inside a \textit{host operating system}.
-      
-    \end{itemize}
-  \end{frame}
   \begin{frame}
-    \begin{itemize}
-      \item Most common methods of virtualization:
-        \begin{itemize}
-          \item \textbf{Hardware-Assisted}: Powered by KVM in the Linux kernel for virtualization that runs on the same architecture as the host.
-            Most of the processing is done on the actual hardware, alongside the host! By the help of CPU Virtualization technologies.
+      \begin{itemize}
+          \item \textbf{Hardware-Assisted Virtualization:}
+          \begin{itemize}
+              \item Powered by KVM in the Linux kernel for virtualization on the same host architecture.
+              \item Processing is done on actual hardware via CPU Virtualization technologies (VT-x/AMD-V).
+          \end{itemize}
           \item \textbf{Emulation:} For running OSes that run on entirely different CPU architectures! Powered by QEMU's TCG (Tiny Code Generator). 
-        \end{itemize}
-    \end{itemize}
+      \end{itemize}
   \end{frame}
   \begin{frame}{Motivation \& Problem}
     introduce the challenge of virtual memory and two approaches of ept and softmmu
