@@ -723,3 +723,32 @@ wait $KVM_SSH_PID && echo "KVM workload done"
 
 ```
 
+---
+---
+---
+
+## Perf Stat
+
+We've used bunch of events in our perf stat tracing which we're gonna get deep understanding of in below:
+
++ `cycles` and `instructions`: `instructions` counts the number of assembly instructions completed by the processor (retired instructions). `cycles` measures the raw clock cycles spent by the CPU core while the process was running.
+
+> Together these two gives us IPC (Instructions Per Cycles = $\frac{\text{Instructions}}{\text{Cycles}}$)
+
+We expect that IPC wull be relatively high because the CPU stays fed with data. For random trackng at 64MB. Our cycles will skyrocket while retured instructions stay low, resulting in a microscopic IPC. This proves the CPU is fully stalled on data delivery (Execution units are idling wihle waiting for main memory)
+
+In QEMU-only based VM, TCG has a massive instruction expansion tax. One guest instruction can turn into 4-10 host instructions because it has to perform inline software TLB lookups. TCG will show an incredibly high instruction count compared to KVM for the exact same benchmark run.
+
+
++ `L1-decache-load-misses` -> Level 1 Data Cache Misses: This event measures the number of times the processor looked for data in L1d and **failed** to find it. our linked list sizes will vary from 16KB up to 64 MB to test and observe the capacity of L1d as we saw on the topology in the beginnning. 
+  + At 16 KB, the sequential and random configurations should comfortably fit entirely inside the L1d cache. **Our L1d miss rate should be near zero**
+  + Once we cross the 64 KB (My L1 capacity), this counter will spike. In **Random Mode**, **every single hop** will cause an L1d miss because the data layout is completely unpredictable, ofrcing the CPU to fetch from L2 or L3
++ `cache-misses` -> LLC Misses: This typically maps to our processor's L3 misses and after this miss it should go and checkout DRAM, which is gonna be a heavy burden for the CPU stall time. This is kinda our definite marker for the DRAM boundary.
+  + When our size parameter hits the L3's capacity (12 MB on my system), It will overflow our host core's L3 slice. 
+  + In KVM, an LLC miss costs rougly 50-100 ns when we have to read directly from DRAM. In QEMU and TCG, an LLC miss is amplified heavily because the **SoftMMU structure itself might also be spilled out of the cache, causing a nested cascading memory penalty.**
++ `dTLB-load-misses` -> TLB misses: A YLB miss means the hardware has to manually traverse the multi-tiered page tables to find where the virtual memory actually lives.
+  + When KVM experience this miss the hardware MMU performs a 2D page Walk. It walks the Guest page table and EPT concurrently in silicon (4*4), it will nearly requires up to 16 memory accesses This counter will explain why our KVM latency spikes dramatically at 64MB Random Mode.
+  + TCG although does not use the hardware TLB for the guest it maintains its own fast inline software **hash table (We are going ot observe this baby in perf meme report)** When that software table misses, TCG calls the costly Chelper function `tlb_fill()`. A high `dTLB-load-misses` on the host side during TCG execution will reflect QEMU's engine itslef **struggling to maintain its data structures in host virtual memory.**
++ `L1-icache-load-misses` & `iTLB-load-misses` -> Instruciton stream overheads: These two measure misses in the instruction cache (not data cache!!!) and the instruction address TLB. These two expose the structural difference between **direct execution and dynamic binary translation.**
+  + In KVM These two should remainly lwow. specially in pointer chaser code loop whichis a minuscule (Just a few bytes of assembly looping over and over), fitting entirely into L1i and the hardware iTLB
+  + In QEMU TCG these two will get significantly higher than in KVM. TCG generates new host code blocks dynamically inside the TLB cache. It jumps from the guest app code, down into the TCG engine compilation loops, out to C runtime helpers, and back into generated host code blocks. This continuous code churning routinely pollutes the host's L1i cache and iTLB.
