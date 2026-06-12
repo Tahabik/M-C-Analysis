@@ -438,7 +438,7 @@
       \end{itemize}
   \end{frame}
 
-  \begin{frame}{Benchmark 1: Microarchitectural Profiling (\texttt{perf stat})}
+  \begin{frame}{Phase 1: Microarchitectural Profiling (\texttt{perf stat})}
       \begin{columns}[T]
           % Left Column: Key Findings & Metrics
           \begin{column}{0.5\textwidth}
@@ -462,7 +462,7 @@
       \end{columns}
   \end{frame}
 
-    \begin{frame}{Microarchitectural Profiling: KVM vs. TCG (\texttt{perf stat})}
+    \begin{frame}{Phase 1: Microarchitectural Profiling: KVM vs. TCG (\texttt{perf stat})}
       \textbf{Pointer Chaser Telemetry at Extremes (L1d vs. DRAM Bound)}
       \vspace{0.2cm}
       
@@ -493,6 +493,59 @@
           \item \textbf{The Memory Wall:} Both virtualization strategies hit severe bottlenecks at 16MB, indicating host L3 cache overflow.
       \end{itemize}
     \end{frame}
+
+    \begin{frame}{Phase 2 Setup: Contextual Latency Profiling}
+      \begin{columns}[T]
+          % Left Column: The Tool
+          \begin{column}{0.5\textwidth}
+              \textbf{The Tool: \texttt{perf mem}}
+              \vspace{0.2cm}
+              \begin{itemize}
+                  \item \textbf{Beyond Counting:} Shifts from counting raw misses to capturing the exact \textit{latency} (cycles) and \textit{source} (L1, L2, RAM) of specific memory loads.
+                  \item \textbf{High-Latency Filtration:} We configure the tracer to ignore fast L1 hits and strictly log memory accesses taking $>30$ CPU cycles.
+              \end{itemize}
+          \end{column}
+
+          % Right Column: The Objective
+          \begin{column}{0.5\textwidth}
+              \textbf{The Objective: Hunting the Anomaly}
+              \vspace{0.2cm}
+              \begin{itemize}
+                  \item \textbf{Hypothesis Testing:} If hardware EPT is truly faster than SoftMMU, the physical location of the latency will look fundamentally different.
+                  \item \textcolor{HighlightCyan}{\textbf{The SoftMMU Hook:}} We are actively hunting for a highly specific, severe latency signature in TCG that \textit{does not originate from the guest code}.
+              \end{itemize}
+          \end{column}
+      \end{columns}
+  \end{frame}
+
+  \begin{frame}{Phase 3 Setup: Visualizing the Execution Stack}
+      \begin{columns}[T]
+          % Left Column: The Tool
+          \begin{column}{0.45\textwidth}
+              \textbf{The Tool: Call Graphs (\texttt{perf record -g})}
+              \vspace{0.2cm}
+              \begin{itemize}
+                  \item \textbf{High-Frequency Sampling:} Captures the host CPU's exact execution stack the moment a hardware cache miss is triggered.
+                  \item \textbf{Chain of Custody:} Reconstructs the exact chain of function calls (who called whom) leading directly to the pipeline stall.
+              \end{itemize}
+          \end{column}
+
+          % Right Column: The Objective
+          \begin{column}{0.55\textwidth}
+              \textbf{The Objective: The Flamegraph Abstraction}
+              \vspace{0.2cm}
+              \begin{itemize}
+                  \item \textbf{Macro-Level Translation:} Converting millions of dense, textual stack traces into visual, proportional execution blocks.
+                  \item \textcolor{AmberAccent}{\textbf{Isolating the Virtualization Tax:}} Visually separating cycles spent executing guest memory accesses from cycles burned maintaining the emulator's infrastructure.
+              \end{itemize}
+              
+              \vspace{0.5cm}
+              \begin{center}
+                  \textit{\small \textcolor{SystemSlate!70}{Next: Mapping the real-world traces against these expectations.}}
+              \end{center}
+          \end{column}
+      \end{columns}
+  \end{frame}
 
   \begin{frame}{Benchmark 2 results and analysis}
   \end{frame}
