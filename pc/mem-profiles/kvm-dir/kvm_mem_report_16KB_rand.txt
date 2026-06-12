@@ -1,0 +1,56 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 7  of event 'cpu_core/mem-loads-aux/'
+# Total weight : 7
+# Sort order   : local_weight,mem,sym,dso,symbol_daddr,dso_daddr,snoop,tlb,locked,blocked,local_ins_lat,local_p_stage_cyc
+#
+# Overhead       Samples  Local Weight  Memory access                            Symbol                Shared Object      Data Symbol             Data Object       Snoop         TLB access              Locked  Blocked     Local INSTR Latency  Local Retire Latency
+# ........  ............  ............  .......................................  ....................  .................  ......................  ................  ............  ......................  ......  ..........  ...................  ....................
+#
+   100.00%             7  0             N/A                                      [k] native_write_msr  [kernel.kallsyms]  [k] 0000000000000000    [unknown]         N/A           N/A                     N/A      N/A        0                    0                   
+
+
+# Samples: 12  of event 'cpu_core/mem-loads,ldlat=30/'
+# Total weight : 890
+# Sort order   : local_weight,mem,sym,dso,symbol_daddr,dso_daddr,snoop,tlb,locked,blocked,local_ins_lat,local_p_stage_cyc
+#
+# Overhead       Samples  Local Weight  Memory access                            Symbol                        Shared Object            Data Symbol             Data Object        Snoop         TLB access              Locked  Blocked     Local INSTR Latency  Local Retire Latency
+# ........  ............  ............  .......................................  ............................  .......................  ......................  .................  ............  ......................  ......  ..........  ...................  ....................
+#
+    38.31%             1  341           RAM hit                                  [k] kvm_set_pic_irq           [kernel.kallsyms]        [k] 0xffffd3a84d482338  [kernel.kallsyms]  Hit           L1 or L2 hit            No       N/A        343                  0                   
+    17.42%             1  155           LFB/MAB hit                              [k] avg_vruntime              [kernel.kallsyms]        [k] 0xffff8c3bc790d450  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        171                  0                   
+     8.43%             1  75            LFB/MAB hit                              [k] __update_load_avg_cfs_rq  [kernel.kallsyms]        [k] 0xffff8c3bfbe2f09c  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        77                   0                   
+     8.43%             1  75            L3 hit                                   [k] enqueue_task_fair         [kernel.kallsyms]        [k] 0xffff8c3d4f3f510c  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        77                   0                   
+     7.64%             1  68            LFB/MAB hit                              [k] update_curr_se            [kernel.kallsyms]        [k] 0xffff8c3bd4ee9e58  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        70                   0                   
+     6.18%             1  55            L3 hit                                   [.] ppoll                     libc.so.6                [.] 0x00007f115ca4c468  anon               None          L1 or L2 hit            No       N/A        59                   0                   
+     5.84%             1  52            L3 hit                                   [k] __radix_tree_lookup       [kernel.kallsyms]        [k] 0xffff8c3bc0401b60  [kernel.kallsyms]  None          L2 miss                 No       N/A        73                   0                   
+     5.51%             1  49            LFB/MAB hit                              [k] tty_ldisc_ref_wait        [kernel.kallsyms]        [k] 0xffff8c3c0532f028  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        130                  0                   
+     0.56%             1  5             L1 hit                                   [k] __update_load_avg_cfs_rq  [kernel.kallsyms]        [k] 0xffffd3a8401abce0  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        78                   0                   
+     0.56%             1  5             L1 hit                                   [k] psi_group_change          [kernel.kallsyms]        [k] 0xffffd3a84d42f5c0  [kernel.kallsyms]  None          L1 or L2 hit            No       Addr       138                  0                   
+     0.56%             1  5             L1 hit                                   [.] 0x000000000005c492        libglib-2.0.so.0.8400.4  [.] 0x000055eb4668790c  [heap]             None          L1 or L2 hit            Yes      N/A        68                   0                   
+     0.56%             1  5             L1 hit                                   [.] 0x000000000005dbb2        libglib-2.0.so.0.8400.4  [.] 0x000055eb479ed6c8  [heap]             None          L1 or L2 hit            No       Addr       33                   0                   
+
+
+# Samples: 8  of event 'cpu_core/mem-stores/P'
+# Total weight : 40
+# Sort order   : local_weight,mem,sym,dso,symbol_daddr,dso_daddr,snoop,tlb,locked,blocked,local_ins_lat,local_p_stage_cyc
+#
+# Overhead       Samples  Local Weight  Memory access                            Symbol                        Shared Object            Data Symbol             Data Object        Snoop         TLB access              Locked  Blocked     Local INSTR Latency  Local Retire Latency
+# ........  ............  ............  .......................................  ............................  .......................  ......................  .................  ............  ......................  ......  ..........  ...................  ....................
+#
+    12.50%             1  5             L1 hit                                   [k] __update_load_avg_cfs_rq  [kernel.kallsyms]        [k] 0xffff8c3bfbe2f0a0  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+    12.50%             1  5             L1 hit                                   [k] __update_load_avg_cfs_rq  [kernel.kallsyms]        [k] 0xffff8c3f0f335fe8  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+    12.50%             1  5             L1 hit                                   [k] __update_load_avg_cfs_rq  [kernel.kallsyms]        [k] 0xffffd3a8401abcc8  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+    12.50%             1  5             L1 hit                                   [k] add_wait_queue            [kernel.kallsyms]        [k] 0xffffd3a84d42f9e8  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+    12.50%             1  5             L1 hit                                   [k] hrtimer_get_next_event    [kernel.kallsyms]        [k] 0xffffd3a8401abdc8  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+    12.50%             1  5             L1 hit                                   [k] menu_reflect              [kernel.kallsyms]        [k] 0xffffd3a8401abee0  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+    12.50%             1  5             L1 hit                                   [.] notifier_list_notify      qemu-system-x86_64       [.] 0x00007ffef8c05dc0  [stack]            None          L1 or L2 hit            No       N/A        0                    0                   
+    12.50%             1  5             L1 hit                                   [.] 0x000000000005ddf0        libglib-2.0.so.0.8400.4  [.] 0x00007ffef8c05da0  [stack]            None          L1 or L2 hit            No       N/A        0                    0                   
+
+
+#
+# (Tip: To measure approximate function latency with Processor Trace use perf record -e intel_pt// ... ; perf script --call-ret-trace)
+#

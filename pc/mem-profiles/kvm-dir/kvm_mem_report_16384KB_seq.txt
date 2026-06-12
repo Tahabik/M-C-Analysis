@@ -1,0 +1,71 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 8  of event 'cpu_core/mem-loads-aux/'
+# Total weight : 8
+# Sort order   : local_weight,mem,sym,dso,symbol_daddr,dso_daddr,snoop,tlb,locked,blocked,local_ins_lat,local_p_stage_cyc
+#
+# Overhead       Samples  Local Weight  Memory access                            Symbol                Shared Object      Data Symbol             Data Object       Snoop         TLB access              Locked  Blocked     Local INSTR Latency  Local Retire Latency
+# ........  ............  ............  .......................................  ....................  .................  ......................  ................  ............  ......................  ......  ..........  ...................  ....................
+#
+   100.00%             8  0             N/A                                      [k] native_write_msr  [kernel.kallsyms]  [k] 0000000000000000    [unknown]         N/A           N/A                     N/A      N/A        0                    0                   
+
+
+# Samples: 17  of event 'cpu_core/mem-loads,ldlat=30/'
+# Total weight : 1627
+# Sort order   : local_weight,mem,sym,dso,symbol_daddr,dso_daddr,snoop,tlb,locked,blocked,local_ins_lat,local_p_stage_cyc
+#
+# Overhead       Samples  Local Weight  Memory access                            Symbol                                Shared Object            Data Symbol                    Data Object        Snoop         TLB access              Locked  Blocked     Local INSTR Latency  Local Retire Latency
+# ........  ............  ............  .......................................  ....................................  .......................  .............................  .................  ............  ......................  ......  ..........  ...................  ....................
+#
+    14.44%             1  235           LFB/MAB hit                              [.] 0x000000000005db7d                libglib-2.0.so.0.8400.4  [.] 0x00007f10c56edbe4         anon               None          L1 or L2 hit            No       N/A        237                  0                   
+    12.54%             1  204           LFB/MAB hit                              [k] eventfd_poll                      [kernel.kallsyms]        [k] 0xffff8c3c99d13320         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        206                  0                   
+     9.71%             1  158           RAM hit                                  [.] gsi_handler                       qemu-system-x86_64       [.] 0x000055eb11814424         anon               Hit           L1 or L2 hit            No       N/A        160                  0                   
+     8.17%             1  133           LFB/MAB hit                              [k] update_curr                       [kernel.kallsyms]        [k] 0xffff8c3bd4ee8a50         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        222                  0                   
+     8.17%             1  133           RAM hit                                  [k] switch_fpu_return                 [kernel.kallsyms]        [k] 0xffff8c3f0f320888         [kernel.kallsyms]  Hit           L2 miss                 No       N/A        156                  0                   
+     7.93%             1  129           LFB/MAB hit                              [k] __update_load_avg_se              [kernel.kallsyms]        [k] 0xffff8c3bf04ae2a8         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        131                  0                   
+     5.59%             1  91            L3 hit                                   [k] update_load_avg                   [kernel.kallsyms]        [k] 0xffff8c3bfbe2f1a4         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        93                   0                   
+     5.16%             1  84            L3 hit                                   [k] available_idle_cpu                [kernel.kallsyms]        [k] 0xffff8c3f0f3b6940         [kernel.kallsyms]  None          L2 miss                 No       N/A        231                  0                   
+     4.79%             1  78            L3 hit                                   [k] save_fpregs_to_fpstate            [kernel.kallsyms]        [k] 0xffff8c3d4f3f6348         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        80                   0                   
+     4.49%             1  73            L3 hit                                   [k] native_sched_clock                [kernel.kallsyms]        [k] 0xffff8c3f0f335020         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        77                   0                   
+     4.00%             1  65            LFB/MAB hit                              [k] __alloc_pages_noprof              [kernel.kallsyms]        [k] 0xffff8c3f1f7d7480         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        74                   0                   
+     3.87%             1  63            L3 hit                                   [k] __hrtimer_next_event_base         [kernel.kallsyms]        [k] 0xffff8c3f0f33d3c0         [kernel.kallsyms]  None          L2 miss                 No       N/A        84                   0                   
+     3.87%             1  63            L3 hit                                   [k] sched_can_stop_tick               [kernel.kallsyms]        [k] 0xffff8c3bc0decff0         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        66                   0                   
+     3.75%             1  61            L3 hit                                   [k] kvm_lapic_find_highest_irr        [kernel.kallsyms]        [k] 0xffff8c3c39154230         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        63                   0                   
+     2.89%             1  47            L3 hit                                   [k] x86_pmu_disable                   [kernel.kallsyms]        [k] x86_pmu+0x10               [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        49                   0                   
+     0.31%             1  5             L1 hit                                   [k] call_cpuidle                      [kernel.kallsyms]        [k] 0xffff8c3bc0decd40         [kernel.kallsyms]  None          L1 or L2 hit            No       Data       33                   0                   
+     0.31%             1  5             L1 hit                                   [k] cr4_update_irqsoff                [kernel.kallsyms]        [k] 0xffffd3a8401abe48         [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        32                   0                   
+
+
+# Samples: 18  of event 'cpu_core/mem-stores/P'
+# Total weight : 91
+# Sort order   : local_weight,mem,sym,dso,symbol_daddr,dso_daddr,snoop,tlb,locked,blocked,local_ins_lat,local_p_stage_cyc
+#
+# Overhead       Samples  Local Weight  Memory access                            Symbol                                     Shared Object            Data Symbol             Data Object        Snoop         TLB access              Locked  Blocked     Local INSTR Latency  Local Retire Latency
+# ........  ............  ............  .......................................  .........................................  .......................  ......................  .................  ............  ......................  ......  ..........  ...................  ....................
+#
+     6.59%             1  6             L1 hit                                   [k] _copy_from_user                        [kernel.kallsyms]        [k] 0xffffd3a84d42fa6c  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] __flush_work                           [kernel.kallsyms]        [k] 0xffffd3a84d42f738  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] __get_next_timer_interrupt             [kernel.kallsyms]        [k] 0xffff8c3f0f323950  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] __update_load_avg_cfs_rq               [kernel.kallsyms]        [k] 0xffffd3a84d42f440  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] arch_exit_to_user_mode_prepare.isra.0  [kernel.kallsyms]        [k] 0xffffd3a84d42fb28  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] do_sys_poll                            [kernel.kallsyms]        [k] 0xffffd3a84d42f9ea  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] do_vfs_ioctl                           [kernel.kallsyms]        [k] 0xffffd3a84d42fc80  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] eventfd_poll                           [kernel.kallsyms]        [k] 0xffffd3a84d42f97c  [kernel.kallsyms]  None          L1 or L2 hit            Yes      N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] place_entity                           [kernel.kallsyms]        [k] 0xffffd3a8401abd48  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] psi_group_change                       [kernel.kallsyms]        [k] 0xffffd3a8401abd88  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] psi_group_change                       [kernel.kallsyms]        [k] 0xffffd3a8401abda8  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [.] qemu_mutex_unlock_impl                 qemu-system-x86_64       [.] 0x00007ffef8c05d68  [stack]            None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] rcu_nocb_flush_deferred_wakeup         [kernel.kallsyms]        [k] 0xffffd3a84d42fb58  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] sched_clock_cpu                        [kernel.kallsyms]        [k] 0xffffd3a8401abd00  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] tick_nohz_next_event                   [kernel.kallsyms]        [k] 0xffffd3a8401abe60  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [k] update_load_avg                        [kernel.kallsyms]        [k] 0xffffd3a8401abd08  [kernel.kallsyms]  None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [.] 0x00000000000951d4                     libglib-2.0.so.0.8400.4  [.] 0x00007ffef8c05c38  [stack]            None          L1 or L2 hit            No       N/A        0                    0                   
+     5.49%             1  5             L1 hit                                   [.] 0x000000000005c6d9                     libglib-2.0.so.0.8400.4  [.] 0x00007ffef8c05c98  [stack]            None          L1 or L2 hit            No       N/A        0                    0                   
+
+
+#
+# (Tip: To trace calls using Processor Trace use perf record -e intel_pt// ... ; perf script --call-trace. Then use perf script --time A-B --insn-trace to look at region of interest.)
+#

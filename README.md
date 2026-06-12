@@ -677,5 +677,49 @@ Metrics explained in the `perf stat`:
 
 
 
-Analysis:
+---
+
+Running some new tests and benchmarks and getting new results:
+
+
+
+```bash
+
+ssh -i ~/.ssh/id_lab -p 2222 root@localhost "./benchmarks/pc-mm" > ~/perf-results/kvm_workload_pc_mm.txt 2>&1 &
+KVM_SSH_PID=$!
+
+sudo perf stat -e \
+mem_load_retired.l1_hit,\
+mem_load_retired.l2_hit,\
+mem_load_retired.l3_hit,\
+mem_load_retired.l3_miss,\
+mem_load_retired.fb_hit,\
+mem_inst_retired.all_loads,\
+mem_inst_retired.all_stores,\
+mem_inst_retired.stlb_miss_loads,\
+mem_inst_retired.stlb_miss_stores,\
+dtlb_load_misses.walk_completed,\
+dtlb_load_misses.walk_completed_4k,\
+dtlb_load_misses.walk_pending,\
+dtlb_load_misses.stlb_hit,\
+dtlb_store_misses.walk_completed,\
+dtlb_store_misses.stlb_hit,\
+l1d.replacement,\
+l1d_pend_miss.pending_cycles,\
+l2_rqsts.demand_data_rd_hit,\
+l2_rqsts.demand_data_rd_miss,\
+longest_lat_cache.miss,\
+longest_lat_cache.reference,\
+uncore_imc_free_running/data_read/,\
+uncore_imc_free_running/data_write/,\
+uncore_imc_free_running/data_total/,\
+cycles,instructions,\
+cache-misses,cache-references,\
+topdown-be-bound,topdown-fe-bound,\
+topdown-mem-bound \
+-C 2 \ -o ~/perf-results/kvm_perf_pc_mm.txt -- sleep 30 &
+
+wait $KVM_SSH_PID && echo "KVM workload done"
+
+```
 
