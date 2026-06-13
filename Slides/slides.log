@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.5.30)  13 JUN 2026 02:02
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.5.30)  13 JUN 2026 10:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1186,35 +1186,92 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
 [16
 
 ]
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 637.
-
 
 [17
 
 ]
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 676.
+
 
 [18
 
 ]
-Overfull \vbox (9.8018pt too high) detected at line 725
- []
-
-
 
 [19
 
 ]
+Overfull \vbox (9.8618pt too high) detected at line 764
+ []
+
+
 
 [20
 
 ]
+Overfull \vbox (7.70795pt too high) detected at line 789
+ []
+
+
 
 [21
 
 ]
+Overfull \vbox (8.11435pt too high) detected at line 820
+ []
+
+
 
 [22
+
+]
+
+[23
+
+]
+
+[24
+
+
+]
+
+[25
+
+]
+Overfull \vbox (7.01082pt too high) detected at line 936
+ []
+
+
+
+[26
+
+]
+Overfull \vbox (4.02094pt too high) detected at line 963
+ []
+
+
+
+[27
+
+]
+Underfull \hbox (badness 2042) in paragraph at lines 987--987
+[]|\TU/FiraSans(0)/b/n/10.95 Pre-fetcher Victory (Only $\OMS/cmsy/m/n/10.95 ^^X
+ \OT1/cmr/m/n/10.95 2\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 8\OMS/cmsy/m/n/10.
+95 ^^B$\TU/FiraSans(0)/b/n/10.95 ):
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 987--987
+\TU/FiraSans(0)/m/n/10.95 Hardware prefetchers successfully
+ []
+
+
+Overfull \vbox (4.88066pt too high) detected at line 987
+ []
+
+
+
+[28
 
 ]
 \tf@nav=\write6
@@ -1235,12 +1292,12 @@ Package rerunfilecheck Info: File `slides.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 28446 strings out of 475840
- 613915 string characters out of 5774984
- 1050794 words of memory out of 5000000
- 50813 multiletter control sequences out of 15000+600000
- 565888 words of font info for 106 fonts, out of 8000000 for 9000
+ 28477 strings out of 475840
+ 614512 string characters out of 5774984
+ 1052241 words of memory out of 5000000
+ 50840 multiletter control sequences out of 15000+600000
+ 567433 words of font info for 112 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  102i,13n,123p,463b,1174s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on slides.pdf (22 pages).
+Output written on slides.pdf (28 pages).

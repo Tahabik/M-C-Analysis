@@ -494,6 +494,45 @@
       \end{itemize}
     \end{frame}
 
+    \begin{frame}{Benchmark 1 Synthesis: The Master Telemetry Matrix}
+      \vspace{-0.2cm} % Slight pull-up to fit the table cleanly
+      \begin{table}[]
+          \centering
+          \renewcommand{\arraystretch}{1.4} % Adds breathing room between dense rows
+          \resizebox{0.98\textwidth}{!}{%
+          \begin{tabular}{l | l | c | c | l}
+              \rowcolor{SystemSlate}
+              \textcolor{white}{\textbf{Telemetry Vector}} & \textcolor{white}{\textbf{Metric}} & \textcolor{white}{\textbf{Hardware (KVM)}} & \textcolor{white}{\textbf{Software (TCG)}} & \textcolor{white}{\textbf{Architectural Reality}} \\
+              \hline
+              \rowcolor{white}
+              \textbf{Pipeline Profiling} & Total Instructions & 0.92 Billion & 29.74 Billion & \textbf{$\sim$32x Bloat:} Native vs. SoftMMU hash math \\
+              
+              \rowcolor{LightGray}
+              \textbf{Code Translation} & iCache Misses \textit{(64MB)} & 1.4 Million & 140.4 Million & \textbf{$\sim$100x Thrashing:} JIT context switching \\
+              
+              \rowcolor{white}
+              \textbf{Mem Translation} & dTLB Misses \textit{(64MB)} & 38,000 & 482,000 & \textbf{12.6x Rate:} EPT vs. SoftMMU table parsing \\
+              
+              \rowcolor{LightGray}
+              \textbf{Latency Bounds} & 16KB $\to$ 64MB Rand & 1.13 ns $\to$ 61.09 ns & 3.81 ns $\to$ 75.92 ns & Gap narrows heavily at the physical DRAM wall \\
+              
+              \rowcolor{white}
+              \textbf{Latency Origins} & \texttt{perf mem} Hotspot & \texttt{eventfd\_poll} & \texttt{tlb\_fill} & KVM stalls on I/O; TCG stalls on translation \\
+              
+              \rowcolor{LightGray}
+              \textbf{Execution Trap} & \texttt{perf record} Top & \texttt{qemu\_main\_loop} (86\%) & JIT Code Cache (80\%) & KVM is trapped polling; TCG is trapped compiling \\
+          \end{tabular}%
+          }
+      \end{table}
+
+      \vspace{0.2cm}
+      \begin{itemize}
+          \footnotesize
+          \item \textbf{Final Conclusion:} Hardware virtualization is bound by the host kernel's I/O multiplexing, whereas software emulation actively sabotages the host's physical L1/L2 caches via dynamic translation overheads.
+      \end{itemize}
+  \end{frame}
+
+
     \begin{frame}{Phase 2 Setup: Contextual Latency Profiling}
       \begin{columns}[T]
           % Left Column: The Tool
