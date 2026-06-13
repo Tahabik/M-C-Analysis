@@ -752,3 +752,28 @@ In QEMU-only based VM, TCG has a massive instruction expansion tax. One guest in
 + `L1-icache-load-misses` & `iTLB-load-misses` -> Instruciton stream overheads: These two measure misses in the instruction cache (not data cache!!!) and the instruction address TLB. These two expose the structural difference between **direct execution and dynamic binary translation.**
   + In KVM These two should remainly lwow. specially in pointer chaser code loop whichis a minuscule (Just a few bytes of assembly looping over and over), fitting entirely into L1i and the hardware iTLB
   + In QEMU TCG these two will get significantly higher than in KVM. TCG generates new host code blocks dynamically inside the TLB cache. It jumps from the guest app code, down into the TCG engine compilation loops, out to C runtime helpers, and back into generated host code blocks. This continuous code churning routinely pollutes the host's L1i cache and iTLB.
+
+
+### The `perf stat` Comparison Matrix
+
+| Hardware Metric | KVM (x86 Native) | TCG (ARM Emulated) | The Emulation Penalty (Multiplier) |
+| :--- | :--- | :--- | :--- |
+| **Total Instructions Executed** *(Full Suite)* | ~0.92 Billion | ~29.74 Billion | **~32.3x higher** in ARM (Massive JIT instruction bloat) |
+| **L1 iCache Load Misses** *(64MB Random)* | ~1.4 Million | ~140.4 Million | **~100.2x higher** in ARM (Constant JIT context switching) |
+| **dTLB Load Misses** *(64MB Random)* | ~38,000 | ~482,000 | **~12.6x higher** in ARM (SoftMMU hash table thrashing) |
+| **Baseline Latency** *(16KB Sequential)* | 1.13 ns | 3.81 ns | **3.3x higher** in ARM (Base overhead of software translation) |
+| **Peak Stress Latency** *(64MB Random)* | 61.09 ns | 75.92 ns | **1.2x higher** in ARM (Gap narrows as both systems hit physical DRAM limits) |
+
+
+# Benchmark 1 Synthesis: The Master Telemetry Matrix
+
+| Telemetry Vector | Metric / Focus | Hardware (KVM / x86) | Software (TCG / ARM) | The Architectural Reality |
+| :--- | :--- | :--- | :--- | :--- |
+| **Pipeline Profiling** | Total Instructions | 0.92 Billion | 29.74 Billion | **~32x Bloat:** Native execution vs. SoftMMU hash calculation overhead. |
+| **Code Translation** | iCache Misses *(64MB Rand)* | 1.4 Million | 140.4 Million | **~100x Thrashing:** JIT context switching flushes the instruction cache. |
+| **Memory Translation** | dTLB Misses *(64MB Rand)* | ~38,000 | ~482,000 | **12.6x Rate:** EPT hardware walks vs. SoftMMU C-struct parsing. |
+| **Latency Boundary** | 16KB (L1) -> 64MB (RAM) | 1.13 ns -> 61.09 ns | 3.81 ns -> 75.92 ns | The virtualization gap narrows heavily when both hit the physical DRAM wall. |
+| **Latency Origins** | `perf mem` Bottleneck | `kvm_lapic`, `eventfd` | `tlb_fill`, `cpu_mmu_lookup` | **Location:** KVM stalls on virtual I/O; TCG stalls parsing its own page tables. |
+| **Execution Trap** | `perf record` Hotspot | `qemu_main_loop` (86.6%) | JIT Translation Cache (79.9%) | **The Tax:** KVM CPU is trapped polling; TCG CPU is trapped compiling. |
+
+**Final Conclusion:** Hardware virtualization is bound by the host kernel's I/O multiplexing, whereas software emulation actively sabotages the host's physical L1/L2 caches via dynamic translation overheads.
