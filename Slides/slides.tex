@@ -228,7 +228,7 @@
             node[midway, left, font=\sffamily\bfseries\scriptsize, color=AmberAccent!80!black] {TLB Miss};
 
         % 4. Slow Path Execution
-        \draw[arrow] (tlbfill) -- (swwalk) node[midway, above, labelnode] {Parse Tables};
+        \draw[arrow] (tlbfill) -- (swwalk) node[midway, above, labelnode, align=center] {Parse\\Tables};
         \draw[arrow] (swwalk) -- (memapi) node[midway, above, labelnode] {Find GPA};
 
         % 5. Cache Update & Retry
@@ -658,8 +658,8 @@
                   box/.style={draw=white, line width=0.5pt, font=\sffamily\bfseries\scriptsize, align=center, minimum height=0.55cm}
               ]
                   \node[box, fill=HighlightCyan, text=black, minimum width=7cm] (t1) at (0,0) {\textbf{JIT Translated Code Cache} (79.96\%)};
-                  \node[box, fill=HighlightCyan!70, text=black, minimum width=4.0cm] (t2) at (-1.5,0.6) {\texttt{helper\_access\_check...} (5.3\%)};
-                  \node[box, fill=HighlightCyan!50, text=black, minimum width=3.0cm] (t3) at (2.0,0.6) {\texttt{helper\_lookup\_tb\_ptr} (3.8\%)};
+                  \node[box, fill=HighlightCyan!70, text=black, minimum width=4.0cm] (t2) at (-1.5,0.6) {\texttt{helper\_access\_check...}\\(5.3\%)};
+                  \node[box, fill=HighlightCyan!50, text=black, minimum width=3.0cm] (t3) at (2.0,0.6) {\texttt{helper\_lookup\_tb\_ptr}\\(3.8\%)};
               \end{tikzpicture}%
               }
               \end{center}
@@ -707,9 +707,9 @@
                   \node[box, below=of cache, fill=SystemSlate!10] (exec) {Host CPU\\Execution};
 
                   % Paths
-                  \draw[arrow] (guest) -- (jit) node[midway, left, font=\scriptsize] {1. Intercept};
-                  \draw[arrow] (jit) -- (cache) node[midway, above, font=\scriptsize] {2. Translate \& Save};
-                  \draw[arrow] (cache) -- (exec) node[midway, right, font=\scriptsize] {3. Execute Native};
+                  \draw[arrow] (guest) -- (jit) node[midway, left, font=\scriptsize, align=center] {Intercept};
+                  \draw[arrow] (jit) -- (cache) node[midway, above, font=\scriptsize, align=center] {Translate\\\& Save};
+                  \draw[arrow] (cache) -- (exec) node[midway, right, font=\scriptsize, align=center] {Execute\\Native};
 
                   % Fast Path Loop
                   \draw[arrow, dashed, draw=HighlightCyan!80!black] (exec.east) -- ++(0.6,0) |- (cache.east) 
@@ -728,6 +728,154 @@
   \end{frame}
   \begin{frame}{Benchmark 3 results and analysis}
   \end{frame}
-  \begin{frame}{Benchmark 4 results and analysis}
+  \begin{frame}{Introduction: The SMC Challenge in Virtual Environments}
+      \textbf{Understanding Self-Modifying Code (SMC)}
+      \begin{itemize}
+          \item \textbf{The Concept:} SMC dynamically alters its own instructions during execution. This poses a unique challenge to hypervisors, which must safely track and execute these unexpected modifications without breaking guest isolation.
+      \end{itemize}
+      
+      \vspace{0.4cm}
+      \textbf{Hypervisor Approaches to SMC}
+      \begin{itemize}
+          \item \textbf{KVM (Hardware-Assisted):}
+          \begin{itemize}
+              \item Code executes directly on the native hardware pipeline.
+              \item Overheads remain minimal, primarily limited to standard hardware page faults or pipeline flushes natively handled by the host CPU.
+          \end{itemize}
+          
+          \vspace{0.2cm}
+          \item \textbf{QEMU TCG (Emulation / Binary Translation):}
+          \begin{itemize}
+              \item Relies heavily on caching translated guest code in a \textit{Translation Block (TB) cache}.
+              \item SMC forces TCG to aggressively and synchronously flush and recompile these blocks upon every modification.
+              \item \textbf{Result:} A severe performance bottleneck due to continuous JIT recompilation and cache invalidation.
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  \begin{frame}{Macroscopic Performance: Execution Time \& Latency}
+    % \textbf{Self-Modifying Code (SMC) Telemetry (100,000 Iterations)}
+    % \vspace{0.2cm}
+    
+    \begin{table}[]
+        \centering
+        \renewcommand{\arraystretch}{1.3} % Adds padding for readability
+        \resizebox{0.95\textwidth}{!}{%
+        \begin{tabular}{l | c | c | l}
+            \rowcolor{SystemSlate}
+            \textcolor{white}{\textbf{Metric}} & \textcolor{white}{\textbf{x86 KVM (Hardware)}} & \textcolor{white}{\textbf{ARM TCG (Emulation)}} & \textcolor{white}{\textbf{Multiplier / Insight}} \\
+            \hline
+            \textbf{Total Elapsed Time} & 0.012 s & 1.369 s & \textbf{$\sim 107\times$} Emulation Tax \\
+            \rowcolor{LightGray}
+            \textbf{Latency per Loop} & 127.79 ns & 13,694.77 ns & \textbf{$\sim 107\times$} Slower Execution \\
+            \textbf{Throughput} & 7.825 MOps & 0.073 MOps & Massive TCG Bottleneck \\
+            \rowcolor{LightGray}
+            \textbf{Total Instructions} & 135.4 Million & 18.7 Billion & \textbf{$\sim 138\times$ Instruction Bloat} \\
+            \textbf{L1 iCache Misses} & 1.37 Million & 237.5 Million & \textbf{$\sim 173\times$ Cache Thrashing} \\
+        \end{tabular}%
+        }
+    \end{table}
+
+    \vspace{0.1cm}
+    \textbf{Key Architectural Takeaways:}
+    \begin{itemize}
+        \item \textbf{The Emulation Tax:} TCG introduces a catastrophic $107\times$ latency penalty. Unlike KVM, which natively handles pipeline flushes in hardware, TCG must software-trap the modification.
+        \item \textbf{Instruction Expansion:} Every time the code modifies itself, TCG must synchronously flush its Translation Block (TB) cache and invoke the JIT compiler, executing $18.7$ billion instructions compared to KVM's $135$ million.
+        \item \textbf{Pipeline Pollution:} The constant swinging between executing guest code and recompiling IR entirely destroys instruction locality, destroying L1.
+    \end{itemize}
+  \end{frame}
+  \begin{frame}[allowframebreaks]{Microarchitectural Analysis: CPU Performance Counters}
+    % \begin{table}[]
+    %     \centering
+    %     \renewcommand{\arraystretch}{1.3}
+    %     \resizebox{1.0\textwidth}{!}{%
+    %     \begin{tabular}{l | c | c | p{6.5cm}}
+    %         \rowcolor{SystemSlate}
+    %         \textcolor{white}{\textbf{Hardware Event}} & \textcolor{white}{\textbf{x86 KVM}} & \textcolor{white}{\textbf{ARM TCG}} & \textcolor{white}{\textbf{Microarchitectural Impact}}\\
+    %         \hline
+    %         \textbf{Total Instructions} & $\sim 135.4$ M & $\sim 18.72$ B & \textbf{JIT Recompilation:} TCG executes billions of instructions purely to translate IR to host assembly after every memory modification. \\
+    %         \rowcolor{LightGray}
+    %         \textbf{L1 dCache Misses} & $906$ K & $875.3$ M & \textbf{Data Thrashing:} JIT compiler data structures and SoftMMU lookup tables constantly evict guest data from the L1 cache. \\
+    %         \textbf{L1 iCache Misses} & $1.37$ M & $237.5$ M & \textbf{Pipeline Pollution:} Continuous flushing and invalidation of the Translation Block (TB) destroys instruction spatial locality. \\
+    %         \rowcolor{LightGray}
+    %         \textbf{iTLB Load Misses} & $31,212$ & $900,037$ & \textbf{TLB Pressure:} Frequent context switching between execution and translation strains the host's hardware TLB capacity. \\
+    %     \end{tabular}%
+    %     }
+ \begin{table}[]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \resizebox{1.0\textwidth}{!}{%
+    \begin{tabular}{l | c | c | p{6.5cm}}
+        \rowcolor{SystemSlate}
+        \textcolor{white}{\textbf{Hardware Event}} & \textcolor{white}{\textbf{x86 KVM}} & \textcolor{white}{\textbf{ARM TCG}} & \textcolor{white}{\textbf{Microarchitectural Impact}}\\
+        \hline
+        \textbf{Total Instructions} & $\sim 135.4$ M & $\sim 18.72$ B & \textbf{JIT Recompilation:} Continuous IR-to-host translation upon every memory modification. \\
+        \rowcolor{LightGray}
+        \textbf{L1 dCache Misses} & $906$ K & $875.3$ M & \textbf{Data Thrashing:} JIT and SoftMMU tables rapidly evict guest data from L1. \\
+        \textbf{L1 iCache Misses} & $1.37$ M & $237.5$ M & \textbf{Pipeline Pollution:} Constant TB invalidation destroys instruction spatial locality. \\
+        \rowcolor{LightGray}
+        \textbf{iTLB Load Misses} & $31,212$ & $900,037$ & \textbf{TLB Pressure:} Rapid context switching between execution and translation strains host TLB. \\
+    \end{tabular}%
+    }
+\end{table}   % \end{table}
+
+    \textbf{Architectural Analysis:}
+    \begin{itemize}
+        \item \textbf{Instruction vs. Execution:} In KVM, an SMC event is natively handled by the hardware pipeline. In TCG, altering a single instruction forces QEMU to drop execution, parse the modification, generate new TCG IR, and re-emit x86 host assembly, causing a $\sim 138 \times$ instruction bloat.
+        \item \textbf{Cache Destruction:} The catastrophic $\sim 875$ Million L1 data misses in TCG prove the host CPU is spending its time fetching QEMU's heavy internal translation mechanisms from slower DRAM tiers, entirely bottlenecking memory bandwidth.
+    \end{itemize}
+  \end{frame}
+
+\begin{frame}{Execution Hotspots: Memory Profiling (\texttt{perf mem})}
+      \textbf{Pinpointing High-Latency Memory Overheads}
+      \vspace{0.2cm}
+
+      \begin{columns}[T]
+          % Left Column: KVM
+          \begin{column}{0.5\textwidth}
+              \textbf{Hardware Execution (KVM)}
+              \vspace{0.1cm}
+              \begin{table}[]
+                  \renewcommand{\arraystretch}{1.2}
+                  \resizebox{\textwidth}{!}{%
+                  \begin{tabular}{l | c}
+                      \rowcolor{SystemSlate}
+                      \textcolor{white}{\textbf{Bottleneck Symbol}} & \textcolor{white}{\textbf{Subsystem (Overhead)}} \\
+                      \hline
+                      \rowcolor{LightGray}
+                      \texttt{native\_write\_msr} & Hardware State (79.55\%) \\
+                      \texttt{vcpu\_run} & VCPU Execution (11.36\%) \\
+                      \rowcolor{LightGray}
+                      \texttt{\_copy\_to\_user} & Kernel Memory (Minor) \\
+                  \end{tabular}%
+                  }
+              \end{table}
+              \vspace{0.1cm}
+              \footnotesize \textit{\textbf{Insight:} The host CPU remains fully in execution mode. The memory footprint is entirely dedicated to native hardware-level state management.}
+          \end{column}
+
+          % Right Column: TCG
+          \begin{column}{0.5\textwidth}
+              \textbf{Software Emulation (TCG)}
+              \vspace{0.1cm}
+              \begin{table}[]
+                  \renewcommand{\arraystretch}{1.2}
+                  \resizebox{\textwidth}{!}{%
+                  \begin{tabular}{l | c}
+                      \rowcolor{AmberAccent!90} % Highlights the TCG issue
+                      \textbf{Bottleneck Symbol} & \textbf{Subsystem (Overhead)} \\
+                      \hline
+                      \rowcolor{LightGray}
+                      \texttt{tcg\_optimize} & JIT Compiler (34.20\%) \\
+                      \texttt{cpu\_get\_tb\_cpu...} & TB Cache Mgmt (3.88\%) \\
+                      \rowcolor{LightGray}
+                      \texttt{arm\_cpu\_tlb\_fill...} & SoftMMU (2.30\%) \\
+                      \texttt{tcg\_gen\_code} & JIT Engine (Minor) \\
+                  \end{tabular}%
+                  }
+              \end{table}
+              \vspace{0.1cm}
+              \footnotesize \textit{\textbf{The Anomaly:} QEMU spends its high-latency memory accesses trapped in its own mechanics—managing the software TLB and dynamically compiling blocks, rather than executing guest code.}
+          \end{column}
+      \end{columns}
   \end{frame}
 \end{document}
