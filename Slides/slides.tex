@@ -399,17 +399,17 @@
           \end{itemize}
           
           \vspace{0.3cm}
-          \item \textbf{Matrix Multiplication (Compute \& Cache Bound):}
-          \begin{itemize}
-              \item Performs dense linear algebra operations ($O(n^3)$ complexity).
-              \item \textbf{Stress Profile:} Exhibits high spatial and temporal data locality. Tests how well each subsystem handles streaming data across L1, L2, and L3 cache boundaries.
-          \end{itemize}
-
-          \vspace{0.3cm}
           \item \textbf{Self-Modifying Code (Translation Bound):}
           \begin{itemize}
               \item Generates or alters instructions at runtime before executing them.
               \item \textbf{Stress Profile:} Directly forces the invalidation of JIT-compiled translation blocks. Exposes the execution penalty of QEMU TCG code generation cache flushes.
+          \end{itemize}
+
+          \vspace{0.3cm}
+          \item \textbf{Matrix Multiplication (Compute \& Cache Bound):}
+          \begin{itemize}
+              \item Performs dense linear algebra operations ($O(n^3)$ complexity).
+              \item \textbf{Stress Profile:} Exhibits high spatial and temporal data locality. Tests how well each subsystem handles streaming data across L1, L2, and L3 cache boundaries.
           \end{itemize}
       \end{itemize}
   \end{frame}
@@ -724,10 +724,6 @@
       \end{columns}
   \end{frame}
 
-  \begin{frame}{Benchmark 2 results and analysis}
-  \end{frame}
-  \begin{frame}{Benchmark 3 results and analysis}
-  \end{frame}
   \begin{frame}{Introduction: The SMC Challenge in Virtual Environments}
       \textbf{Understanding Self-Modifying Code (SMC)}
       \begin{itemize}
@@ -764,13 +760,13 @@
             \rowcolor{SystemSlate}
             \textcolor{white}{\textbf{Metric}} & \textcolor{white}{\textbf{x86 KVM (Hardware)}} & \textcolor{white}{\textbf{ARM TCG (Emulation)}} & \textcolor{white}{\textbf{Multiplier / Insight}} \\
             \hline
-            \textbf{Total Elapsed Time} & 0.012 s & 1.369 s & \textbf{$\sim 107\times$} Emulation Tax \\
+            \textbf{Total Elapsed Time} & 0.014 s & 1.369 s & \textbf{$\sim 97\times$} Emulation Tax \\
             \rowcolor{LightGray}
-            \textbf{Latency per Loop} & 127.79 ns & 13,694.77 ns & \textbf{$\sim 107\times$} Slower Execution \\
-            \textbf{Throughput} & 7.825 MOps & 0.073 MOps & Massive TCG Bottleneck \\
+            \textbf{Latency per Loop} & 141.69 ns & 13,694.77 ns & \textbf{$\sim 97\times$} Slower Execution \\
+            \textbf{Throughput} & 7.058 MOps & 0.073 MOps & Massive TCG Bottleneck \\
             \rowcolor{LightGray}
-            \textbf{Total Instructions} & 135.4 Million & 18.7 Billion & \textbf{$\sim 138\times$ Instruction Bloat} \\
-            \textbf{L1 iCache Misses} & 1.37 Million & 237.5 Million & \textbf{$\sim 173\times$ Cache Thrashing} \\
+            \textbf{Total Instructions} & 171.6 Million & 18.7 Billion & \textbf{$\sim 108\times$ Instruction Bloat} \\
+            \textbf{L1 iCache Misses} & 4.32 Million & 237.5 Million & \textbf{$\sim 54\times$ Cache Thrashing} \\
         \end{tabular}%
         }
     \end{table}
@@ -808,19 +804,19 @@
         \rowcolor{SystemSlate}
         \textcolor{white}{\textbf{Hardware Event}} & \textcolor{white}{\textbf{x86 KVM}} & \textcolor{white}{\textbf{ARM TCG}} & \textcolor{white}{\textbf{Microarchitectural Impact}}\\
         \hline
-        \textbf{Total Instructions} & $\sim 135.4$ M & $\sim 18.72$ B & \textbf{JIT Recompilation:} Continuous IR-to-host translation upon every memory modification. \\
+        \textbf{Total Instructions} & $\sim 171.6$ M & $\sim 18.72$ B & \textbf{JIT Recompilation:} Continuous IR-to-host translation upon every memory modification. \\
         \rowcolor{LightGray}
-        \textbf{L1 dCache Misses} & $906$ K & $875.3$ M & \textbf{Data Thrashing:} JIT and SoftMMU tables rapidly evict guest data from L1. \\
-        \textbf{L1 iCache Misses} & $1.37$ M & $237.5$ M & \textbf{Pipeline Pollution:} Constant TB invalidation destroys instruction spatial locality. \\
+        \textbf{L1 dCache Misses} & $1.98$ M & $875.3$ M & \textbf{Data Thrashing:} JIT and SoftMMU tables rapidly evict guest data from L1. \\
+        \textbf{L1 iCache Misses} & $4.32$ M & $237.5$ M & \textbf{Pipeline Pollution:} Constant TB invalidation destroys instruction spatial locality. \\
         \rowcolor{LightGray}
-        \textbf{iTLB Load Misses} & $31,212$ & $900,037$ & \textbf{TLB Pressure:} Rapid context switching between execution and translation strains host TLB. \\
+        \textbf{iTLB Load Misses} & $138,238$ & $900,037$ & \textbf{TLB Pressure:} Rapid context switching between execution and translation strains host TLB. \\
     \end{tabular}%
     }
 \end{table}   % \end{table}
 
     \textbf{Architectural Analysis:}
     \begin{itemize}
-        \item \textbf{Instruction vs. Execution:} In KVM, an SMC event is natively handled by the hardware pipeline. In TCG, altering a single instruction forces QEMU to drop execution, parse the modification, generate new TCG IR, and re-emit x86 host assembly, causing a $\sim 138 \times$ instruction bloat.
+        \item \textbf{Instruction vs. Execution:} In KVM, an SMC event is natively handled by the hardware pipeline. In TCG, altering a single instruction forces QEMU to drop execution, parse the modification, generate new TCG IR, and re-emit x86 host assembly, causing a $\sim 108 \times$ instruction bloat.
         \item \textbf{Cache Destruction:} The catastrophic $\sim 875$ Million L1 data misses in TCG prove the host CPU is spending its time fetching QEMU's heavy internal translation mechanisms from slower DRAM tiers, entirely bottlenecking memory bandwidth.
     \end{itemize}
   \end{frame}
@@ -877,5 +873,77 @@
               \footnotesize \textit{\textbf{The Anomaly:} QEMU spends its high-latency memory accesses trapped in its own mechanics—managing the software TLB and dynamically compiling blocks, rather than executing guest code.}
           \end{column}
       \end{columns}
+  \end{frame}
+
+  \begin{frame}{Introduction: The Predictable Workload (GEMM)}
+      \textbf{The Concept: Dense Mathematical Loops}
+      \begin{itemize}
+          \item General Matrix Multiply (GEMM) is characterized by highly predictable, tight, nested loops performing dense floating-point arithmetic.
+      \end{itemize}
+      
+      \vspace{0.4cm}
+      \textbf{The Contrast: An Emulator's "Ideal" Scenario}
+      \begin{itemize}
+          \item \textbf{Unlike Pointer Chasing:} Memory access is strictly strided and predictable, not random.
+          \item \textbf{Unlike SMC:} The code is completely static. It executes millions of times without self-modification.
+          \item \textbf{The Advantage:} This predictability allows QEMU TCG's Translation Block (TB) cache to finally shine, completely avoiding the catastrophic invalidation penalties seen in the SMC benchmark.
+      \end{itemize}
+
+      \vspace{0.4cm}
+      \textbf{The Objective}
+      \begin{itemize}
+          \item To isolate and measure the \textit{baseline "emulation tax"}. The pure computational cost of mapping instructions between architectures.
+      \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Macroscopic Performance: The Persistent Gap}
+    \vspace{0.2cm}
+    
+    \begin{table}[]
+        \centering
+        \renewcommand{\arraystretch}{1.3}
+        \resizebox{0.95\textwidth}{!}{%
+        \begin{tabular}{l | c | c | l}
+            \rowcolor{SystemSlate}
+            \textcolor{white}{\textbf{Metric}} & \textcolor{white}{\textbf{x86 KVM (Hardware)}} & \textcolor{white}{\textbf{ARM TCG (Emulation)}} & \textcolor{white}{\textbf{Multiplier / Insight}} \\
+            \hline
+            \textbf{Total Elapsed Time} & 0.028 s & 0.197 s & \textbf{$\sim 7\times$} Emulation Tax \\
+            \rowcolor{LightGray}
+            \textbf{Throughput} & 1.194 GFLOPS & 0.170 GFLOPS & Compute Bottleneck \\
+        \end{tabular}%
+        }
+    \end{table}
+
+    \vspace{0.3cm}
+    \textbf{Key Architectural Takeaways:}
+    \begin{itemize}
+        \item \textbf{The "New" Insight ($\sim 7\times$ vs. $\sim 107\times$):} While a $7\times$ slowdown is significant, it is a massive improvement over the $\sim 107\times$ penalty observed in the SMC benchmark.
+        \item \textbf{Caching Success:} This proves that when guest code is static and does not modify itself, TCG's Translation Block (TB) caching mechanism is highly effective. The emulator successfully avoids the catastrophic invalidation loops.
+        \item \textbf{The Baseline Tax:} Even with perfect caching, the hypervisor cannot escape the fundamental cost of translating complex ARM floating-point instructions.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Microarchitectural Analysis: Instruction Mapping}
+    \begin{table}[]
+        \centering
+        \renewcommand{\arraystretch}{1.3}
+        \resizebox{1.0\textwidth}{!}{%
+        \begin{tabular}{l | c | c | p{6.5cm}}
+            \rowcolor{SystemSlate}
+            \textcolor{white}{\textbf{Hardware Event}} & \textcolor{white}{\textbf{x86 KVM}} & \textcolor{white}{\textbf{ARM TCG}} & \textcolor{white}{\textbf{Microarchitectural Impact}}\\
+            \hline
+            \textbf{Total Instructions} & $\sim 297.6$ M & $\sim 9.03$ B & \textbf{Instruction Bloat ($\sim 30\times$):} ARM FPU to x86 translation requires complex mapping and soft-float logic. \\
+            \rowcolor{LightGray}
+            \textbf{L1 dCache Misses} & $19.0$ M & $54.5$ M & \textbf{Pre-fetcher Victory (Only $\sim 2.8\times$):} Hardware prefetchers successfully anticipate strided array accesses. \\
+        \end{tabular}%
+        }
+    \end{table}
+
+    \vspace{0.3cm}
+    \textbf{Architectural Analysis:}
+    \begin{itemize}
+        \item \textbf{The FPU Mapping Problem:} Even with perfectly cached execution, translating ARM floating-point/SIMD instructions to x86 is not $1:1$.
+        \item \textbf{The Pre-fetcher Victory:} Unlike the random accesses in pointer chasing, matrix loops are highly predictable. The host CPU's hardware prefetchers can effectively anticipate these memory accesses even through emulation.
+    \end{itemize}
   \end{frame}
 \end{document}
